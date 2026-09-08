@@ -4,8 +4,7 @@
 
 <div
     class="flex items-center gap-4
-           mt-4 pt-3
-           border-t border-gray-100
+           mt-1.5 pt-1.5
            text-xs text-gray-600"
 >
 

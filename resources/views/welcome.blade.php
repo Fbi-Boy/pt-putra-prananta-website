@@ -48,6 +48,12 @@
                 'bedrooms' => 3,
                 'bathrooms' => 2,
                 'date' => '6 Sep 2026',
+
+                // DATA AGENT
+                'agent_name' => 'Budi Santoso',
+                'agent_area' => 'Kaliwates, Jember',
+                'agent_image' => asset('images/agents/agent.png'),
+                'agent_whatsapp' => 'https://wa.me/6281234567890',
             ],
 
             [
@@ -60,6 +66,12 @@
                 'bedrooms' => 4,
                 'bathrooms' => 3,
                 'date' => '5 Sep 2026',
+
+                // DATA AGENT
+                'agent_name' => 'Budi Santoso',
+                'agent_area' => 'Kaliwates, Jember',
+                'agent_image' => asset('images/agents/agent.png'),
+                'agent_whatsapp' => 'https://wa.me/6281234567890',
             ],
 
             [
@@ -72,6 +84,12 @@
                 'bedrooms' => 3,
                 'bathrooms' => 2,
                 'date' => '4 Sep 2026',
+
+                // DATA AGENT
+                'agent_name' => 'Budi Santoso',
+                'agent_area' => 'Kaliwates, Jember',
+                'agent_image' => asset('images/agents/agent.png'),
+                'agent_whatsapp' => 'https://wa.me/6281234567890',
             ],
 
             [
@@ -84,6 +102,12 @@
                 'bedrooms' => 4,
                 'bathrooms' => 2,
                 'date' => '3 Sep 2026',
+
+                // DATA AGENT
+                'agent_name' => 'Budi Santoso',
+                'agent_area' => 'Kaliwates, Jember',
+                'agent_image' => asset('images/agents/agent.png'),
+                'agent_whatsapp' => 'https://wa.me/6281234567890',
             ],
 
         ];
@@ -99,6 +123,12 @@
                 'bedrooms' => 3,
                 'bathrooms' => 2,
                 'date' => 'Hari ini',
+
+                // DATA AGENT
+                'agent_name' => 'Budi Santoso',
+                'agent_area' => 'Kaliwates, Jember',
+                'agent_image' => asset('images/agents/agent.png'),
+                'agent_whatsapp' => 'https://wa.me/6281234567890',
             ],
             [
                 'title' => 'Tanah Strategis Dekat Jalan Utama',
@@ -110,6 +140,12 @@
                 'bedrooms' => 0,
                 'bathrooms' => 0,
                 'date' => 'Hari ini',
+
+                // DATA AGENT
+                'agent_name' => 'Budi Santoso',
+                'agent_area' => 'Kaliwates, Jember',
+                'agent_image' => asset('images/agents/agent.png'),
+                'agent_whatsapp' => 'https://wa.me/6281234567890',
             ],
             [
                 'title' => 'Rumah Nyaman Siap Huni',
@@ -121,6 +157,12 @@
                 'bedrooms' => 4,
                 'bathrooms' => 2,
                 'date' => 'Kemarin',
+
+                // DATA AGENT
+                'agent_name' => 'Budi Santoso',
+                'agent_area' => 'Kaliwates, Jember',
+                'agent_image' => asset('images/agents/agent.png'),
+                'agent_whatsapp' => 'https://wa.me/6281234567890',
             ],
             [
                 'title' => 'Rumah Dekat Kampus',
@@ -132,9 +174,22 @@
                 'bedrooms' => 3,
                 'bathrooms' => 2,
                 'date' => 'Kemarin',
+
+                // DATA AGENT
+                'agent_name' => 'Budi Santoso',
+                'agent_area' => 'Kaliwates, Jember',
+                'agent_image' => asset('images/agents/agent.png'),
+                'agent_whatsapp' => 'https://wa.me/6281234567890',
             ],
         ];
     @endphp
+
+    <x-property.recommendation
+        title="Rekomendasi Properti Untuk Anda"
+        description="Temukan pilihan properti terbaik yang sesuai dengan kebutuhan dan keinginan Anda."
+        :properties="$popularProperties"
+        view-all-url="#"
+    />
 
     <x-property.section
     title="Properti Terpopuler"
@@ -148,6 +203,47 @@
         view-all-url="#"
         background="bg-[#FFF4EA]"
     />
+
+        <!-- TESTIMONIAL -->
+        @php
+            $testimonials = [
+                [
+                    'name' => 'Andi Pratama',
+                    'role' => 'CEO, PT Sejahtera',
+                    'image' => asset('images/testimoni.png'),
+                    'rating' => '5.0',
+                    'message' => 'Pelayanannya sangat profesional. Saya dibantu dari awal mencari properti sampai proses transaksi selesai.',
+                ],
+
+                [
+                    'name' => 'Siti Rahma',
+                    'role' => 'Pengusaha',
+                    'image' => asset('images/testimoni.png'),
+                    'rating' => '5.0',
+                    'message' => 'Proses mencari rumah jadi jauh lebih mudah. Timnya responsif dan memberikan informasi yang sangat jelas.',
+                ],
+
+                [
+                    'name' => 'Rizky Maulana',
+                    'role' => 'Karyawan Swasta',
+                    'image' => asset('images/testimoni.png'),
+                    'rating' => '5.0',
+                    'message' => 'Saya sangat puas dengan pelayanan yang diberikan. Semua proses dijelaskan dengan baik dan transparan.',
+                ],
+
+                [
+                    'name' => 'Dewi Lestari',
+                    'role' => 'Wiraswasta',
+                    'image' => asset('images/testimoni.png'),
+                    'rating' => '5.0',
+                    'message' => 'Pengalaman yang sangat menyenangkan. Properti yang ditawarkan sesuai dengan kebutuhan dan budget saya.',
+                ],
+            ];
+        @endphp
+
+        <x-public.testimonial-card
+            :testimonials="$testimonials"
+        />
 
     {{-- Footer --}}
     <x-public.footer />

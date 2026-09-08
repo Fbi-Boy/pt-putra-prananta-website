@@ -2,7 +2,7 @@
     'property',
 ])
 
-<div class="flex items-center gap-1.5 mt-2 text-sm text-gray-500">
+<div class="flex items-center gap-1.5 mt-1.5 text-sm text-gray-500">
 
     <i
         data-lucide="map-pin"

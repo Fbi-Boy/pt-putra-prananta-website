@@ -3,7 +3,7 @@
 ])
 
 <article
-    class="group overflow-hidden rounded-2xl
+    class="group overflow-hidden rounded-xl
            border border-gray-200
            bg-white
            shadow-sm
@@ -16,36 +16,42 @@
         :property="$property"
     />
 
-
     {{-- CONTENT --}}
-    <div class="p-4">
+    <div class="p-3">
 
         {{-- PRICE --}}
         <x-property.price
             :property="$property"
         />
 
-
         {{-- TITLE --}}
         <h3
-            class="mt-2 text-[15px] font-semibold
-                   text-gray-900
-                   line-clamp-2
-                   group-hover:text-orange-600
-                   transition"
+            class="mt-1
+                text-[13px]
+                font-semibold
+                leading-[17px]
+                text-gray-900
+                whitespace-nowrap
+                overflow-hidden
+                text-ellipsis
+                group-hover:text-orange-600
+                transition"
         >
             {{ $property['title'] ?? 'Properti Tanpa Judul' }}
         </h3>
-
 
         {{-- LOCATION --}}
         <x-property.location
             :property="$property"
         />
 
-
         {{-- SPECIFICATION --}}
         <x-property.specification
+            :property="$property"
+        />
+
+        {{-- AGENT --}}
+        <x-property.agent
             :property="$property"
         />
 
