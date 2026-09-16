@@ -1,318 +1,855 @@
-@props([
-    'testimonials' => [],
-])
+<section class="property-testimonial-section">
 
-<section class="w-full bg-white py-14">
+    <div class="property-testimonial-container">
 
-    <div class="max-w-[1200px] mx-auto px-5 lg:px-0">
+        {{-- =========================================
+             HEADING
+        ========================================== --}}
 
-        {{-- =====================================================
-            HEADER
-        ====================================================== --}}
-        <div class="text-center mb-10">
+        <div class="property-testimonial-heading">
 
-            {{-- LABEL --}}
-            <span
-                class="inline-flex
-                       items-center
-                       px-3.5
-                       py-1.5
-                       rounded-full
-                       bg-orange-50
-                       text-[#FF5A00]
-                       text-[10px]
-                       font-semibold
-                       uppercase
-                       tracking-wider"
-            >
-                Client Testimonials
+            <span class="property-testimonial-label">
+                TESTIMONIALS
             </span>
 
-            {{-- TITLE --}}
-            <h2
-                class="mt-4
-                       text-[28px]
-                       md:text-[32px]
-                       font-bold
-                       leading-[1.15]
-                       text-gray-950"
-            >
-                Apa Kata Mereka
-                <br>
-
-                <span class="text-[#FF5A00]">
-                    Tentang Layanan Kami
-                </span>
+            <h2>
+                Client Kami
             </h2>
 
-            {{-- DESCRIPTION --}}
-            <p
-                class="mt-4
-                       max-w-[580px]
-                       mx-auto
-                       text-[13px]
-                       leading-6
-                       text-gray-500"
-            >
-                Pengalaman dan kepercayaan dari para klien yang telah
-                menggunakan layanan properti kami.
+            <p>
+                Apa kata client tentang pengalaman mereka bersama kami.
             </p>
 
         </div>
 
 
-        {{-- =====================================================
-            TESTIMONIAL CARDS
-            HANYA 3 CARD
-        ====================================================== --}}
-        <div
-            class="grid
-                   grid-cols-1
-                   md:grid-cols-2
-                   lg:grid-cols-3
-                   gap-6"
-        >
+        {{-- =========================================
+             TESTIMONIAL CARDS
+        ========================================== --}}
 
-            @forelse (array_slice($testimonials, 0, 3) as $testimonial)
-
-                <article
-                    class="relative
-                           bg-[#F7F7F7]
-                           rounded-2xl
-                           border border-gray-100
-                           px-6
-                           py-6
-                           min-h-[220px]
-                           shadow-sm
-                           hover:shadow-md
-                           transition duration-300
-                           overflow-visible"
-                >
-
-                    {{-- =================================================
-                        ORANGE NEON SIDE LINE
-                    ================================================== --}}
-                    <div
-                        class="absolute
-                               -left-[5px]
-                               top-[20px]
-                               h-[70px]
-                               w-[5px]
-                               rounded-full
-                               bg-[#FF5A00]
-                               shadow-[0_0_5px_#FF5A00,0_0_10px_#FF5A00,0_0_18px_rgba(255,90,0,0.75)]"
-                    ></div>
+        <div class="property-testimonial-grid">
 
 
-                    {{-- =================================================
-                        PROFILE + RATING
-                    ================================================== --}}
-                    <div
-                        class="flex
-                               items-start
-                               justify-between
-                               gap-4"
+            {{-- =====================================
+                 TESTIMONIAL 1
+            ====================================== --}}
+
+            <div class="property-testimonial-card">
+
+                <div class="property-testimonial-quote">
+                    “”
+                </div>
+
+                <p class="property-testimonial-text">
+                    Pelayanannya sangat baik dan saya mendapatkan rumah
+                    yang sesuai dengan kebutuhan serta budget saya.
+                </p>
+
+                <div class="property-testimonial-line"></div>
+
+                <div class="property-testimonial-client">
+
+                    <img
+                        src="{{ asset('images/testimonials/client-1.jpg') }}"
+                        alt="Andi Pratama"
                     >
 
-                        {{-- CLIENT INFO --}}
-                        <div class="min-w-0">
+                    <div class="property-testimonial-client-info">
 
-                            <div
-                                class="flex
-                                       items-center
-                                       gap-3"
-                            >
+                        <h4>
+                            Andi Pratama
+                        </h4>
 
-                                {{-- FOTO --}}
-                                <div
-                                    class="w-18
-                                           h-18
-                                           rounded-full
-                                           overflow-hidden
-                                           bg-gray-200
-                                           shrink-0"
-                                >
-                                    <img
-                                        src="{{ $testimonial['image'] ?? asset('images/default-user.jpg') }}"
-                                        alt="{{ $testimonial['name'] ?? 'Client' }}"
-                                        class="w-full h-full object-cover"
-                                    >
-                                </div>
-
-
-                                {{-- NAME + ROLE + RATING --}}
-                                <div class="min-w-0">
-
-                                    {{-- =================================================
-                                        NAME
-                                        FONT LEBIH TEGAS / NEON STYLE
-                                    ================================================== --}}
-
-                                    <h3
-                                        class="font-cutive
-                                            text-[15px]
-                                            font-bold
-                                            uppercase
-                                            tracking-[0.12em]
-                                            leading-5
-                                            text-gray-950
-                                            truncate"
-                                    >
-                                        {{ $testimonial['name'] ?? 'CLIENT' }}
-                                    </h3>
-
-                                    {{-- ROLE --}}
-                                    <p
-                                        class="mt-1
-                                               text-[12px]
-                                               leading-4
-                                               text-gray-500
-                                               truncate"
-                                    >
-                                        {{ $testimonial['role'] ?? 'Client' }}
-                                    </p>
-
-
-                                    {{-- =================================================
-                                        RATING
-                                    ================================================== --}}
-                                    <div
-                                        class="flex
-                                               items-center
-                                               gap-1
-                                               mt-2"
-                                    >
-
-                                        @for ($i = 1; $i <= 5; $i++)
-
-                                            <i
-                                                data-lucide="star"
-                                                class="w-[17px]
-                                                       h-[17px]
-                                                       text-[#FF5A00]
-                                                       drop-shadow-[0_0_2px_rgba(255,90,0,0.45)]
-                                                       drop-shadow-[0_0_5px_rgba(255,90,0,0.25)]"
-                                                fill="currentColor"
-                                            ></i>
-
-                                        @endfor
-
-
-                                        {{-- RATING NUMBER --}}
-                                        <span
-                                            class="ml-1
-                                                   text-[17px]
-                                                   leading-[17px]
-                                                   font-semibold
-                                                   text-gray-700"
-                                        >
-                                            {{ $testimonial['rating'] ?? '5.0' }}
-                                        </span>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                        {{-- =================================================
-                            QUOTE ICON
-                        ================================================== --}}
-                        <div
-                            class="w-12 h-12 rounded-full
-                                bg-orange-50
-                                flex items-center justify-center
-                                shrink-0"
-                        >
-                            <i
-                                data-lucide="quote"
-                                class="w-[23px] h-[23px]
-                                    text-[#FF5A00]
-                                    fill-[#FF5A00]
-                                    stroke-[#FF5A00]
-                                    drop-shadow-[0_0_3px_#FF5A00]
-                                    drop-shadow-[0_0_7px_#FF5A00]
-                                    drop-shadow-[0_0_14px_rgba(255,90,0,0.8)]"
-                            ></i>
-                        </div>
+                        <span>
+                            Client Property
+                        </span>
 
                     </div>
 
-
-                    {{-- =================================================
-                        MESSAGE
-                    ================================================== --}}
-                    <p
-                        class="mt-5
-                               text-[12px]
-                               leading-[19px]
-                               text-gray-500
-                               line-clamp-4"
-                    >
-                        {{ $testimonial['message'] ?? 'Pelayanan yang sangat baik dan profesional. Prosesnya mudah, cepat, dan sangat membantu.' }}
-                    </p>
-
-                </article>
-
-            @empty
-
-                {{-- EMPTY STATE --}}
-                <div
-                    class="md:col-span-2
-                           lg:col-span-3
-                           py-12
-                           text-center"
-                >
-                    <p class="text-sm text-gray-500">
-                        Belum ada testimonial.
-                    </p>
                 </div>
 
-            @endforelse
+            </div>
+
+
+            {{-- =====================================
+                 TESTIMONIAL 2
+            ====================================== --}}
+
+            <div class="property-testimonial-card">
+
+                <div class="property-testimonial-quote">
+                    “”
+                </div>
+
+                <p class="property-testimonial-text">
+                    Saya sangat terbantu menemukan property yang sesuai
+                    dengan keinginan, lengkap, aman, dan terpercaya.
+                </p>
+
+                <div class="property-testimonial-line"></div>
+
+                <div class="property-testimonial-client">
+
+                    <img
+                        src="{{ asset('images/testimonials/client-2.jpg') }}"
+                        alt="Siti Aulia"
+                    >
+
+                    <div class="property-testimonial-client-info">
+
+                        <h4>
+                            Siti Aulia
+                        </h4>
+
+                        <span>
+                            Client Property
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            {{-- =====================================
+                 TESTIMONIAL 3
+            ====================================== --}}
+
+            <div class="property-testimonial-card">
+
+                <div class="property-testimonial-quote">
+                    “”
+                </div>
+
+                <p class="property-testimonial-text">
+                    Proses transaksi berjalan jelas dan cepat dari awal
+                    pencarian hingga pembelian property selesai.
+                </p>
+
+                <div class="property-testimonial-line"></div>
+
+                <div class="property-testimonial-client">
+
+                    <img
+                        src="{{ asset('images/testimonials/client-3.jpg') }}"
+                        alt="Rizky Ramadhan"
+                    >
+
+                    <div class="property-testimonial-client-info">
+
+                        <h4>
+                            Rizky Ramadhan
+                        </h4>
+
+                        <span>
+                            Client Property
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
 
         </div>
 
 
-        {{-- =====================================================
-            BUTTON
-            HANYA MUNCUL JIKA DATA LEBIH DARI 3
-        ====================================================== --}}
-        @if (count($testimonials) > 3)
+        {{-- =========================================
+             BUTTON LIHAT LAINNYA
+        ========================================== --}}
 
-            <div class="flex justify-center mt-9">
+        <div class="property-testimonial-action">
 
-                <a
-                    href="#"
-                    class="inline-flex
-                           items-center
-                           justify-center
-                           h-11
-                           px-7
-                           rounded-full
-                           bg-[#FF5A00]
-                           text-white
-                           text-[12px]
-                           font-semibold
-                           hover:bg-[#E94F00]
-                           hover:shadow-lg
-                           transition"
-                >
-                    Lihat Testimoni Lainnya
+            <button
+                type="button"
+                class="property-testimonial-button"
+                disabled
+            >
 
-                    <i
-                        data-lucide="arrow-right"
-                        class="w-4 h-4 ml-2"
-                    ></i>
+                <span>
+                    Lihat Lainnya
+                </span>
 
-                </a>
+                <span class="property-testimonial-arrow">
+                    →
+                </span>
 
-            </div>
+            </button>
 
-        @endif
+        </div>
+
 
     </div>
 
 </section>
+
+
+
+<style>
+
+    /* =========================================
+       PROPERTY TESTIMONIAL SECTION
+    ========================================== */
+
+    .property-testimonial-section {
+        width: 100%;
+        padding: 48px 0;
+        background: #f7f9fb;
+    }
+
+    .property-testimonial-container {
+        width: min(1050px, 92%);
+        margin: 0 auto;
+    }
+
+
+    /* =========================================
+       HEADING
+    ========================================== */
+
+    .property-testimonial-heading {
+        text-align: center;
+        margin-bottom: 24px;
+    }
+
+    .property-testimonial-label {
+        display: inline-block;
+        padding: 4px 10px;
+
+        border: 1px solid #f39a3d;
+        border-radius: 4px;
+
+        color: #e98522;
+
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+
+        margin-bottom: 6px;
+    }
+
+    .property-testimonial-heading h2 {
+        margin: 0;
+
+        color: #161616;
+
+        font-size: 27px;
+        font-weight: 700;
+        line-height: 1.2;
+    }
+
+    .property-testimonial-heading p {
+        max-width: 420px;
+
+        margin: 5px auto 0;
+
+        color: #888;
+
+        font-size: 11px;
+        line-height: 1.4;
+    }
+
+
+    /* =========================================
+       TESTIMONIAL GRID
+       SELALU 3 CARD
+    ========================================== */
+
+    .property-testimonial-grid {
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+
+        gap: 16px;
+    }
+
+
+    /* =========================================
+       TESTIMONIAL CARD
+    ========================================== */
+
+    .property-testimonial-card {
+        min-width: 0;
+
+        background: #ffffff;
+
+        padding: 15px 17px 14px;
+
+        border-radius: 12px;
+
+        box-shadow:
+            0 5px 16px rgba(0, 0, 0, 0.05);
+
+        transition:
+            transform 0.3s ease,
+            box-shadow 0.3s ease;
+    }
+
+    .property-testimonial-card:hover {
+        transform: translateY(-3px);
+
+        box-shadow:
+            0 9px 20px rgba(0, 0, 0, 0.08);
+    }
+
+
+    /* =========================================
+       QUOTE
+    ========================================== */
+
+    .property-testimonial-quote {
+        width: fit-content;
+
+        color: #d5dfe7;
+
+        font-family: Georgia, "Times New Roman", serif;
+
+        font-size: 34px;
+        font-weight: 700;
+
+        line-height: 0.65;
+
+        letter-spacing: -6px;
+
+        margin-bottom: 10px;
+    }
+
+
+    /* =========================================
+       TESTIMONIAL TEXT
+       SELALU DISEDIAKAN UNTUK 3 BARIS
+    ========================================== */
+
+    .property-testimonial-text {
+        display: -webkit-box;
+
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+
+        overflow: hidden;
+
+        margin: 0;
+
+        color: #444;
+
+        font-size: 13px;
+        line-height: 1.55;
+
+        /*
+         * Tinggi area teks selalu sama dengan
+         * tinggi maksimal 3 baris.
+         */
+        height: calc(13px * 1.55 * 3);
+    }
+
+
+    /* =========================================
+       DIVIDER
+    ========================================== */
+
+    .property-testimonial-line {
+        width: 100%;
+        height: 1px;
+
+        background: #edf0f2;
+
+        margin: 11px 0;
+    }
+
+
+    /* =========================================
+       CLIENT
+    ========================================== */
+
+    .property-testimonial-client {
+        display: flex;
+
+        align-items: center;
+
+        gap: 8px;
+
+        min-width: 0;
+    }
+
+    .property-testimonial-client img {
+        width: 36px;
+        height: 36px;
+
+        flex-shrink: 0;
+
+        object-fit: cover;
+
+        border-radius: 50%;
+
+        background: #f1f1f1;
+    }
+
+    .property-testimonial-client-info {
+        min-width: 0;
+    }
+
+    .property-testimonial-client h4 {
+        margin: 0 0 2px;
+
+        color: #222;
+
+        font-size: 12px;
+        font-weight: 700;
+
+        white-space: nowrap;
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+    }
+
+    .property-testimonial-client span {
+        color: #999;
+
+        font-size: 9px;
+
+        white-space: nowrap;
+    }
+
+
+    /* =========================================
+       BUTTON
+    ========================================== */
+
+    .property-testimonial-action {
+        display: flex;
+
+        justify-content: center;
+
+        margin-top: 21px;
+    }
+
+    .property-testimonial-button {
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 7px;
+
+        padding: 8px 16px;
+
+        border: 1px solid #e98522;
+
+        border-radius: 6px;
+
+        background: #e98522;
+
+        color: #ffffff;
+
+        font-family: inherit;
+
+        font-size: 11px;
+
+        font-weight: 600;
+
+        cursor: not-allowed;
+
+        opacity: 0.7;
+    }
+
+    .property-testimonial-arrow {
+        font-size: 14px;
+
+        line-height: 1;
+    }
+
+
+    /* =========================================
+       TABLET
+       TETAP 3 CARD
+    ========================================== */
+
+    @media (max-width: 1024px) {
+
+        .property-testimonial-section {
+            padding: 40px 0;
+        }
+
+        .property-testimonial-container {
+            width: 94%;
+        }
+
+        .property-testimonial-heading {
+            margin-bottom: 20px;
+        }
+
+        .property-testimonial-label {
+            padding: 4px 9px;
+
+            font-size: 8px;
+
+            margin-bottom: 5px;
+        }
+
+        .property-testimonial-heading h2 {
+            font-size: 24px;
+        }
+
+        .property-testimonial-heading p {
+            max-width: 380px;
+
+            font-size: 10px;
+        }
+
+
+        /* GRID */
+
+        .property-testimonial-grid {
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+            gap: 10px;
+        }
+
+
+        /* CARD */
+
+        .property-testimonial-card {
+            padding: 13px 12px 12px;
+
+            border-radius: 10px;
+        }
+
+
+        /* QUOTE */
+
+        .property-testimonial-quote {
+            font-size: 30px;
+
+            margin-bottom: 9px;
+        }
+
+
+        /* TEXT */
+
+        .property-testimonial-text {
+            -webkit-line-clamp: 3;
+
+            font-size: 11.5px;
+
+            line-height: 1.5;
+
+            /*
+             * 3 baris tetap tersedia
+             */
+            height: calc(11.5px * 1.5 * 3);
+        }
+
+
+        /* LINE */
+
+        .property-testimonial-line {
+            margin: 9px 0;
+        }
+
+
+        /* CLIENT */
+
+        .property-testimonial-client {
+            gap: 6px;
+        }
+
+        .property-testimonial-client img {
+            width: 32px;
+            height: 32px;
+        }
+
+        .property-testimonial-client h4 {
+            font-size: 10px;
+        }
+
+        .property-testimonial-client span {
+            font-size: 8px;
+        }
+
+
+        /* BUTTON */
+
+        .property-testimonial-action {
+            margin-top: 18px;
+        }
+
+        .property-testimonial-button {
+            padding: 7px 14px;
+
+            font-size: 10px;
+        }
+
+        .property-testimonial-arrow {
+            font-size: 12px;
+        }
+    }
+
+
+    /* =========================================
+       MOBILE
+       TETAP 3 CARD
+    ========================================== */
+
+    @media (max-width: 767px) {
+
+        .property-testimonial-section {
+            padding: 32px 0;
+        }
+
+        .property-testimonial-container {
+            width: 94%;
+        }
+
+        .property-testimonial-heading {
+            margin-bottom: 16px;
+        }
+
+        .property-testimonial-label {
+            padding: 3px 8px;
+
+            font-size: 7px;
+
+            margin-bottom: 5px;
+        }
+
+        .property-testimonial-heading h2 {
+            font-size: 20px;
+        }
+
+        .property-testimonial-heading p {
+            max-width: 85%;
+
+            margin-top: 4px;
+
+            font-size: 8.5px;
+
+            line-height: 1.4;
+        }
+
+
+        /* GRID */
+
+        .property-testimonial-grid {
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+            gap: 6px;
+        }
+
+
+        /* CARD */
+
+        .property-testimonial-card {
+            padding: 9px 8px 8px;
+
+            border-radius: 8px;
+        }
+
+
+        /* QUOTE */
+
+        .property-testimonial-quote {
+            font-size: 25px;
+
+            letter-spacing: -5px;
+
+            margin-bottom: 7px;
+        }
+
+
+        /* TEXT */
+
+        .property-testimonial-text {
+            -webkit-line-clamp: 3;
+
+            font-size: 9.5px;
+
+            line-height: 1.45;
+
+            /*
+             * 3 baris tetap tersedia
+             */
+            height: calc(9.5px * 1.45 * 3);
+        }
+
+
+        /* LINE */
+
+        .property-testimonial-line {
+            margin: 7px 0;
+        }
+
+
+        /* CLIENT */
+
+        .property-testimonial-client {
+            gap: 4px;
+        }
+
+        .property-testimonial-client img {
+            width: 25px;
+            height: 25px;
+        }
+
+        .property-testimonial-client h4 {
+            font-size: 7.5px;
+        }
+
+        .property-testimonial-client span {
+            font-size: 6.5px;
+        }
+
+
+        /* BUTTON */
+
+        .property-testimonial-action {
+            margin-top: 16px;
+        }
+
+        .property-testimonial-button {
+            padding: 7px 12px;
+
+            font-size: 9px;
+
+            border-radius: 5px;
+        }
+
+        .property-testimonial-arrow {
+            font-size: 11px;
+        }
+    }
+
+
+    /* =========================================
+       SMALL MOBILE
+       TETAP 3 CARD
+    ========================================== */
+
+    @media (max-width: 400px) {
+
+        .property-testimonial-section {
+            padding: 27px 0;
+        }
+
+        .property-testimonial-container {
+            width: 95%;
+        }
+
+        .property-testimonial-heading {
+            margin-bottom: 14px;
+        }
+
+        .property-testimonial-label {
+            padding: 3px 7px;
+
+            font-size: 6.5px;
+        }
+
+        .property-testimonial-heading h2 {
+            font-size: 18px;
+        }
+
+        .property-testimonial-heading p {
+            max-width: 90%;
+
+            font-size: 8px;
+        }
+
+
+        /* GRID */
+
+        .property-testimonial-grid {
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+            gap: 5px;
+        }
+
+
+        /* CARD */
+
+        .property-testimonial-card {
+            padding: 8px 6px 7px;
+
+            border-radius: 7px;
+        }
+
+
+        /* QUOTE */
+
+        .property-testimonial-quote {
+            font-size: 22px;
+
+            letter-spacing: -4px;
+
+            margin-bottom: 6px;
+        }
+
+
+        /* TEXT */
+
+        .property-testimonial-text {
+            -webkit-line-clamp: 3;
+
+            font-size: 8.2px;
+
+            line-height: 1.4;
+
+            /*
+             * 3 baris tetap tersedia
+             */
+            height: calc(8.2px * 1.4 * 3);
+        }
+
+
+        /* LINE */
+
+        .property-testimonial-line {
+            margin: 6px 0;
+        }
+
+
+        /* CLIENT */
+
+        .property-testimonial-client {
+            gap: 3px;
+        }
+
+        .property-testimonial-client img {
+            width: 22px;
+            height: 22px;
+        }
+
+        .property-testimonial-client h4 {
+            font-size: 6.5px;
+        }
+
+        .property-testimonial-client span {
+            font-size: 5.5px;
+        }
+
+
+        /* BUTTON */
+
+        .property-testimonial-action {
+            margin-top: 14px;
+        }
+
+        .property-testimonial-button {
+            padding: 6px 10px;
+
+            font-size: 8px;
+        }
+
+        .property-testimonial-arrow {
+            font-size: 10px;
+        }
+    }
+
+</style>

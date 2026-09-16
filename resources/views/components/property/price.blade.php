@@ -3,7 +3,6 @@
 ])
 
 <div class="flex items-center justify-between gap-2">
-
     <p class="text-lg font-bold text-gray-900">
         {{ $property['price'] ?? 'Harga Hubungi' }}
     </p>
@@ -13,5 +12,4 @@
             {{ $property['date'] }}
         </span>
     @endif
-
 </div>

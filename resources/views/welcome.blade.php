@@ -241,6 +241,10 @@
             ];
         @endphp
 
+        <x-public.news
+        />
+
+
         <x-public.testimonial-card
             :testimonials="$testimonials"
         />

@@ -4,8 +4,9 @@
 
 <div
     class="flex items-center gap-4
-           mt-1.5 pt-1.5
-           text-xs text-gray-600"
+           mt-3 pt-3
+           border-t border-gray-200
+           text-xs text-gray-600 "
 >
 
     {{-- LUAS TANAH --}}

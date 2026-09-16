@@ -50,11 +50,6 @@
             :property="$property"
         />
 
-        {{-- AGENT --}}
-        <x-property.agent
-            :property="$property"
-        />
-
     </div>
 
 </article>
