@@ -1,56 +1,129 @@
-<section class="w-full bg-white py-10 md:py-12 lg:py-14 overflow-hidden">
+<section class="w-full bg-white py-12 md:py-14 lg:py-16 overflow-hidden">
 
-    {{-- TITLE --}}
-    <div class="text-center mb-5 md:mb-6 px-5">
+    @php
+        $developers = [
+            [
+                'logo' => 'developer-1.jpg',
+                'name' => 'Grand Surya Residence',
+            ],
+            [
+                'logo' => 'developer-2.jpg',
+                'name' => 'Puri Jember Regency',
+            ],
+            [
+                'logo' => 'developer-3.jpg',
+                'name' => 'Taman Arum Residence',
+            ],
+            [
+                'logo' => 'developer-4.jpg',
+                'name' => 'Mutiara Jember Residence',
+            ],
+            [
+                'logo' => 'developer-5.jpg',
+                'name' => 'Bukit Cemara Residence',
+            ],
+            [
+                'logo' => 'developer-6.jpg',
+                'name' => 'Graha Persada Jember',
+            ],
+            [
+                'logo' => 'developer-7.jpg',
+                'name' => 'Nusa Indah Residence',
+            ],
+            [
+                'logo' => 'developer-8.jpg',
+                'name' => 'Kencana Residence',
+            ],
+        ];
+    @endphp
+
+
+    {{-- =========================================================
+        HEADER
+    ========================================================== --}}
+    <div class="max-w-[900px] mx-auto px-5 text-center mb-9 md:mb-11">
 
         <h2
-            class="text-[14px]
-                   md:text-[15px]
-                   lg:text-[16px]
-                   font-normal
-                   tracking-[0.01em]
-                   text-gray-500"
+            class="
+                text-[20px]
+                sm:text-[22px]
+                md:text-[25px]
+                lg:text-[28px]
+                font-bold
+                leading-tight
+                text-gray-900
+            "
         >
-            Perjanjian Kerja Sama dengan Perumahan Jember
+            Perjanjian Kerja Sama dengan
+            <span class="text-[#FF5A00]">
+                Perumahan Jember
+            </span>
         </h2>
+
+        <p
+            class="
+                mt-3
+                text-[11px]
+                sm:text-[12px]
+                md:text-[13px]
+                lg:text-[14px]
+                leading-5
+                text-gray-500
+                max-w-[620px]
+                mx-auto
+            "
+        >
+            Bersama menghadirkan hunian terbaik dengan developer
+            terpercaya di wilayah Jember.
+        </p>
 
     </div>
 
 
-    {{-- LOGO SLIDER --}}
+    {{-- =========================================================
+        LOGO MARQUEE
+    ========================================================== --}}
     <div class="relative w-full overflow-hidden">
 
-        {{-- FADE KIRI --}}
+        {{-- LEFT FADE --}}
         <div
-            class="absolute
-                   left-0
-                   top-0
-                   bottom-0
-                   w-10
-                   md:w-20
-                   lg:w-28
-                   z-10
-                   bg-gradient-to-r
-                   from-white
-                   to-transparent
-                   pointer-events-none"
+            class="
+                absolute
+                left-0
+                top-0
+                bottom-0
+                w-12
+                sm:w-20
+                md:w-28
+                lg:w-36
+                z-20
+                pointer-events-none
+                bg-gradient-to-r
+                from-white
+                via-white/80
+                to-transparent
+            "
         ></div>
 
 
-        {{-- FADE KANAN --}}
+        {{-- RIGHT FADE --}}
         <div
-            class="absolute
-                   right-0
-                   top-0
-                   bottom-0
-                   w-10
-                   md:w-20
-                   lg:w-28
-                   z-10
-                   bg-gradient-to-l
-                   from-white
-                   to-transparent
-                   pointer-events-none"
+            class="
+                absolute
+                right-0
+                top-0
+                bottom-0
+                w-12
+                sm:w-20
+                md:w-28
+                lg:w-36
+                z-20
+                pointer-events-none
+                bg-gradient-to-l
+                from-white
+                via-white/80
+                to-transparent
+            "
         ></div>
 
 
@@ -60,40 +133,60 @@
             {{-- GROUP 1 --}}
             <div class="developer-logo-group">
 
-                @for ($i = 1; $i <= 8; $i++)
+                @foreach ($developers as $developer)
 
-                    <div class="developer-logo">
+                    <div class="developer-logo-item">
 
-                        <img
-                            src="{{ asset("images/developers/developer-$i.jpg") }}"
-                            alt="Perumahan Jember {{ $i }}"
-                        >
+                        {{-- LOGO --}}
+                        <div class="developer-logo">
+
+                            <img
+                                src="{{ asset('images/developers/' . $developer['logo']) }}"
+                                alt="{{ $developer['name'] }}"
+                            >
+
+                        </div>
+
+
+                        {{-- NAMA PERUMAHAN --}}
+                        <p class="developer-name">
+                            {{ $developer['name'] }}
+                        </p>
 
                     </div>
 
-                @endfor
+                @endforeach
 
             </div>
 
 
-            {{-- GROUP 2 --}}
+            {{-- GROUP 2
+                 DUPLIKAT UNTUK LOOP TANPA PUTUS --}}
             <div
                 class="developer-logo-group"
                 aria-hidden="true"
             >
 
-                @for ($i = 1; $i <= 8; $i++)
+                @foreach ($developers as $developer)
 
-                    <div class="developer-logo">
+                    <div class="developer-logo-item">
 
-                        <img
-                            src="{{ asset("images/developers/developer-$i.jpg") }}"
-                            alt=""
-                        >
+                        <div class="developer-logo">
+
+                            <img
+                                src="{{ asset('images/developers/' . $developer['logo']) }}"
+                                alt=""
+                            >
+
+                        </div>
+
+                        <p class="developer-name">
+                            {{ $developer['name'] }}
+                        </p>
 
                     </div>
 
-                @endfor
+                @endforeach
 
             </div>
 
@@ -102,21 +195,21 @@
     </div>
 
 
-    {{-- CSS --}}
+    {{-- =========================================================
+        STYLE
+    ========================================================== --}}
     <style>
 
-        /*
-        |--------------------------------------------------------------------------
-        | MARQUEE
-        |--------------------------------------------------------------------------
-        */
+        /* =====================================================
+           MARQUEE
+        ===================================================== */
 
         .developer-marquee {
             display: flex;
             width: max-content;
 
             animation:
-                developer-marquee
+                developer-marquee-scroll
                 32s
                 linear
                 infinite;
@@ -125,48 +218,58 @@
         }
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | LOGO GROUP
-        |--------------------------------------------------------------------------
-        */
-
         .developer-logo-group {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
 
-            gap: 35px;
-            padding-right: 35px;
+            gap: 42px;
+
+            padding-right: 42px;
 
             flex-shrink: 0;
         }
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | DESKTOP LOGO
-        |--------------------------------------------------------------------------
-        */
+        /* =====================================================
+           ITEM
+        ===================================================== */
+
+        .developer-logo-item {
+            width: 220px;
+
+            flex-shrink: 0;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            text-align: center;
+        }
+
+
+        /* =====================================================
+           LOGO AREA
+        ===================================================== */
 
         .developer-logo {
-            width: 230px;
-            height: 130px;
+            width: 220px;
+            height: 125px;
 
             display: flex;
             align-items: center;
             justify-content: center;
-
-            flex-shrink: 0;
         }
 
+
         .developer-logo img {
-            width: 210px;
+            width: 205px;
             height: 110px;
 
             object-fit: contain;
 
             filter: grayscale(100%);
-            opacity: 0.72;
+
+            opacity: 0.68;
 
             transition:
                 filter 0.3s ease,
@@ -175,26 +278,62 @@
         }
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | HOVER
-        |--------------------------------------------------------------------------
-        */
+        /* =====================================================
+           HOVER LOGO
+        ===================================================== */
 
-        .developer-logo:hover img {
+        .developer-logo-item:hover img {
             filter: grayscale(0%);
+
             opacity: 1;
-            transform: scale(1.05);
+
+            transform: scale(1.06);
         }
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | ANIMATION
-        |--------------------------------------------------------------------------
-        */
+        /* =====================================================
+           NAMA PERUMAHAN
+        ===================================================== */
 
-        @keyframes developer-marquee {
+        .developer-name {
+            margin-top: 2px;
+
+            width: 100%;
+
+            padding: 0 8px;
+
+            font-size: 12px;
+
+            line-height: 18px;
+
+            font-weight: 500;
+
+            color: #6b7280;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+            transition:
+                color 0.3s ease,
+                transform 0.3s ease;
+        }
+
+
+        .developer-logo-item:hover .developer-name {
+            color: #111827;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =====================================================
+           ANIMATION
+        ===================================================== */
+
+        @keyframes developer-marquee-scroll {
 
             from {
                 transform: translateX(0);
@@ -207,21 +346,23 @@
         }
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | TABLET
-        |--------------------------------------------------------------------------
-        */
+        /* =====================================================
+           TABLET
+        ===================================================== */
 
         @media (max-width: 1024px) {
 
             .developer-marquee {
-                animation-duration: 28s;
+                animation-duration: 29s;
             }
 
             .developer-logo-group {
-                gap: 25px;
-                padding-right: 25px;
+                gap: 30px;
+                padding-right: 30px;
+            }
+
+            .developer-logo-item {
+                width: 190px;
             }
 
             .developer-logo {
@@ -231,17 +372,19 @@
 
             .developer-logo img {
                 width: 175px;
-                height: 90px;
+                height: 95px;
+            }
+
+            .developer-name {
+                font-size: 11px;
             }
 
         }
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | MOBILE
-        |--------------------------------------------------------------------------
-        */
+        /* =====================================================
+           MOBILE
+        ===================================================== */
 
         @media (max-width: 640px) {
 
@@ -250,28 +393,40 @@
             }
 
             .developer-logo-group {
-                gap: 18px;
-                padding-right: 18px;
+                gap: 20px;
+                padding-right: 20px;
+            }
+
+            .developer-logo-item {
+                width: 150px;
             }
 
             .developer-logo {
-                width: 145px;
+                width: 150px;
                 height: 90px;
             }
 
             .developer-logo img {
-                width: 135px;
-                height: 75px;
+                width: 140px;
+                height: 78px;
+            }
+
+            .developer-name {
+                margin-top: 0;
+
+                font-size: 10px;
+
+                line-height: 15px;
+
+                padding: 0 4px;
             }
 
         }
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | REDUCE MOTION
-        |--------------------------------------------------------------------------
-        */
+        /* =====================================================
+           REDUCED MOTION
+        ===================================================== */
 
         @media (prefers-reduced-motion: reduce) {
 
@@ -284,3 +439,5 @@
     </style>
 
 </section>
+
+
