@@ -31,6 +31,9 @@
         <x-public.menu />
     </div>
 
+    <x-public.developer-logo />
+
+
     {{-- Iklan --}}
     <x-public.advertisement />
 
