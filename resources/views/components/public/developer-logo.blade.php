@@ -32,7 +32,7 @@
             ],
             [
                 'logo' => 'developer-8.png',
-                'name' => 'Kencana Residence',
+                'name' => 'Kencana jember Residence',
             ],
         ];
     @endphp
