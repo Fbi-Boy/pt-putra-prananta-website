@@ -31,7 +31,7 @@
                 'name' => 'Nusa bunga Residence',
             ],
             [
-                'logo' => 'developer-8.png',
+                'logo' => 'developer-8.jpg',
                 'name' => 'Kencana jember Residence',
             ],
         ];
