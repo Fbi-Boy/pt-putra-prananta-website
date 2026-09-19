@@ -31,7 +31,7 @@
                 'name' => 'Nusa Indah Residence',
             ],
             [
-                'logo' => 'developer-8.jpg',
+                'logo' => 'developer-8.png',
                 'name' => 'Kencana Residence',
             ],
         ];
@@ -439,9 +439,3 @@
     </style>
 
 </section>
-
-git status
-git add .
-git status
-git commit -m "update tesstimmonial section part 3"
-git push origin main
