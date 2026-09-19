@@ -28,7 +28,7 @@
             ],
             [
                 'logo' => 'developer-7.jpg',
-                'name' => 'Nusa Indah Residence',
+                'name' => 'Nusa bunga Residence',
             ],
             [
                 'logo' => 'developer-8.png',
