@@ -13,14 +13,12 @@
         <a href="{{ url('/') }}" class="flex items-center shrink-0">
             <div class="flex items-center gap-2">
 
-                {{-- Logo Icon --}}
                 <div class="w-10 h-10 rounded-xl bg-yellow-400 flex items-center justify-center">
                     <span class="text-black font-black text-xl">
                         P
                     </span>
                 </div>
 
-                {{-- Logo Text --}}
                 <span class="text-[24px] font-bold tracking-tight text-gray-900">
                     Putra
                 </span>
@@ -33,7 +31,7 @@
         {{-- DESKTOP MENU --}}
         {{-- ================================================= --}}
 
-        <div class="hidden lg:flex items-center ml-12 gap-8 h-full">
+        <div class="hidden lg:flex items-center ml-12 gap-7 h-full">
 
             {{-- ================================================= --}}
             {{-- BELI --}}
@@ -57,7 +55,6 @@
                 </button>
 
 
-                {{-- MEGA MENU BELI --}}
                 <div
                     class="absolute left-0 top-full w-full
                            bg-white border-t border-gray-100
@@ -94,44 +91,12 @@
 
                                     <a href="#"
                                        class="block text-sm text-gray-600 hover:text-yellow-500 transition">
-                                        Rumah Murah
+                                        Rumah Keluarga
                                     </a>
 
                                     <a href="#"
                                        class="block text-sm text-gray-600 hover:text-yellow-500 transition">
-                                        Rumah Mewah
-                                    </a>
-
-                                </div>
-                            </div>
-
-
-                            {{-- Apartemen --}}
-                            <div>
-                                <h3 class="text-base font-bold text-gray-950 mb-4">
-                                    Apartemen
-                                </h3>
-
-                                <div class="space-y-3">
-
-                                    <a href="#"
-                                       class="block text-sm text-gray-600 hover:text-yellow-500 transition">
-                                        Apartemen Baru
-                                    </a>
-
-                                    <a href="#"
-                                       class="block text-sm text-gray-600 hover:text-yellow-500 transition">
-                                        Apartemen Second
-                                    </a>
-
-                                    <a href="#"
-                                       class="block text-sm text-gray-600 hover:text-yellow-500 transition">
-                                        Apartemen Murah
-                                    </a>
-
-                                    <a href="#"
-                                       class="block text-sm text-gray-600 hover:text-yellow-500 transition">
-                                        Apartemen Premium
+                                        Rumah Terjangkau
                                     </a>
 
                                 </div>
@@ -153,11 +118,6 @@
 
                                     <a href="#"
                                        class="block text-sm text-gray-600 hover:text-yellow-500 transition">
-                                        Tanah Investasi
-                                    </a>
-
-                                    <a href="#"
-                                       class="block text-sm text-gray-600 hover:text-yellow-500 transition">
                                         Tanah Perumahan
                                     </a>
 
@@ -166,39 +126,109 @@
                                         Tanah Strategis
                                     </a>
 
+                                    <a href="#"
+                                       class="block text-sm text-gray-600 hover:text-yellow-500 transition">
+                                        Tanah Investasi
+                                    </a>
+
                                 </div>
                             </div>
 
 
-                            {{-- Properti Komersial --}}
+                            {{-- Kos & Hunian --}}
                             <div>
                                 <h3 class="text-base font-bold text-gray-950 mb-4">
-                                    Properti Komersial
+                                    Kos & Hunian
                                 </h3>
 
                                 <div class="space-y-3">
 
                                     <a href="#"
                                        class="block text-sm text-gray-600 hover:text-yellow-500 transition">
-                                        Ruko
+                                        Rumah Kos
                                     </a>
 
                                     <a href="#"
                                        class="block text-sm text-gray-600 hover:text-yellow-500 transition">
-                                        Gudang
+                                        Kos Mahasiswa
                                     </a>
 
                                     <a href="#"
                                        class="block text-sm text-gray-600 hover:text-yellow-500 transition">
-                                        Kantor
+                                        Hunian Dekat Kampus
                                     </a>
 
                                     <a href="#"
                                        class="block text-sm text-gray-600 hover:text-yellow-500 transition">
-                                        Properti Komersial
+                                        Hunian Keluarga
                                     </a>
 
                                 </div>
+                            </div>
+
+
+                            {{-- Area Jember --}}
+                            <div>
+                                <h3 class="text-base font-bold text-gray-950 mb-4">
+                                    Area Jember
+                                </h3>
+
+                                <div class="space-y-3">
+
+                                    <a href="#"
+                                       class="block text-sm text-gray-600 hover:text-yellow-500 transition">
+                                        Kaliwates
+                                    </a>
+
+                                    <a href="#"
+                                       class="block text-sm text-gray-600 hover:text-yellow-500 transition">
+                                        Sumbersari
+                                    </a>
+
+                                    <a href="#"
+                                       class="block text-sm text-gray-600 hover:text-yellow-500 transition">
+                                        Patrang
+                                    </a>
+
+                                    <a href="#"
+                                       class="block text-sm text-gray-600 hover:text-yellow-500 transition">
+                                        Ajung
+                                    </a>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        {{-- FEATURE --}}
+                        <div class="mt-8 pt-6 border-t border-gray-100">
+
+                            <div class="flex items-center justify-between">
+
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-900">
+                                        Cari properti di Jember
+                                    </p>
+
+                                    <p class="text-sm text-gray-500 mt-1">
+                                        Temukan rumah dan tanah sesuai kebutuhan dan anggaran Anda.
+                                    </p>
+                                </div>
+
+                                <a
+                                    href="#"
+                                    class="inline-flex items-center gap-2
+                                           px-4 py-2.5 rounded-xl
+                                           bg-yellow-400 hover:bg-yellow-500
+                                           text-sm font-semibold text-black
+                                           transition"
+                                >
+                                    Lihat Properti
+
+                                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                </a>
+
                             </div>
 
                         </div>
@@ -232,7 +262,6 @@
                 </button>
 
 
-                {{-- MEGA MENU SEWA --}}
                 <div
                     class="absolute left-0 top-full w-full
                            bg-white border-t border-gray-100
@@ -281,72 +310,45 @@
                             </div>
 
 
-                            {{-- Apartemen --}}
+                            {{-- Kos --}}
                             <div>
                                 <h3 class="text-base font-bold text-gray-950 mb-4">
-                                    Apartemen
+                                    Kos
                                 </h3>
 
                                 <div class="space-y-3">
 
                                     <a href="#"
                                        class="block text-sm text-gray-600 hover:text-yellow-500">
-                                        Apartemen Disewa
+                                        Kos Mahasiswa
                                     </a>
 
                                     <a href="#"
                                        class="block text-sm text-gray-600 hover:text-yellow-500">
-                                        Apartemen Tahunan
+                                        Kos Putra
                                     </a>
 
                                     <a href="#"
                                        class="block text-sm text-gray-600 hover:text-yellow-500">
-                                        Apartemen Bulanan
+                                        Kos Putri
+                                    </a>
+
+                                    <a href="#"
+                                       class="block text-sm text-gray-600 hover:text-yellow-500">
+                                        Kos Keluarga
                                     </a>
 
                                 </div>
                             </div>
 
 
-                            {{-- Komersial --}}
+                            {{-- Area --}}
                             <div>
                                 <h3 class="text-base font-bold text-gray-950 mb-4">
-                                    Komersial
+                                    Area Jember
                                 </h3>
 
                                 <div class="space-y-3">
-
-                                    <a href="#"
-                                       class="block text-sm text-gray-600 hover:text-yellow-500">
-                                        Ruko Disewa
-                                    </a>
-
-                                    <a href="#"
-                                       class="block text-sm text-gray-600 hover:text-yellow-500">
-                                        Kantor Disewa
-                                    </a>
-
-                                    <a href="#"
-                                       class="block text-sm text-gray-600 hover:text-yellow-500">
-                                        Gudang Disewa
-                                    </a>
-
-                                </div>
-                            </div>
-
-
-                            {{-- Berdasarkan Lokasi --}}
-                            <div>
-                                <h3 class="text-base font-bold text-gray-950 mb-4">
-                                    Berdasarkan Lokasi
-                                </h3>
-
-                                <div class="space-y-3">
-
-                                    <a href="#"
-                                       class="block text-sm text-gray-600 hover:text-yellow-500">
-                                        Jember
-                                    </a>
 
                                     <a href="#"
                                        class="block text-sm text-gray-600 hover:text-yellow-500">
@@ -361,6 +363,38 @@
                                     <a href="#"
                                        class="block text-sm text-gray-600 hover:text-yellow-500">
                                         Patrang
+                                    </a>
+
+                                    <a href="#"
+                                       class="block text-sm text-gray-600 hover:text-yellow-500">
+                                        Rambipuji
+                                    </a>
+
+                                </div>
+                            </div>
+
+
+                            {{-- Kebutuhan --}}
+                            <div>
+                                <h3 class="text-base font-bold text-gray-950 mb-4">
+                                    Kebutuhan
+                                </h3>
+
+                                <div class="space-y-3">
+
+                                    <a href="#"
+                                       class="block text-sm text-gray-600 hover:text-yellow-500">
+                                        Dekat Kampus
+                                    </a>
+
+                                    <a href="#"
+                                       class="block text-sm text-gray-600 hover:text-yellow-500">
+                                        Dekat Pusat Kota
+                                    </a>
+
+                                    <a href="#"
+                                       class="block text-sm text-gray-600 hover:text-yellow-500">
+                                        Untuk Keluarga
                                     </a>
 
                                 </div>
@@ -397,7 +431,6 @@
                 </button>
 
 
-                {{-- MEGA MENU JUAL --}}
                 <div
                     class="absolute left-0 top-full w-full
                            bg-white border-t border-gray-100
@@ -414,7 +447,7 @@
 
                         <div class="grid grid-cols-3 gap-10">
 
-                            {{-- Jual Properti --}}
+                            {{-- Jual --}}
                             <div>
                                 <h3 class="text-base font-bold text-gray-950 mb-4">
                                     Jual Properti
@@ -434,19 +467,19 @@
 
                                     <a href="#"
                                        class="block text-sm text-gray-600 hover:text-yellow-500">
-                                        Jual Apartemen
+                                        Jual Kos
                                     </a>
 
                                     <a href="#"
                                        class="block text-sm text-gray-600 hover:text-yellow-500">
-                                        Jual Ruko
+                                        Jual Hunian
                                     </a>
 
                                 </div>
                             </div>
 
 
-                            {{-- Bantuan Menjual --}}
+                            {{-- Bantuan --}}
                             <div>
                                 <h3 class="text-base font-bold text-gray-950 mb-4">
                                     Bantuan Menjual
@@ -461,12 +494,17 @@
 
                                     <a href="#"
                                        class="block text-sm text-gray-600 hover:text-yellow-500">
-                                        Konsultasi Harga
+                                        Cek Harga
                                     </a>
 
                                     <a href="#"
                                        class="block text-sm text-gray-600 hover:text-yellow-500">
                                         Konsultasi Properti
+                                    </a>
+
+                                    <a href="#"
+                                       class="block text-sm text-gray-600 hover:text-yellow-500">
+                                        Bantuan Dokumen
                                     </a>
 
                                 </div>
@@ -483,7 +521,7 @@
 
                                     <a href="#"
                                        class="block text-sm text-gray-600 hover:text-yellow-500">
-                                        Pemasaran
+                                        Pemasaran Properti
                                     </a>
 
                                     <a href="#"
@@ -497,6 +535,218 @@
                                     </a>
 
                                 </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="mt-8 pt-6 border-t border-gray-100">
+
+                            <div class="flex items-center gap-4">
+
+                                <div class="w-11 h-11 rounded-xl bg-yellow-100
+                                            flex items-center justify-center">
+
+                                    <i data-lucide="house-plus"
+                                       class="w-5 h-5 text-gray-900"></i>
+
+                                </div>
+
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-900">
+                                        Ingin menjual properti?
+                                    </p>
+
+                                    <p class="text-sm text-gray-500">
+                                        Tim Putra siap membantu proses pemasaran hingga transaksi.
+                                    </p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            {{-- ================================================= --}}
+            {{-- KPR --}}
+            {{-- ================================================= --}}
+
+            <div class="group h-full flex items-center">
+
+                <button
+                    type="button"
+                    class="h-full flex items-center gap-1
+                           text-[15px] font-semibold
+                           text-gray-900 hover:text-yellow-500 transition"
+                >
+                    KPR
+
+                    <i
+                        data-lucide="chevron-down"
+                        class="w-4 h-4 transition-transform duration-200
+                               group-hover:rotate-180"
+                    ></i>
+                </button>
+
+
+                {{-- MEGA MENU KPR --}}
+                <div
+                    class="absolute left-0 top-full w-full
+                           bg-white border-t border-gray-100
+                           shadow-xl
+                           opacity-0 invisible
+                           -translate-y-2
+                           group-hover:opacity-100
+                           group-hover:visible
+                           group-hover:translate-y-0
+                           transition-all duration-200"
+                >
+
+                    <div class="max-w-[1440px] mx-auto px-6 lg:px-10 py-8">
+
+                        <div class="grid grid-cols-4 gap-10">
+
+                            {{-- KPR --}}
+                            <div>
+                                <h3 class="text-base font-bold text-gray-950 mb-4">
+                                    KPR
+                                </h3>
+
+                                <div class="space-y-3">
+
+                                    <a href="#"
+                                       class="block text-sm text-gray-600 hover:text-yellow-500">
+                                        Simulasi KPR
+                                    </a>
+
+                                    <a href="#"
+                                       class="block text-sm text-gray-600 hover:text-yellow-500">
+                                        Cek Cicilan
+                                    </a>
+
+                                    <a href="#"
+                                       class="block text-sm text-gray-600 hover:text-yellow-500">
+                                        Hitung DP
+                                    </a>
+
+                                    <a href="#"
+                                       class="block text-sm text-gray-600 hover:text-yellow-500">
+                                        Cek Kemampuan
+                                    </a>
+
+                                </div>
+                            </div>
+
+
+                            {{-- Panduan --}}
+                            <div>
+                                <h3 class="text-base font-bold text-gray-950 mb-4">
+                                    Panduan
+                                </h3>
+
+                                <div class="space-y-3">
+
+                                    <a href="#"
+                                       class="block text-sm text-gray-600 hover:text-yellow-500">
+                                        Syarat KPR
+                                    </a>
+
+                                    <a href="#"
+                                       class="block text-sm text-gray-600 hover:text-yellow-500">
+                                        Dokumen KPR
+                                    </a>
+
+                                    <a href="#"
+                                       class="block text-sm text-gray-600 hover:text-yellow-500">
+                                        Alur Pengajuan
+                                    </a>
+
+                                    <a href="#"
+                                       class="block text-sm text-gray-600 hover:text-yellow-500">
+                                        Tips KPR
+                                    </a>
+
+                                </div>
+                            </div>
+
+
+                            {{-- Pilihan --}}
+                            <div>
+                                <h3 class="text-base font-bold text-gray-950 mb-4">
+                                    Pilihan Hunian
+                                </h3>
+
+                                <div class="space-y-3">
+
+                                    <a href="#"
+                                       class="block text-sm text-gray-600 hover:text-yellow-500">
+                                        Rumah KPR
+                                    </a>
+
+                                    <a href="#"
+                                       class="block text-sm text-gray-600 hover:text-yellow-500">
+                                        Rumah Terjangkau
+                                    </a>
+
+                                    <a href="#"
+                                       class="block text-sm text-gray-600 hover:text-yellow-500">
+                                        Rumah Siap Huni
+                                    </a>
+
+                                    <a href="#"
+                                       class="block text-sm text-gray-600 hover:text-yellow-500">
+                                        Proyek KPR
+                                    </a>
+
+                                </div>
+                            </div>
+
+
+                            {{-- CTA --}}
+                            <div>
+
+                                <div class="rounded-2xl bg-gray-950 p-6 text-white">
+
+                                    <div class="w-10 h-10 rounded-xl bg-yellow-400
+                                                flex items-center justify-center mb-4">
+
+                                        <i data-lucide="calculator"
+                                           class="w-5 h-5 text-black"></i>
+
+                                    </div>
+
+                                    <h3 class="text-base font-bold">
+                                        Bingung mulai dari mana?
+                                    </h3>
+
+                                    <p class="text-sm text-gray-400 mt-2 leading-relaxed">
+                                        Hitung perkiraan cicilan dan cari hunian
+                                        yang sesuai kemampuan Anda.
+                                    </p>
+
+                                    <a
+                                        href="#"
+                                        class="inline-flex items-center gap-2
+                                               mt-5 px-4 py-2.5
+                                               rounded-xl
+                                               bg-yellow-400 hover:bg-yellow-500
+                                               text-sm font-semibold text-black
+                                               transition"
+                                    >
+                                        Mulai Simulasi
+
+                                        <i data-lucide="arrow-right"
+                                           class="w-4 h-4"></i>
+                                    </a>
+
+                                </div>
+
                             </div>
 
                         </div>
@@ -530,7 +780,6 @@
                 </button>
 
 
-                {{-- MEGA MENU PROYEK BARU --}}
                 <div
                     class="absolute left-0 top-full w-full
                            bg-white border-t border-gray-100
@@ -547,10 +796,10 @@
 
                         <div class="grid grid-cols-3 gap-10">
 
-                            {{-- Proyek Rumah --}}
+                            {{-- Hunian --}}
                             <div>
                                 <h3 class="text-base font-bold text-gray-950 mb-4">
-                                    Proyek Rumah
+                                    Hunian Baru
                                 </h3>
 
                                 <div class="space-y-3">
@@ -574,10 +823,10 @@
                             </div>
 
 
-                            {{-- Berdasarkan Area --}}
+                            {{-- Area --}}
                             <div>
                                 <h3 class="text-base font-bold text-gray-950 mb-4">
-                                    Berdasarkan Area
+                                    Area Jember
                                 </h3>
 
                                 <div class="space-y-3">
@@ -597,14 +846,19 @@
                                         Sumbersari
                                     </a>
 
+                                    <a href="#"
+                                       class="block text-sm text-gray-600 hover:text-yellow-500">
+                                        Patrang
+                                    </a>
+
                                 </div>
                             </div>
 
 
-                            {{-- Pilihan Populer --}}
+                            {{-- Pilihan --}}
                             <div>
                                 <h3 class="text-base font-bold text-gray-950 mb-4">
-                                    Pilihan Populer
+                                    Pilihan
                                 </h3>
 
                                 <div class="space-y-3">
@@ -616,12 +870,12 @@
 
                                     <a href="#"
                                        class="block text-sm text-gray-600 hover:text-yellow-500">
-                                        Proyek Terlaris
+                                        Siap Huni
                                     </a>
 
                                     <a href="#"
                                        class="block text-sm text-gray-600 hover:text-yellow-500">
-                                        Proyek Premium
+                                        Pilihan KPR
                                     </a>
 
                                 </div>
@@ -668,7 +922,7 @@
 
                         <div class="grid grid-cols-3 gap-10">
 
-                            {{-- Cari Agen --}}
+                            {{-- Cari --}}
                             <div>
                                 <h3 class="text-base font-bold text-gray-950 mb-4">
                                     Cari Agen
@@ -695,27 +949,27 @@
                             </div>
 
 
-                            {{-- Berdasarkan Lokasi --}}
+                            {{-- Area --}}
                             <div>
                                 <h3 class="text-base font-bold text-gray-950 mb-4">
-                                    Berdasarkan Lokasi
+                                    Agen Jember
                                 </h3>
 
                                 <div class="space-y-3">
 
                                     <a href="#"
                                        class="block text-sm text-gray-600 hover:text-yellow-500">
-                                        Agen Jember
+                                        Kaliwates
                                     </a>
 
                                     <a href="#"
                                        class="block text-sm text-gray-600 hover:text-yellow-500">
-                                        Agen Kaliwates
+                                        Sumbersari
                                     </a>
 
                                     <a href="#"
                                        class="block text-sm text-gray-600 hover:text-yellow-500">
-                                        Agen Sumbersari
+                                        Patrang
                                     </a>
 
                                 </div>
@@ -784,10 +1038,10 @@
 
                         <div class="grid grid-cols-4 gap-10">
 
-                            {{-- Panduan Membeli --}}
+                            {{-- Membeli --}}
                             <div>
                                 <h3 class="text-base font-bold text-gray-950 mb-4">
-                                    Panduan Membeli
+                                    Membeli
                                 </h3>
 
                                 <div class="space-y-3">
@@ -811,10 +1065,10 @@
                             </div>
 
 
-                            {{-- Pembiayaan --}}
+                            {{-- KPR --}}
                             <div>
                                 <h3 class="text-base font-bold text-gray-950 mb-4">
-                                    Pembiayaan
+                                    KPR
                                 </h3>
 
                                 <div class="space-y-3">
@@ -838,10 +1092,10 @@
                             </div>
 
 
-                            {{-- Jual Properti --}}
+                            {{-- Menjual --}}
                             <div>
                                 <h3 class="text-base font-bold text-gray-950 mb-4">
-                                    Jual Properti
+                                    Menjual
                                 </h3>
 
                                 <div class="space-y-3">
@@ -938,7 +1192,7 @@
 
                         <div class="grid grid-cols-4 gap-10">
 
-                            {{-- Tentang Putra --}}
+                            {{-- Tentang --}}
                             <div>
                                 <h3 class="text-base font-bold text-gray-950 mb-4">
                                     Tentang Putra
@@ -1064,20 +1318,24 @@
                        text-sm font-semibold text-gray-900
                        hover:bg-gray-50 transition"
             >
+
                 <i data-lucide="house-plus" class="w-5 h-5"></i>
 
                 <span>Jual Properti</span>
+
             </button>
 
 
-            {{-- Properti Tersimpan --}}
+            {{-- Favorit --}}
             <button
                 class="hidden md:flex w-10 h-10 rounded-full
                        items-center justify-center
                        hover:bg-gray-100 transition"
                 aria-label="Properti tersimpan"
             >
+
                 <i data-lucide="heart" class="w-5 h-5"></i>
+
             </button>
 
 
@@ -1093,7 +1351,7 @@
             </a>
 
 
-            {{-- MOBILE MENU BUTTON --}}
+            {{-- MOBILE MENU --}}
             <button
                 @click="open = !open"
                 class="lg:hidden w-10 h-10 rounded-xl
@@ -1104,12 +1362,10 @@
                 :aria-expanded="open"
             >
 
-                {{-- Menu Icon --}}
                 <span x-show="!open" x-cloak>
                     <i data-lucide="menu" class="w-5 h-5"></i>
                 </span>
 
-                {{-- Close Icon --}}
                 <span x-show="open" x-cloak>
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </span>
@@ -1122,7 +1378,7 @@
 
 
     {{-- ================================================= --}}
-    {{-- MOBILE MENU PANEL --}}
+    {{-- MOBILE MENU --}}
     {{-- ================================================= --}}
 
     <div
@@ -1168,7 +1424,7 @@
                     class="px-4 py-3 rounded-xl text-sm font-medium
                            text-gray-900 hover:bg-gray-50 transition"
                 >
-                    Tentang
+                    KPR
                 </a>
 
                 <a
@@ -1177,7 +1433,34 @@
                     class="px-4 py-3 rounded-xl text-sm font-medium
                            text-gray-900 hover:bg-gray-50 transition"
                 >
-                    Galeri
+                    Proyek Baru
+                </a>
+
+                <a
+                    href="#"
+                    @click="open = false"
+                    class="px-4 py-3 rounded-xl text-sm font-medium
+                           text-gray-900 hover:bg-gray-50 transition"
+                >
+                    Cari Agen
+                </a>
+
+                <a
+                    href="#"
+                    @click="open = false"
+                    class="px-4 py-3 rounded-xl text-sm font-medium
+                           text-gray-900 hover:bg-gray-50 transition"
+                >
+                    Panduan
+                </a>
+
+                <a
+                    href="#"
+                    @click="open = false"
+                    class="px-4 py-3 rounded-xl text-sm font-medium
+                           text-gray-900 hover:bg-gray-50 transition"
+                >
+                    Tentang
                 </a>
 
                 <a
@@ -1201,9 +1484,11 @@
                            text-sm font-semibold text-gray-900
                            hover:bg-gray-50 transition"
                 >
+
                     <i data-lucide="house-plus" class="w-5 h-5"></i>
 
                     <span>Jual Properti</span>
+
                 </a>
 
 
@@ -1215,9 +1500,11 @@
                            text-sm font-semibold text-gray-900
                            hover:bg-gray-50 transition"
                 >
+
                     <i data-lucide="heart" class="w-5 h-5"></i>
 
                     <span>Properti Tersimpan</span>
+
                 </a>
 
 
