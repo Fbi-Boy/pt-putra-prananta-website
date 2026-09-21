@@ -1,0 +1,33 @@
+companyProfile
+    (isi companyProfile)
+    -navbar
+    -panelsearch
+    -adverstiment
+    -recomended property
+    -
+    -
+    -
+    -
+    -
+    -
+    -
+    -
+    -
+    -
+    -
+    -
+    -
+    -
+    -
+    -
+    -
+
+
+    (isi menu navbar)
+    -
+    -
+
+    (isi menu fitur)
+    -
+    -
+
