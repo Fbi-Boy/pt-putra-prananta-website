@@ -22,7 +22,7 @@ class CompanyProfileController extends Controller
     public function kpr()
     {
         return view('company_profile.navbar_page.kpr.index');
-    }
+    } 
 
     public function panduan()
     {

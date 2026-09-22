@@ -9,7 +9,7 @@ Route::get('/', function () {
 
 // ================================
 // NAVBAR PAGE
-// ================================
+// ================================ 
 
 Route::get('/beli', [CompanyProfileController::class, 'beli'])
     ->name('company.beli');

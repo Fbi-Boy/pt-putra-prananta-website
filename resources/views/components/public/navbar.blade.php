@@ -51,313 +51,58 @@
         <div class="hidden lg:flex items-center ml-12 gap-7 h-full">
 
 
-            {{-- =================================================
-                BELI
-            ================================================== --}}
-
-            <div class="group h-full flex items-center">
-
-                <button
-                    type="button"
-                    class="h-full flex items-center gap-1.5
-                           text-[15px] font-semibold
-                           text-gray-900
-                           hover:text-yellow-500
-                           transition"
-                >
-                    Beli
-
-                    <i
-                        data-lucide="chevron-down"
-                        class="w-4 h-4 transition-transform duration-200
-                               group-hover:rotate-180"
-                    ></i>
-                </button>
-
-
-                <div
-                    class="absolute left-0 top-full w-full
-                           bg-white
-                           border-t border-gray-100
-                           shadow-[0_18px_45px_rgba(0,0,0,0.08)]
-                           opacity-0 invisible
-                           -translate-y-2
-                           group-hover:opacity-100
-                           group-hover:visible
-                           group-hover:translate-y-0
-                           transition-all duration-200"
-                >
-
-                    <div class="max-w-[1440px] mx-auto px-6 lg:px-10 py-8">
-
-                        <div class="grid grid-cols-12 gap-8">
-
-                            {{-- CATEGORY FEATURE --}}
-
-                            <div class="col-span-8">
-
-                                <div class="flex items-center justify-between mb-5">
-
-                                    <div>
-                                        <p class="text-xs font-bold uppercase tracking-wider text-yellow-600">
-                                            Temukan properti
-                                        </p>
-
-                                        <h3 class="text-xl font-bold text-gray-950 mt-1">
-                                            Mau cari properti apa?
-                                        </h3>
-                                    </div>
-
-                                    <a
-                                        href="#"
-                                        class="text-sm font-semibold text-gray-900
-                                               hover:text-yellow-500
-                                               flex items-center gap-1.5 transition"
-                                    >
-                                        Lihat semua
-
-                                        <i
-                                            data-lucide="arrow-right"
-                                            class="w-4 h-4"
-                                        ></i>
-                                    </a>
-
-                                </div>
-
-
-                                <div class="grid grid-cols-4 gap-3">
-
-                                    {{-- Rumah --}}
-
-                                    <a
-                                        href="#"
-                                        class="group/card p-4 rounded-2xl
-                                               border border-gray-200
-                                               hover:border-yellow-300
-                                               hover:bg-yellow-50/50
-                                               transition"
-                                    >
-                                        <div
-                                            class="w-11 h-11 rounded-xl
-                                                   bg-gray-100
-                                                   group-hover/card:bg-yellow-100
-                                                   flex items-center justify-center
-                                                   transition"
-                                        >
-                                            <i
-                                                data-lucide="house"
-                                                class="w-5 h-5 text-gray-800"
-                                            ></i>
-                                        </div>
-
-                                        <h4 class="mt-4 font-bold text-sm text-gray-950">
-                                            Rumah
-                                        </h4>
-
-                                        <p class="mt-1 text-xs text-gray-500 leading-relaxed">
-                                            Rumah baru, second, dan keluarga
-                                        </p>
-                                    </a>
-
-
-                                    {{-- Tanah --}}
-
-                                    <a
-                                        href="#"
-                                        class="group/card p-4 rounded-2xl
-                                               border border-gray-200
-                                               hover:border-yellow-300
-                                               hover:bg-yellow-50/50
-                                               transition"
-                                    >
-                                        <div
-                                            class="w-11 h-11 rounded-xl
-                                                   bg-gray-100
-                                                   group-hover/card:bg-yellow-100
-                                                   flex items-center justify-center
-                                                   transition"
-                                        >
-                                            <i
-                                                data-lucide="map"
-                                                class="w-5 h-5 text-gray-800"
-                                            ></i>
-                                        </div>
-
-                                        <h4 class="mt-4 font-bold text-sm text-gray-950">
-                                            Tanah
-                                        </h4>
-
-                                        <p class="mt-1 text-xs text-gray-500 leading-relaxed">
-                                            Kavling dan tanah siap dimiliki
-                                        </p>
-                                    </a>
-
-
-                                    {{-- Kos --}}
-
-                                    <a
-                                        href="#"
-                                        class="group/card p-4 rounded-2xl
-                                               border border-gray-200
-                                               hover:border-yellow-300
-                                               hover:bg-yellow-50/50
-                                               transition"
-                                    >
-                                        <div
-                                            class="w-11 h-11 rounded-xl
-                                                   bg-gray-100
-                                                   group-hover/card:bg-yellow-100
-                                                   flex items-center justify-center
-                                                   transition"
-                                        >
-                                            <i
-                                                data-lucide="building-2"
-                                                class="w-5 h-5 text-gray-800"
-                                            ></i>
-                                        </div>
-
-                                        <h4 class="mt-4 font-bold text-sm text-gray-950">
-                                            Kos
-                                        </h4>
-
-                                        <p class="mt-1 text-xs text-gray-500 leading-relaxed">
-                                            Kos mahasiswa dan hunian
-                                        </p>
-                                    </a>
-
-
-                                    {{-- Hunian --}}
-
-                                    <a
-                                        href="#"
-                                        class="group/card p-4 rounded-2xl
-                                               border border-gray-200
-                                               hover:border-yellow-300
-                                               hover:bg-yellow-50/50
-                                               transition"
-                                    >
-                                        <div
-                                            class="w-11 h-11 rounded-xl
-                                                   bg-gray-100
-                                                   group-hover/card:bg-yellow-100
-                                                   flex items-center justify-center
-                                                   transition"
-                                        >
-                                            <i
-                                                data-lucide="heart"
-                                                class="w-5 h-5 text-gray-800"
-                                            ></i>
-                                        </div>
-
-                                        <h4 class="mt-4 font-bold text-sm text-gray-950">
-                                            Hunian
-                                        </h4>
-
-                                        <p class="mt-1 text-xs text-gray-500 leading-relaxed">
-                                            Hunian nyaman untuk keluarga
-                                        </p>
-                                    </a>
-
-                                </div>
-
-                            </div>
-
-
-                            {{-- AREA JEMBER --}}
-
-                            <div class="col-span-4">
-
-                                <div
-                                    class="h-full rounded-2xl
-                                           bg-gray-950
-                                           text-white
-                                           p-6"
-                                >
-
-                                    <div class="flex items-center gap-2">
-
-                                        <div
-                                            class="w-9 h-9 rounded-xl
-                                                   bg-yellow-400
-                                                   flex items-center justify-center"
-                                        >
-                                            <i
-                                                data-lucide="map-pin"
-                                                class="w-4 h-4 text-black"
-                                            ></i>
-                                        </div>
-
-                                        <span class="text-xs font-bold uppercase tracking-wider text-yellow-400">
-                                            Area Jember
-                                        </span>
-
-                                    </div>
-
-
-                                    <h3 class="text-xl font-bold mt-5">
-                                        Cari berdasarkan lokasi
-                                    </h3>
-
-                                    <p class="text-sm text-gray-400 mt-2 leading-relaxed">
-                                        Temukan properti di area yang paling sesuai dengan kebutuhan Anda.
-                                    </p>
-
-
-                                    <div class="grid grid-cols-2 gap-x-5 gap-y-3 mt-6">
-
-                                        <a href="#" class="text-sm text-gray-300 hover:text-yellow-400 transition">
-                                            Kaliwates
-                                        </a>
-
-                                        <a href="#" class="text-sm text-gray-300 hover:text-yellow-400 transition">
-                                            Sumbersari
-                                        </a>
-
-                                        <a href="#" class="text-sm text-gray-300 hover:text-yellow-400 transition">
-                                            Patrang
-                                        </a>
-
-                                        <a href="#" class="text-sm text-gray-300 hover:text-yellow-400 transition">
-                                            Ajung
-                                        </a>
-
-                                        <a href="#" class="text-sm text-gray-300 hover:text-yellow-400 transition">
-                                            Rambipuji
-                                        </a>
-
-                                        <a href="#" class="text-sm text-gray-300 hover:text-yellow-400 transition">
-                                            Balung
-                                        </a>
-
-                                    </div>
-
-
-                                    <a
-                                        href="#"
-                                        class="mt-7 inline-flex items-center gap-2
-                                               text-sm font-semibold
-                                               text-yellow-400
-                                               hover:text-yellow-300 transition"
-                                    >
-                                        Jelajahi Jember
-
-                                        <i
-                                            data-lucide="arrow-right"
-                                            class="w-4 h-4"
-                                        ></i>
-                                    </a>
-
-                                </div>
-
-                            </div>
-
-                        </div>
+        {{-- =================================================
+            BELI
+        ================================================== --}}
+
+        <div class="group h-full flex items-center">
+
+            {{-- TRIGGER BELI --}}
+            <a
+                href="{{ route('company.beli') }}"
+                class="h-full flex items-center gap-1.5
+                    text-[15px] font-semibold
+                    text-gray-900
+                    hover:text-yellow-500
+                    transition"
+            >
+                Beli
+
+                <i
+                    data-lucide="chevron-down"
+                    class="w-4 h-4 transition-transform duration-200
+                        group-hover:rotate-180"
+                ></i>
+            </a>
+
+
+            {{-- DROPDOWN BELI --}}
+            <div
+                class="absolute left-0 top-full w-full
+                    bg-white
+                    border-t border-gray-100
+                    shadow-[0_18px_45px_rgba(0,0,0,0.08)]
+                    opacity-0 invisible
+                    -translate-y-2
+                    group-hover:opacity-100
+                    group-hover:visible
+                    group-hover:translate-y-0
+                    transition-all duration-200"
+            >
+
+                <div class="max-w-[1440px] mx-auto px-6 lg:px-10 py-8">
+
+                    <div class="grid grid-cols-12 gap-8">
+
+                        {{-- ISI DROPDOWN BELI TETAP PAKAI KODE LAMA --}}
 
                     </div>
 
                 </div>
 
             </div>
+
+        </div>
 
 
             {{-- =================================================
