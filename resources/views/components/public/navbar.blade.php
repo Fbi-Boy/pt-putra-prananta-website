@@ -59,7 +59,8 @@
 
             {{-- TRIGGER BELI --}}
             <a
-                href="{{ route('company.beli') }}"
+                {{-- href="{{ route('company.beli') }}" --}}
+                href=""
                 class="h-full flex items-center gap-1.5
                     text-[15px] font-semibold
                     text-gray-900
