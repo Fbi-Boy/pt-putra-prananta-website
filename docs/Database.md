@@ -11,18 +11,18 @@
 
 ## 📋 Daftar Isi
 
-1. [Overview](#overview)
-2. [ERD](#erd)
-3. [Domain Auth](#domain-1--auth)
-4. [Domain Master](#domain-2--master-data)
-5. [Domain Core](#domain-3--core)
-6. [Domain Interaction](#domain-4--interaction)
-7. [Domain Content](#domain-5--content)
-8. [Matriks Relasi](#matriks-relasi)
-9. [Seed Data](#seed-data)
-10. [Business Rules](#business-rules)
-11. [Storage Strategy](#storage-strategy)
-12. [Changelog](#changelog)
+1.  [Overview](                 #overview)
+2.  [ERD](                      #erd)
+3.  [Domain Auth](              #domain-1--auth)
+4.  [Domain Master](            #domain-2--master-data)
+5.  [Domain Core](              #domain-3--core)
+6.  [Domain Interaction](       #domain-4--interaction)
+7.  [Domain Content](           #domain-5--content)
+8.  [Matriks Relasi](           #matriks-relasi)
+9.  [Seed Data](                #seed-data)
+10. [Business Rules](           #business-rules)
+11. [Storage Strategy](         #storage-strategy)
+12. [Changelog](                #changelog)
 
 ---
 
@@ -34,25 +34,25 @@
 
 ### Ringkasan Tabel
 
-| # | Tabel | Domain | Estimasi Volume (1 thn) |
-|---|---|---|---|
-| 1 | `users` | Auth | 100-1000 |
-| 2 | `property_types` | Master | 8 |
-| 3 | `areas` | Master | 20-50 |
-| 4 | `banks` | Master | 1-10 |
-| 5 | `facilities` | Master | 10-30 |
-| 6 | `agents` | Core | 5-20 |
-| 7 | `agent_areas` | Core (pivot) | 10-100 |
-| 8 | `properties` | **Core ⭐** | 100-500 |
-| 9 | `property_images` | Core | 1000-5000 |
-| 10 | `property_facilities` | Core (pivot) | 500-3000 |
-| 11 | `favorites` | Interaction | 200-2000 |
-| 12 | `inquiries` | Interaction | 100-1000 |
-| 13 | `kpr_applications` | Interaction | 50-500 |
-| 14 | `testimonials` | Content | 4-20 |
-| 15 | `news` | Content | 20-100 |
-| 16 | `developers` | Content | 8-30 |
-| 17 | `advertisements` | Content | 1-10 |
+| #  | Tabel                 | Domain       | Estimasi Volume (1 thn) |
+
+| 1  | `users`               | Auth         | 100-1000                |
+| 2  | `property_types`      | Master       | 8                       |
+| 3  | `areas`               | Master       | 20-50                   |
+| 4  | `banks`               | Master       | 1-10                    |
+| 5  | `facilities`          | Master       | 10-30                   |
+| 6  | `agents`              | Core         | 5-20                    |
+| 7  | `agent_areas`         | Core (pivot) | 10-100                  |
+| 8  | `properties`          |**Core**      | 100-500                 |
+| 9  | `property_images`     | Core         | 1000-5000               |
+| 10 | `property_facilities` | Core (pivot) | 500-3000                |
+| 11 | `favorites`           | Interaction  | 200-2000                |
+| 12 | `inquiries`           | Interaction  | 100-1000                |
+| 13 | `kpr_applications`    | Interaction  | 50-500                  |
+| 14 | `testimonials`        | Content      | 4-20                    |
+| 15 | `news`                | Content      | 20-100                  |
+| 16 | `developers`          | Content      | 8-30                    |
+| 17 | `advertisements`      | Content      | 1-10                    |
 
 ---
 
@@ -144,7 +144,7 @@
 | `created_at`, `updated_at` | timestamp | ✅ | NULL | |
 
 **Index:** `email` (unique), `google_id` (unique), `role`
-
+ 
 **Relasi keluar:**
 - `hasMany` → `favorites`
 - `hasMany` → `inquiries`
