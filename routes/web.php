@@ -8,8 +8,9 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // NAVBAR PAGE
 // ================================
 
-// Route::get('/beli', [CompanyProfileController::class, 'beli'])
-//     ->name('company.beli');
+Route::get('/beli', function () {
+    return view('properties.index');
+})->name('properties.sale');
 
 // Route::get('/jual', [CompanyProfileController::class, 'jual'])
 //     ->name('company.jual');

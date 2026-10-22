@@ -1,46 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <title>Document</title>
-</head>
-<body>
-    <x-public.navbar />
+@extends('components.layout.app')
+
+@section('title', config('company.name') . ' — ' . config('company.full_name'))
+
+@section('content')
+
+    {{-- Hero Banner --}}
     <section class="relative">
-
-        <img
-            src="{{ asset('images/banner-property.png') }}"
-            class="w-full h-[300px] object-cover"
-            alt="Property"
-        >
-
-        {{-- Search Panel --}}
+        <img src="{{ asset('images/banner-property.png') }}"
+             class="w-full h-[300px] object-cover"
+             alt="Property">
         <div class="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 z-10">
             <x-public.search-panel />
         </div>
-
     </section>
 
-    {{-- RUANG UNTUK SEARCH PANEL --}}
     <div class="h-[50px]"></div>
 
-    {{-- Menu --}}
     <div class="mt-24">
         <x-public.menu />
     </div>
 
     <x-public.developer-logo />
 
-
-    {{-- Iklan --}}
     <x-public.advertisement />
 
     @php
-
         $popularProperties = [
-
             [
                 'title' => 'Rumah Minimalis Modern Dekat Pusat Kota Jember',
                 'price' => 'Rp 850 Juta',
@@ -51,14 +36,11 @@
                 'bedrooms' => 3,
                 'bathrooms' => 2,
                 'date' => '6 Sep 2026',
-
-                // DATA AGENT
                 'agent_name' => 'Budi Santoso',
                 'agent_area' => 'Kaliwates, Jember',
                 'agent_image' => asset('images/agents/agent.png'),
                 'agent_whatsapp' => 'https://wa.me/6281234567890',
             ],
-
             [
                 'title' => 'Rumah Mewah dengan Halaman Luas',
                 'price' => 'Rp 1,2 Miliar',
@@ -69,14 +51,11 @@
                 'bedrooms' => 4,
                 'bathrooms' => 3,
                 'date' => '5 Sep 2026',
-
-                // DATA AGENT
                 'agent_name' => 'Budi Santoso',
                 'agent_area' => 'Kaliwates, Jember',
                 'agent_image' => asset('images/agents/agent.png'),
                 'agent_whatsapp' => 'https://wa.me/6281234567890',
             ],
-
             [
                 'title' => 'Rumah Strategis Dekat Kampus',
                 'price' => 'Rp 650 Juta',
@@ -87,14 +66,11 @@
                 'bedrooms' => 3,
                 'bathrooms' => 2,
                 'date' => '4 Sep 2026',
-
-                // DATA AGENT
                 'agent_name' => 'Budi Santoso',
                 'agent_area' => 'Kaliwates, Jember',
                 'agent_image' => asset('images/agents/agent.png'),
                 'agent_whatsapp' => 'https://wa.me/6281234567890',
             ],
-
             [
                 'title' => 'Rumah Keluarga Nyaman di Lokasi Strategis',
                 'price' => 'Rp 975 Juta',
@@ -105,14 +81,11 @@
                 'bedrooms' => 4,
                 'bathrooms' => 2,
                 'date' => '3 Sep 2026',
-
-                // DATA AGENT
                 'agent_name' => 'Budi Santoso',
                 'agent_area' => 'Kaliwates, Jember',
                 'agent_image' => asset('images/agents/agent.png'),
                 'agent_whatsapp' => 'https://wa.me/6281234567890',
             ],
-
         ];
 
         $latestProperties = [
@@ -126,8 +99,6 @@
                 'bedrooms' => 3,
                 'bathrooms' => 2,
                 'date' => 'Hari ini',
-
-                // DATA AGENT
                 'agent_name' => 'Budi Santoso',
                 'agent_area' => 'Kaliwates, Jember',
                 'agent_image' => asset('images/agents/agent.png'),
@@ -143,8 +114,6 @@
                 'bedrooms' => 0,
                 'bathrooms' => 0,
                 'date' => 'Hari ini',
-
-                // DATA AGENT
                 'agent_name' => 'Budi Santoso',
                 'agent_area' => 'Kaliwates, Jember',
                 'agent_image' => asset('images/agents/agent.png'),
@@ -160,8 +129,6 @@
                 'bedrooms' => 4,
                 'bathrooms' => 2,
                 'date' => 'Kemarin',
-
-                // DATA AGENT
                 'agent_name' => 'Budi Santoso',
                 'agent_area' => 'Kaliwates, Jember',
                 'agent_image' => asset('images/agents/agent.png'),
@@ -177,8 +144,6 @@
                 'bedrooms' => 3,
                 'bathrooms' => 2,
                 'date' => 'Kemarin',
-
-                // DATA AGENT
                 'agent_name' => 'Budi Santoso',
                 'agent_area' => 'Kaliwates, Jember',
                 'agent_image' => asset('images/agents/agent.png'),
@@ -195,9 +160,9 @@
     />
 
     <x-property.section
-    title="Properti Terpopuler"
-    :properties="$popularProperties"
-    view-all-url="#"
+        title="Properti Terpopuler"
+        :properties="$popularProperties"
+        view-all-url="#"
     />
 
     <x-property.section
@@ -207,53 +172,41 @@
         background="bg-[#FFF4EA]"
     />
 
-        <!-- TESTIMONIAL -->
-        @php
-            $testimonials = [
-                [
-                    'name' => 'Andi Pratama',
-                    'role' => 'CEO, PT Sejahtera',
-                    'image' => asset('images/testimoni.png'),
-                    'rating' => '5.0',
-                    'message' => 'Pelayanannya sangat profesional. Saya dibantu dari awal mencari properti sampai proses transaksi selesai.',
-                ],
+    @php
+        $testimonials = [
+            [
+                'name' => 'Andi Pratama',
+                'role' => 'CEO, PT Sejahtera',
+                'image' => asset('images/testimoni.png'),
+                'rating' => '5.0',
+                'message' => 'Pelayanannya sangat profesional. Saya dibantu dari awal mencari properti sampai proses transaksi selesai.',
+            ],
+            [
+                'name' => 'Siti Rahma',
+                'role' => 'Pengusaha',
+                'image' => asset('images/testimoni.png'),
+                'rating' => '5.0',
+                'message' => 'Proses mencari rumah jadi jauh lebih mudah. Timnya responsif dan memberikan informasi yang sangat jelas.',
+            ],
+            [
+                'name' => 'Rizky Maulana',
+                'role' => 'Karyawan Swasta',
+                'image' => asset('images/testimoni.png'),
+                'rating' => '5.0',
+                'message' => 'Saya sangat puas dengan pelayanan yang diberikan. Semua proses dijelaskan dengan baik dan transparan.',
+            ],
+            [
+                'name' => 'Dewi Lestari',
+                'role' => 'Wiraswasta',
+                'image' => asset('images/testimoni.png'),
+                'rating' => '5.0',
+                'message' => 'Pengalaman yang sangat menyenangkan. Properti yang ditawarkan sesuai dengan kebutuhan dan budget saya.',
+            ],
+        ];
+    @endphp
 
-                [
-                    'name' => 'Siti Rahma',
-                    'role' => 'Pengusaha',
-                    'image' => asset('images/testimoni.png'),
-                    'rating' => '5.0',
-                    'message' => 'Proses mencari rumah jadi jauh lebih mudah. Timnya responsif dan memberikan informasi yang sangat jelas.',
-                ],
+    <x-public.news />
 
-                [
-                    'name' => 'Rizky Maulana',
-                    'role' => 'Karyawan Swasta',
-                    'image' => asset('images/testimoni.png'),
-                    'rating' => '5.0',
-                    'message' => 'Saya sangat puas dengan pelayanan yang diberikan. Semua proses dijelaskan dengan baik dan transparan.',
-                ],
+    <x-public.testimonial-card :testimonials="$testimonials" />
 
-                [
-                    'name' => 'Dewi Lestari',
-                    'role' => 'Wiraswasta',
-                    'image' => asset('images/testimoni.png'),
-                    'rating' => '5.0',
-                    'message' => 'Pengalaman yang sangat menyenangkan. Properti yang ditawarkan sesuai dengan kebutuhan dan budget saya.',
-                ],
-            ];
-        @endphp
-
-        <x-public.news
-        />
-
-
-        <x-public.testimonial-card
-            :testimonials="$testimonials"
-        />
-
-    {{-- Footer --}}
-    <x-public.footer />
-
-</body>
-</html>
+@endsection
