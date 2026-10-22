@@ -1,392 +1,272 @@
-# DATABASE SCHEMA — PT Putra Prananta Property
+# 📚 DATABASE SCHEMA v1.1 — Final (Per Domain)
 
-> **Versi:** 1.0  
-> **Database:** MySQL (Laragon)  
-> **Nama DB:** `pre-property`  
-> **Charset:** `utf8mb4` / `utf8mb4_unicode_ci`  
+> **Database:** `pre-property` (MySQL)  
 > **Framework:** Laravel 11  
-> **Terakhir update:** 2026-10-19
+> **Total:** 17 tabel dalam 6 domain  
+> **Update:** Konsep agent login + submission workflow
 
 ---
 
-## 📋 Daftar Isi
+## 🗂️ Overview Domain
 
-1.  [Overview](                 #overview)
-2.  [ERD](                      #erd)
-3.  [Domain Auth](              #domain-1--auth)
-4.  [Domain Master](            #domain-2--master-data)
-5.  [Domain Core](              #domain-3--core)
-6.  [Domain Interaction](       #domain-4--interaction)
-7.  [Domain Content](           #domain-5--content)
-8.  [Matriks Relasi](           #matriks-relasi)
-9.  [Seed Data](                #seed-data)
-10. [Business Rules](           #business-rules)
-11. [Storage Strategy](         #storage-strategy)
-12. [Changelog](                #changelog)
+| Domain | Tabel | Fungsi |
+|---|---|---|
+| 🔐 **Auth** | `users` | Login & role (user/agent/admin) |
+| 📖 **Master** | `property_types`, `areas`, `banks`, `facilities` | Data referensi |
+| 🕵️ **Agent** | `agents`, `agent_areas` | Profil agen + wilayah |
+| 🏠 **Core** | `properties`, `property_images`, `property_facilities` | Properti aktif |
+| 📬 **Submission** | `property_submissions` | Submission pending verifikasi |
+| 💬 **Interaction** | `favorites`, `inquiries`, `kpr_applications` | Aktivitas user |
+| 📰 **Content** | `testimonials`, `news`, `developers`, `advertisements` | Konten website |
 
 ---
 
-## Overview
+# 🔐 DOMAIN 1 — AUTH
 
-- **Total tabel domain:** 17
-- **Domain:** Auth (1), Master (4), Core (5), Interaction (3), Content (4)
-- **Konfigurasi:** `config/company.php` (bukan tabel `settings`)
+## `users` — Login & Identitas Dasar
 
-### Ringkasan Tabel
+**Fungsi:** Autentikasi semua user (customer, agent, admin). Agent punya baris di sini **dan** di tabel `agents`.
 
-| #  | Tabel                 | Domain       | Estimasi Volume (1 thn) |
+| # | Kolom | Tipe | Null | Default | Keterangan |
+|---|---|---|---|---|---|
+| 1 | `id` | bigint unsigned | ❌ | auto | PK |
+| 2 | `name` | varchar(255) | ❌ | — | Nama display dasar |
+| 3 | `email` | varchar(255) | ❌ | — | **UNIQUE** — untuk login |
+| 4 | `email_verified_at` | timestamp | ✅ | NULL | Auto-set saat Google login |
+| 5 | `password` | varchar(255) | ✅ | NULL | **Nullable** — user Google tidak punya password |
+| 6 | `google_id` | varchar(255) | ✅ | NULL | **UNIQUE** — Google `sub` claim |
+| 7 | `avatar` | varchar(255) | ✅ | NULL | URL foto Google |
+| 8 | `role` | varchar(20) | ❌ | `'user'` | `user` \| `agent` \| `admin` |
+| 9 | `phone` | varchar(20) | ✅ | NULL | Nomor HP user |
+| 10 | `is_active` | tinyint(1) | ❌ | `1` | Nonaktif tanpa hapus |
+| 11 | `remember_token` | varchar(100) | ✅ | NULL | Laravel default |
+| 12 | `created_at` | timestamp | ✅ | NULL | |
+| 13 | `updated_at` | timestamp | ✅ | NULL | |
 
-| 1  | `users`               | Auth         | 100-1000                |
-| 2  | `property_types`      | Master       | 8                       |
-| 3  | `areas`               | Master       | 20-50                   |
-| 4  | `banks`               | Master       | 1-10                    |
-| 5  | `facilities`          | Master       | 10-30                   |
-| 6  | `agents`              | Core         | 5-20                    |
-| 7  | `agent_areas`         | Core (pivot) | 10-100                  |
-| 8  | `properties`          |**Core**      | 100-500                 |
-| 9  | `property_images`     | Core         | 1000-5000               |
-| 10 | `property_facilities` | Core (pivot) | 500-3000                |
-| 11 | `favorites`           | Interaction  | 200-2000                |
-| 12 | `inquiries`           | Interaction  | 100-1000                |
-| 13 | `kpr_applications`    | Interaction  | 50-500                  |
-| 14 | `testimonials`        | Content      | 4-20                    |
-| 15 | `news`                | Content      | 20-100                  |
-| 16 | `developers`          | Content      | 8-30                    |
-| 17 | `advertisements`      | Content      | 1-10                    |
+**Index:** `email` (unique), `google_id` (unique), `role`  
+**Relasi keluar:** → `favorites`, `inquiries`, `kpr_applications`, `properties.created_by`, `news.author_id`, `agents.user_id` (1:1), `property_submissions.submitted_by`
 
 ---
 
-## ERD
+# 📖 DOMAIN 2 — MASTER DATA
 
-```
-┌─────────────┐
-│   users     │
-└──┬──────┬───┘
-   │      │ 1:N
-   │      ├────────► favorites ◄──── N:1 ────┐
-   │      ├────────► inquiries ─────────────┤
-   │      ├────────► kpr_applications ───┐   │
-   │      └────────► news (author)       │   │
-   │                                     │   │
-   │ 1:N (created_by)                    │   │
-   ▼                                     │   │
-┌──────────────────────────────────┐    │   │
-│          properties ⭐            │◄───┼───┼──┐
-│──────────────────────────────────│    │   │  │
-│ code, title, slug, description    │    │   │  │
-│ listing_type, price, price_unit   │    │   │  │
-│ property_type_id ──► property_types  │   │  │
-│ area_id ───────────► areas        │    │   │  │
-│ agent_id ──────────► agents       │    │   │  │
-│ lat, lng, show_exact, map_radius  │    │   │  │
-│ is_recommended, is_kpr_eligible   │    │   │  │
-│ video_provider, video_id          │    │   │  │
-│ status, published_at, view_count  │    │   │  │
-└──┬──────────┬────────────┬────────┘    │   │  │
-   │          │            │             │   │  │
-   │ 1:N      │ N:M        │ N:1         │   │  │
-   ▼          ▼            ▼             │   │  │
-┌─────────┐ ┌──────────┐ ┌────────┐      │   │  │
-│property_│ │facilities│ │ banks  │◄─────┘   │  │
-│images   │ └──────────┘ └────────┘          │  │
-└─────────┘              (kpr_applications)  │  │
-                                              │  │
-┌──────────────┐  ┌────────┐  ┌────────────┐ │  │
-│ testimonials │  │  news  │  │ developers │ │  │
-└──────────────┘  └────────┘  └────────────┘ │  │
-                                              │  │
-┌────────────────┐                            │  │
-│ advertisements │                            │  │
-└────────────────┘                            │  │
-                                              │  │
-     ┌────────────────────────────────────────┘  │
-     │ (agent_areas pivot)                       │
-     ▼                                           │
-┌────────────┐         ┌─────────────────┐       │
-│   agents   │ 1:N     │  agent_areas    │ N:1   │
-│            │────────▶│ agent_id, area_id│◀──────┤
-│            │         │ is_primary      │       │
-└────────────┘         └─────────────────┘       │
-                              │                  │
-                              │ N:1              │
-                              ▼                  │
-                       ┌──────────────┐          │
-                       │    areas     │◀─────────┘
-                       │ (self-ref)   │  (properties.area_id)
-                       └──────────────┘
-                              ▲
-                              │ N:1 (parent_id)
-                              │ self
-                              └─ areas
-```
+## `property_types` — Kamus Tipe Properti
+
+| # | Kolom | Tipe | Null | Default | Keterangan |
+|---|---|---|---|---|---|
+| 1 | `id` | bigint unsigned | ❌ | auto | PK |
+| 2 | `name` | varchar(50) | ❌ | — | "Rumah", "Tanah" |
+| 3 | `slug` | varchar(50) | ❌ | — | **UNIQUE** |
+| 4 | `icon` | varchar(50) | ✅ | NULL | Nama icon Lucide |
+| 5 | `is_active` | tinyint(1) | ❌ | `1` | |
+| 6 | `order` | int | ❌ | `0` | Urutan tampil |
+| 7 | `created_at`, `updated_at` | timestamp | ✅ | NULL | |
+
+**Seed:** Rumah, Tanah, Ruko, Apartemen, Kos, Villa, Gudang, Kantor
 
 ---
 
-## Domain 1 — Auth
+## `areas` — Kamus Wilayah (Hirarki)
 
-### 1. `users`
+| # | Kolom | Tipe | Null | Default | Keterangan |
+|---|---|---|---|---|---|
+| 1 | `id` | bigint unsigned | ❌ | auto | PK |
+| 2 | `name` | varchar(100) | ❌ | — | "Jember", "Kaliwates" |
+| 3 | `slug` | varchar(100) | ❌ | — | **UNIQUE** |
+| 4 | `type` | varchar(20) | ❌ | `'district'` | `province` \| `city` \| `district` \| `village` |
+| 5 | `parent_id` | bigint unsigned | ✅ | NULL | **FK self** → `areas.id` |
+| 6 | `is_active` | tinyint(1) | ❌ | `1` | |
+| 7 | `created_at`, `updated_at` | timestamp | ✅ | NULL | |
 
-**Fungsi:** Autentikasi & identitas user. Login via Google OAuth (user) dan manual + Google (admin).
+**FK:** `parent_id` → `areas.id` **SET NULL**  
+**Relasi:** → `agents` (M:N via `agent_areas`), → `properties`
 
-| Kolom | Tipe | Null | Default | Keterangan |
-|---|---|---|---|---|
-| `id` | bigint unsigned | ❌ | auto | PK |
-| `name` | varchar(255) | ❌ | — | dari Google / input admin |
-| `email` | varchar(255) | ❌ | — | **UNIQUE** |
-| `email_verified_at` | timestamp | ✅ | NULL | auto-set saat Google login |
-| `password` | varchar(255) | ✅ | NULL | **nullable** — user Google tidak punya password |
-| `google_id` | varchar(255) | ✅ | NULL | **UNIQUE** — Google `sub` claim |
-| `avatar` | varchar(255) | ✅ | NULL | URL foto Google |
-| `role` | varchar(20) | ❌ | `'user'` | `user` \| `admin` (string, bukan enum) |
-| `phone` | varchar(20) | ✅ | NULL | |
-| `is_active` | tinyint(1) | ❌ | `1` | |
-| `remember_token` | varchar(100) | ✅ | NULL | Laravel default |
-| `created_at`, `updated_at` | timestamp | ✅ | NULL | |
-
-**Index:** `email` (unique), `google_id` (unique), `role`
- 
-**Relasi keluar:**
-- `hasMany` → `favorites`
-- `hasMany` → `inquiries`
-- `hasMany` → `kpr_applications`
-- `hasMany` → `properties` (via `created_by`)
-- `hasMany` → `news` (via `author_id`)
-
-**Catatan:**
-- `role` pakai string, bukan enum → fleksibel tambah role `marketing` tanpa ALTER TABLE
-- Login flow: user → Google only; admin → Google atau email+password
-- Admin pertama dibuat via seeder/manual
+**Seed:** Jawa Timur → Jember (+8 kecamatan), Lumajang, Bondowoso, Situbondo, Banyuwangi
 
 ---
 
-## Domain 2 — Master Data
+## `banks` — Kamus Bank KPR
 
-### 2. `property_types`
+| # | Kolom | Tipe | Null | Default | Keterangan |
+|---|---|---|---|---|---|
+| 1 | `id` | bigint unsigned | ❌ | auto | PK |
+| 2 | `name` | varchar(100) | ❌ | — | "Bank Mandiri" |
+| 3 | `code` | varchar(20) | ❌ | — | **UNIQUE** — `MANDIRI` |
+| 4 | `logo` | varchar(255) | ✅ | NULL | |
+| 5 | `interest_rate` | decimal(5,2) | ❌ | `7.50` | Bunga tahunan (%) |
+| 6 | `min_tenor` | int | ❌ | `5` | Tahun |
+| 7 | `max_tenor` | int | ❌ | `20` | Tahun |
+| 8 | `min_dp_percent` | decimal(5,2) | ❌ | `10.00` | DP minimal (%) |
+| 9 | `is_active` | tinyint(1) | ❌ | `1` | |
+| 10 | `order` | int | ❌ | `0` | |
+| 11 | `created_at`, `updated_at` | timestamp | ✅ | NULL | |
 
-**Fungsi:** Master tipe properti.
-
-| Kolom | Tipe | Null | Default | Keterangan |
-|---|---|---|---|---|
-| `id` | bigint unsigned | ❌ | auto | PK |
-| `name` | varchar(50) | ❌ | — | "Rumah", "Tanah" |
-| `slug` | varchar(50) | ❌ | — | **UNIQUE** — `rumah`, `tanah` |
-| `icon` | varchar(50) | ✅ | NULL | nama icon Lucide |
-| `is_active` | tinyint(1) | ❌ | `1` | |
-| `order` | int | ❌ | `0` | sorting tampil |
-| `created_at`, `updated_at` | timestamp | ✅ | NULL | |
-
-**Index:** `slug` (unique), `is_active`
-
-**Relasi masuk:**
-- `hasMany` ← `properties` (via `property_type_id`)
+**Relasi masuk:** ← `kpr_applications.bank_id`  
+**Seed:** Bank Mandiri saja
 
 ---
 
-### 3. `areas`
+## `facilities` — Kamus Fasilitas
 
-**Fungsi:** Hirarki wilayah (self-reference).
+| # | Kolom | Tipe | Null | Default | Keterangan |
+|---|---|---|---|---|---|
+| 1 | `id` | bigint unsigned | ❌ | auto | PK |
+| 2 | `name` | varchar(100) | ❌ | — | "AC", "Kolam Renang" |
+| 3 | `icon` | varchar(50) | ✅ | NULL | Nama icon Lucide |
+| 4 | `is_active` | tinyint(1) | ❌ | `1` | |
+| 5 | `created_at`, `updated_at` | timestamp | ✅ | NULL | |
 
-| Kolom | Tipe | Null | Default | Keterangan |
-|---|---|---|---|---|
-| `id` | bigint unsigned | ❌ | auto | PK |
-| `name` | varchar(100) | ❌ | — | "Jember", "Kaliwates" |
-| `slug` | varchar(100) | ❌ | — | **UNIQUE** — `jember-kaliwates` |
-| `type` | varchar(20) | ❌ | `'district'` | `province` \| `city` \| `district` \| `village` |
-| `parent_id` | bigint unsigned | ✅ | NULL | **FK self** → `areas.id` |
-| `is_active` | tinyint(1) | ❌ | `1` | |
-| `created_at`, `updated_at` | timestamp | ✅ | NULL | |
+**Relasi:** → `properties` (M:N via `property_facilities`)  
+**Seed:** AC, Kolam Renang, Garasi, Taman, Keamanan 24J, CCTV, Dapur Set, Wifi, Parkir Luas, Listrik 2200W
 
-**Index:** `slug` (unique), `type`, `parent_id`
+---
 
-**FK:** `parent_id` → `areas.id` **ON DELETE SET NULL**
+# 🕵️ DOMAIN 3 — AGENT
+
+## `agents` — Profil Agent (Bisa Login)
+
+**Fungsi:** Profil agent yang **terhubung ke akun login** (`users`). Agent submit properti & dapat submission dari citizen.
+
+| # | Kolom | Tipe | Null | Default | Keterangan |
+|---|---|---|---|---|---|
+| 1 | `id` | bigint unsigned | ❌ | auto | PK |
+| 2 | `user_id` | bigint unsigned | ❌ | — | **FK → users.id** — akun login agent |
+| 3 | `name` | varchar(100) | ❌ | — | Nama display agent |
+| 4 | `slug` | varchar(150) | ❌ | — | **UNIQUE** — `budi-santoso` |
+| 5 | `photo` | varchar(255) | ✅ | NULL | |
+| 6 | `phone` | varchar(20) | ❌ | — | HP agent |
+| 7 | `whatsapp` | varchar(20) | ✅ | NULL | Format `628xxx` (bisa beda dgn phone) |
+| 8 | `email` | varchar(100) | ✅ | NULL | Email bisnis (bisa beda dgn login) |
+| 9 | `bio` | text | ✅ | NULL | Deskripsi singkat |
+| 10 | `status` | varchar(20) | ❌ | `'pending'` | `pending` \| `active` \| `suspended` \| `rejected` |
+| 11 | `verified_at` | timestamp | ✅ | NULL | Kapan admin approve |
+| 12 | `verified_by` | bigint unsigned | ✅ | NULL | FK → `users.id` (admin yang approve) |
+| 13 | `rejection_reason` | text | ✅ | NULL | Alasan reject |
+| 14 | `order` | int | ❌ | `0` | Urutan tampil |
+| 15 | `created_at`, `updated_at` | timestamp | ✅ | NULL | |
+
+**Index:** `user_id` (unique), `slug` (unique), `status`  
+**FK:**
+- `user_id` → `users.id` **CASCADE**
+- `verified_by` → `users.id` **SET NULL**
 
 **Relasi:**
-- `belongsTo` → `Area` (parent)
-- `hasMany` → `Area` (children)
-- `hasMany` → `properties`
-- `belongsToMany` → `agents` (via `agent_areas`)
-
----
-
-### 4. `banks`
-
-**Fungsi:** Master bank untuk simulasi KPR.
-
-| Kolom | Tipe | Null | Default | Keterangan |
-|---|---|---|---|---|
-| `id` | bigint unsigned | ❌ | auto | PK |
-| `name` | varchar(100) | ❌ | — | "Bank Mandiri" |
-| `code` | varchar(20) | ❌ | — | **UNIQUE** — `MANDIRI` |
-| `logo` | varchar(255) | ✅ | NULL | path logo |
-| `interest_rate` | decimal(5,2) | ❌ | `7.50` | bunga tahunan (%) |
-| `min_tenor` | int | ❌ | `5` | tahun |
-| `max_tenor` | int | ❌ | `20` | tahun |
-| `min_dp_percent` | decimal(5,2) | ❌ | `10.00` | DP minimal (%) |
-| `is_active` | tinyint(1) | ❌ | `1` | |
-| `order` | int | ❌ | `0` | |
-| `created_at`, `updated_at` | timestamp | ✅ | NULL | |
-
-**Index:** `code` (unique), `is_active`
-
-**Relasi masuk:**
-- `hasMany` ← `kpr_applications`
-
-**Catatan:** `interest_rate` 1 angka (simulasi sederhana). Kalau nanti butuh bunga bertingkat (fixed/floating), tambah tabel `bank_rate_tiers`.
-
----
-
-### 5. `facilities`
-
-**Fungsi:** Master fasilitas properti.
-
-| Kolom | Tipe | Null | Default | Keterangan |
-|---|---|---|---|---|
-| `id` | bigint unsigned | ❌ | auto | PK |
-| `name` | varchar(100) | ❌ | — | "AC", "Kolam Renang" |
-| `icon` | varchar(50) | ✅ | NULL | nama icon Lucide |
-| `is_active` | tinyint(1) | ❌ | `1` | |
-| `created_at`, `updated_at` | timestamp | ✅ | NULL | |
-
-**Index:** `is_active`
-
-**Relasi masuk:**
-- `belongsToMany` ← `properties` (via `property_facilities`)
-
----
-
-## Domain 3 — Core
-
-### 6. `agents`
-
-**Fungsi:** Profil agen properti. **Data saja** — tanpa login.
-
-| Kolom | Tipe | Null | Default | Keterangan |
-|---|---|---|---|---|
-| `id` | bigint unsigned | ❌ | auto | PK |
-| `name` | varchar(100) | ❌ | — | "Budi Santoso" |
-| `slug` | varchar(150) | ❌ | — | **UNIQUE** — `budi-santoso` |
-| `photo` | varchar(255) | ✅ | NULL | path foto |
-| `phone` | varchar(20) | ❌ | — | untuk display |
-| `whatsapp` | varchar(20) | ✅ | NULL | format `628xxx` |
-| `email` | varchar(100) | ✅ | NULL | |
-| `bio` | text | ✅ | NULL | |
-| `is_active` | tinyint(1) | ❌ | `1` | |
-| `order` | int | ❌ | `0` | sorting di halaman "Cari Agen" |
-| `created_at`, `updated_at` | timestamp | ✅ | NULL | |
-
-**Index:** `slug` (unique), `is_active`
-
-**Relasi:**
+- `belongsTo` → `User` (akun login)
+- `belongsTo` → `User` (verifier, via `verified_by`)
 - `hasMany` → `properties`
 - `hasMany` → `inquiries`
+- `hasMany` → `property_submissions`
 - `belongsToMany` → `areas` (via `agent_areas`)
 
-**Catatan:**
-- ❌ **Tidak ada `user_id`** — agent tidak bisa login
-- ❌ **Tidak ada `area` string** — area via pivot `agent_areas`
-- Agent bisa pegang **1 atau lebih** kecamatan
-- 1 kecamatan bisa dipegang **lebih dari 1 agent** (overlap)
+**Business rules:**
+- Agent registrasi → `status = 'pending'`, **tidak bisa login** sampai admin approve
+- Setelah approve → `status = 'active'`, bisa login via Google
+- Hanya agent `active` yang tampil di "Cari Agent" & card properti
 
 ---
 
-### 7. `agent_areas`
+## `agent_areas` — Pivot Agent ↔ Kecamatan
 
-**Fungsi:** Pivot M:N agent ↔ area (kecamatan).
+| # | Kolom | Tipe | Null | Default | Keterangan |
+|---|---|---|---|---|---|
+| 1 | `id` | bigint unsigned | ❌ | auto | PK |
+| 2 | `agent_id` | bigint unsigned | ❌ | — | FK → `agents.id` |
+| 3 | `area_id` | bigint unsigned | ❌ | — | FK → `areas.id` |
+| 4 | `is_primary` | tinyint(1) | ❌ | `0` | Area utama agent |
+| 5 | `created_at`, `updated_at` | timestamp | ✅ | NULL | |
 
-| Kolom | Tipe | Null | Default | Keterangan |
-|---|---|---|---|---|
-| `id` | bigint unsigned | ❌ | auto | PK |
-| `agent_id` | bigint unsigned | ❌ | — | FK → `agents.id` |
-| `area_id` | bigint unsigned | ❌ | — | FK → `areas.id` |
-| `is_primary` | tinyint(1) | ❌ | `0` | area utama (prioritas tampil) |
-| `created_at`, `updated_at` | timestamp | ✅ | NULL | |
-
-**Unique:** `(agent_id, area_id)` — 1 agent tidak bisa "pegang" area sama 2x
-**Index:** `agent_id`, `area_id`, `(area_id, is_primary)`
-**FK:** `agent_id` → `agents.id` **CASCADE**, `area_id` → `areas.id` **CASCADE**
-
-**Relasi:**
-- `belongsTo` → `Agent`
-- `belongsTo` → `Area`
+**Unique:** `(agent_id, area_id)`  
+**Index:** `agent_id`, `area_id`, `(area_id, is_primary)`  
+**FK:** keduanya **CASCADE**
 
 **Business rules:**
 - 1 agent → 1..N area
-- 1 area → 0..N agent (**overlap**, bukan eksklusif)
-- `is_primary = true` → area utama agent (untuk sort & highlight)
-- Agent bisa punya 1 primary + N secondary area
+- 1 area → 0..N agent (**overlap**)
+- `is_primary = true` = area utama
 
 ---
 
-### 8. `properties` ⭐ (Tabel Inti)
+# 🏠 DOMAIN 4 — CORE
 
-**Fungsi:** Data properti (jual/sewa/KPR).
+## `properties` ⭐ — Properti Aktif (Hanya yang Valid)
 
-#### Kelompok 1: Identitas & Klasifikasi
+**Fungsi:** Properti yang **sudah diverifikasi & tayang**. Submission pending TIDAK di sini (ada di `property_submissions`).
 
-| Kolom | Tipe | Null | Default | Keterangan |
-|---|---|---|---|---|
-| `id` | bigint unsigned | ❌ | auto | PK |
-| `code` | varchar(20) | ❌ | — | **UNIQUE** — `PRP-0001` auto-generate |
-| `title` | varchar(255) | ❌ | — | |
-| `slug` | varchar(255) | ❌ | — | **UNIQUE** — auto dari title |
-| `description` | longtext | ✅ | NULL | plain text dulu |
-| `listing_type` | enum | ❌ | `'sale'` | `sale` \| `rent` |
-| `property_type_id` | bigint unsigned | ✅ | NULL | FK → `property_types.id` |
-| `area_id` | bigint unsigned | ✅ | NULL | FK → `areas.id` |
-| `agent_id` | bigint unsigned | ✅ | NULL | FK → `agents.id` — nullable |
+### Identitas & Klasifikasi
 
-#### Kelompok 2: Lokasi & Fake Coordinate
+| # | Kolom | Tipe | Null | Default | Keterangan |
+|---|---|---|---|---|---|
+| 1 | `id` | bigint unsigned | ❌ | auto | PK |
+| 2 | `code` | varchar(20) | ❌ | — | **UNIQUE** — `PRP-0001` |
+| 3 | `title` | varchar(255) | ❌ | — | |
+| 4 | `slug` | varchar(255) | ❌ | — | **UNIQUE** |
+| 5 | `description` | longtext | ✅ | NULL | |
+| 6 | `listing_type` | enum | ❌ | `'sale'` | `sale` \| `rent` |
+| 7 | `property_type_id` | bigint unsigned | ✅ | NULL | FK → `property_types.id` |
+| 8 | `area_id` | bigint unsigned | ✅ | NULL | FK → `areas.id` |
+| 9 | `agent_id` | bigint unsigned | ✅ | NULL | FK → `agents.id` (nullable) |
 
-| Kolom | Tipe | Null | Default | Keterangan |
-|---|---|---|---|---|
-| `address` | varchar(255) | ✅ | NULL | alamat detail (tampil publik) |
-| `latitude` | decimal(10,8) | ✅ | NULL | presisi tinggi — **internal** |
-| `longitude` | decimal(11,8) | ✅ | NULL | presisi tinggi — **internal** |
-| `show_exact_location` | tinyint(1) | ❌ | `0` | false → publik lihat lingkaran |
-| `map_radius_meter` | int | ❌ | `500` | radius lingkaran (meter) |
+### Lokasi & Fake Coordinate
 
-#### Kelompok 3: Harga
+| # | Kolom | Tipe | Null | Default | Keterangan |
+|---|---|---|---|---|---|
+| 10 | `address` | varchar(255) | ✅ | NULL | Tampil publik |
+| 11 | `latitude` | decimal(10,8) | ✅ | NULL | Presisi tinggi (internal) |
+| 12 | `longitude` | decimal(11,8) | ✅ | NULL | Presisi tinggi (internal) |
+| 13 | `show_exact_location` | tinyint(1) | ❌ | `0` | false → lingkaran |
+| 14 | `map_radius_meter` | int | ❌ | `500` | Radius lingkaran |
 
-| Kolom | Tipe | Null | Default | Keterangan |
-|---|---|---|---|---|
-| `price` | bigint | ❌ | `0` | rupiah |
-| `price_unit` | enum | ✅ | NULL | `day` \| `month` \| `year` — hanya untuk `rent` |
-| `price_dropped_at` | timestamp | ✅ | NULL | badge "TURUN HARGA" (30 hari) |
+### Harga
 
-#### Kelompok 4: Spesifikasi
+| # | Kolom | Tipe | Null | Default | Keterangan |
+|---|---|---|---|---|---|
+| 15 | `price` | bigint | ❌ | `0` | Rupiah |
+| 16 | `price_unit` | enum | ✅ | NULL | `day` \| `month` \| `year` (rent) |
+| 17 | `price_dropped_at` | timestamp | ✅ | NULL | Badge TURUN HARGA (30 hari) |
 
-| Kolom | Tipe | Null | Default | Keterangan |
-|---|---|---|---|---|
-| `land_area` | int | ✅ | NULL | m² |
-| `building_area` | int | ✅ | NULL | m² — null untuk tanah kosong |
-| `bedrooms` | int | ❌ | `0` | |
-| `bathrooms` | int | ❌ | `0` | |
-| `carports` | int | ❌ | `0` | |
-| `floors` | int | ❌ | `1` | |
-| `year_built` | int | ✅ | NULL | |
-| `certificate` | varchar(50) | ✅ | NULL | SHM, HGB, dll |
+### Spesifikasi
 
-#### Kelompok 5: Marketing & Status
+| # | Kolom | Tipe | Null | Default | Keterangan |
+|---|---|---|---|---|---|
+| 18 | `land_area` | int | ✅ | NULL | m² |
+| 19 | `building_area` | int | ✅ | NULL | m² (NULL = tanah kosong) |
+| 20 | `bedrooms` | int | ❌ | `0` | |
+| 21 | `bathrooms` | int | ❌ | `0` | |
+| 22 | `carports` | int | ❌ | `0` | |
+| 23 | `floors` | int | ❌ | `1` | |
+| 24 | `year_built` | int | ✅ | NULL | |
+| 25 | `certificate` | varchar(50) | ✅ | NULL | SHM, HGB, dll |
 
-| Kolom | Tipe | Null | Default | Keterangan |
-|---|---|---|---|---|
-| `status` | enum | ❌ | `'draft'` | `draft` \| `published` \| `sold` \| `rented` \| `archived` |
-| `is_recommended` | tinyint(1) | ❌ | `0` | tampil di section "Rekomendasi" |
-| `is_kpr_eligible` | tinyint(1) | ❌ | `0` | bisa disimulasikan KPR |
-| `video_provider` | varchar(20) | ✅ | NULL | `youtube` \| `vimeo` |
-| `video_id` | varchar(50) | ✅ | NULL | ID video (`AbC123xyz`) |
-| `view_count` | int | ❌ | `0` | counter sederhana |
-| `published_at` | timestamp | ✅ | NULL | untuk badge "BARU" |
+### Marketing & Status
 
-#### Kelompok 6: Audit
+| # | Kolom | Tipe | Null | Default | Keterangan |
+|---|---|---|---|---|---|
+| 26 | `status` | enum | ❌ | `'draft'` | `draft` \| `published` \| `sold` \| `rented` \| `archived` |
+| 27 | `is_recommended` | tinyint(1) | ❌ | `0` | Tampil di "Rekomendasi" |
+| 28 | `is_kpr_eligible` | tinyint(1) | ❌ | `0` | Bisa disimulasikan KPR |
+| 29 | `video_provider` | varchar(20) | ✅ | NULL | `youtube` \| `vimeo` |
+| 30 | `video_id` | varchar(50) | ✅ | NULL | ID video |
+| 31 | `view_count` | int | ❌ | `0` | |
+| 32 | `published_at` | timestamp | ✅ | NULL | Badge BARU (7 hari) |
 
-| Kolom | Tipe | Null | Default | Keterangan |
-|---|---|---|---|---|
-| `created_by` | bigint unsigned | ✅ | NULL | FK → `users.id` |
-| `created_at`, `updated_at` | timestamp | ✅ | NULL | |
-| `deleted_at` | timestamp | ✅ | NULL | **soft delete** |
+### Submission & Verifikasi (BARU)
 
-**Index (performa):**
+| # | Kolom | Tipe | Null | Default | Keterangan |
+|---|---|---|---|---|---|
+| 33 | `submitted_by` | bigint unsigned | ✅ | NULL | FK → `users.id` (siapa submit) |
+| 34 | `submission_id` | bigint unsigned | ✅ | NULL | FK → `property_submissions.id` (link ke submission asli) |
+| 35 | `verified_by` | bigint unsigned | ✅ | NULL | FK → `users.id` (admin verifikator) |
+| 36 | `verified_at` | timestamp | ✅ | NULL | Kapan diverifikasi |
+
+### Audit
+
+| # | Kolom | Tipe | Null | Default | Keterangan |
+|---|---|---|---|---|---|
+| 37 | `created_by` | bigint unsigned | ✅ | NULL | FK → `users.id` (admin input) |
+| 38 | `created_at`, `updated_at` | timestamp | ✅ | NULL | |
+| 39 | `deleted_at` | timestamp | ✅ | NULL | Soft delete |
+
+**Index:**
 ```php
 $table->unique('code');
 $table->unique('slug');
@@ -399,368 +279,298 @@ $table->index('price');
 $table->index('agent_id');
 ```
 
-**FK:**
-- `property_type_id` → `property_types.id` **SET NULL**
-- `area_id` → `areas.id` **SET NULL**
-- `agent_id` → `agents.id` **SET NULL**
-- `created_by` → `users.id` **SET NULL**
+**FK (semua SET NULL kecuali dinyatakan):**
+- `property_type_id`, `area_id`, `agent_id`, `created_by`, `submitted_by`, `verified_by`
+- `submission_id` → `property_submissions.id`
 
-**Relasi:**
-- `hasMany` → `property_images`
-- `belongsToMany` → `facilities` (pivot `property_facilities`)
-- `hasMany` → `favorites`
-- `hasMany` → `inquiries`
-- `hasMany` → `kpr_applications`
-- `belongsTo` → `PropertyType`, `Area`, `Agent`, `User` (creator)
-
-**Accessor:**
-- `badge` → TURUN HARGA (30 hari) → BARU (7 hari) → REKOMENDASI
-- `video_embed_url` → URL iframe YouTube/Vimeo
-- `video_thumbnail` → thumbnail YouTube
-- `price_formatted` → "Rp 850 Juta"
-
+**Accessor:** `badge`, `video_embed_url`, `video_thumbnail`, `price_formatted`  
 **Scope:** `published()`, `sale()`, `rent()`, `recommended()`, `kprEligible()`
 
 ---
 
-### 9. `property_images`
+## `property_images` — Galeri Foto (3 Varian WebP)
 
-**Fungsi:** Gambar properti (multi, 3 varian WebP).
+| # | Kolom | Tipe | Null | Default | Keterangan |
+|---|---|---|---|---|---|
+| 1 | `id` | bigint unsigned | ❌ | auto | PK |
+| 2 | `property_id` | bigint unsigned | ❌ | — | FK → `properties.id` |
+| 3 | `path_thumb` | varchar(255) | ❌ | — | ~30KB, 400px |
+| 4 | `path_medium` | varchar(255) | ❌ | — | ~100KB, 800px |
+| 5 | `path_large` | varchar(255) | ❌ | — | ~250KB, 1600px |
+| 6 | `alt_text` | varchar(255) | ✅ | NULL | SEO |
+| 7 | `is_primary` | tinyint(1) | ❌ | `0` | 1 true per properti |
+| 8 | `order` | int | ❌ | `0` | Urutan galeri |
+| 9 | `file_size_medium` | int unsigned | ✅ | NULL | KB |
+| 10 | `width` | smallint unsigned | ✅ | NULL | |
+| 11 | `height` | smallint unsigned | ✅ | NULL | |
+| 12 | `created_at`, `updated_at` | timestamp | ✅ | NULL | |
 
-| Kolom | Tipe | Null | Default | Keterangan |
-|---|---|---|---|---|
-| `id` | bigint unsigned | ❌ | auto | PK |
-| `property_id` | bigint unsigned | ❌ | — | FK → `properties.id` |
-| `path_thumb` | varchar(255) | ❌ | — | `properties/1/thumb/abc.webp` (~30KB) |
-| `path_medium` | varchar(255) | ❌ | — | `properties/1/medium/abc.webp` (~100KB) |
-| `path_large` | varchar(255) | ❌ | — | `properties/1/large/abc.webp` (~250KB) |
-| `alt_text` | varchar(255) | ✅ | NULL | SEO & aksesibilitas |
-| `is_primary` | tinyint(1) | ❌ | `0` | 1 true per properti |
-| `order` | int | ❌ | `0` | urutan galeri |
-| `file_size_medium` | int unsigned | ✅ | NULL | KB |
-| `width` | smallint unsigned | ✅ | NULL | dimensi medium |
-| `height` | smallint unsigned | ✅ | NULL | |
-| `created_at`, `updated_at` | timestamp | ✅ | NULL | |
-
-**Index:** `property_id`, `(property_id, is_primary)`
+**Index:** `property_id`, `(property_id, is_primary)`  
 **FK:** `property_id` → `properties.id` **CASCADE**
 
-**Relasi:** `belongsTo` → `Property`
-
-**Business rules:**
-- `is_primary = true` di-enforce **1 saja** per properti via model observer
-- Saat set primary baru → reset yang lain ke false otomatis
-
-**Accessor:**
-- `thumb_url`, `medium_url`, `large_url` → URL publik
+**Business rule:** `is_primary = true` hanya 1 per properti (enforce via model observer)
 
 ---
 
-### 10. `property_facilities`
+## `property_facilities` — Pivot M:N
 
-**Fungsi:** Pivot M:N properti ↔ fasilitas.
+| # | Kolom | Tipe | Null | Default | Keterangan |
+|---|---|---|---|---|---|
+| 1 | `property_id` | bigint unsigned | ❌ | — | FK → `properties.id` |
+| 2 | `facility_id` | bigint unsigned | ❌ | — | FK → `facilities.id` |
 
-| Kolom | Tipe | Null | Default | Keterangan |
-|---|---|---|---|---|
-| `property_id` | bigint unsigned | ❌ | — | FK → `properties.id` |
-| `facility_id` | bigint unsigned | ❌ | — | FK → `facilities.id` |
-
-**PK:** composite `(property_id, facility_id)` — tanpa `id`, tanpa `timestamps`
+**PK:** composite `(property_id, facility_id)` — tanpa `id`, tanpa `timestamps`  
 **FK:** keduanya **CASCADE**
 
 ---
 
-## Domain 4 — Interaction
+# 📬 DOMAIN 5 — SUBMISSION
 
-### 11. `favorites`
+## `property_submissions` 🆕 — Submission Pending Verifikasi
 
-**Fungsi:** Properti tersimpan user (wajib login).
+**Fungsi:** Menampung **semua** submission dari citizen & agent. Setelah diverifikasi admin → **copy** ke `properties`. Yang ditolak tetap di sini dengan `status = 'rejected'`.
 
-| Kolom | Tipe | Null | Default | Keterangan |
-|---|---|---|---|---|
-| `id` | bigint unsigned | ❌ | auto | PK |
-| `user_id` | bigint unsigned | ❌ | — | FK → `users.id` |
-| `property_id` | bigint unsigned | ❌ | — | FK → `properties.id` |
-| `created_at`, `updated_at` | timestamp | ✅ | NULL | |
+### Identitas Submission
 
-**Unique:** `(user_id, property_id)` — 1 user simpan 1x per properti
-**FK:** keduanya **CASCADE**
+| # | Kolom | Tipe | Null | Default | Keterangan |
+|---|---|---|---|---|---|
+| 1 | `id` | bigint unsigned | ❌ | auto | PK |
+| 2 | `submission_code` | varchar(30) | ❌ | — | **UNIQUE** — `SUB-2026-0001` |
+| 3 | `access_token` | varchar(32) | ❌ | — | **UNIQUE** — akses via link tanpa login |
 
-**Relasi:**
-- `belongsTo` → `User`, `Property`
+### Siapa yang Submit
 
----
+| # | Kolom | Tipe | Null | Default | Keterangan |
+|---|---|---|---|---|---|
+| 4 | `submitted_by` | bigint unsigned | ✅ | NULL | FK → `users.id` (kalau login) |
+| 5 | `agent_id` | bigint unsigned | ✅ | NULL | FK → `agents.id` (agent yang dipilih) |
+| 6 | `submitter_name` | varchar(100) | ❌ | — | Nama pengirim |
+| 7 | `submitter_phone` | varchar(20) | ❌ | — | HP pengirim |
+| 8 | `submitter_email` | varchar(100) | ✅ | NULL | |
 
-### 12. `inquiries`
+### Data Properti (Subset)
 
-**Fungsi:** Leads dari form kontak / WA CTA.
+| # | Kolom | Tipe | Null | Default | Keterangan |
+|---|---|---|---|---|---|
+| 9 | `title` | varchar(255) | ❌ | — | |
+| 10 | `description` | text | ✅ | NULL | |
+| 11 | `listing_type` | enum | ❌ | `'sale'` | `sale` \| `rent` |
+| 12 | `property_type_id` | bigint unsigned | ✅ | NULL | FK → `property_types.id` |
+| 13 | `area_id` | bigint unsigned | ✅ | NULL | FK → `areas.id` |
+| 14 | `address` | varchar(255) | ✅ | NULL | |
+| 15 | `price` | bigint | ✅ | NULL | |
+| 16 | `land_area` | int | ✅ | NULL | |
+| 17 | `building_area` | int | ✅ | NULL | |
+| 18 | `bedrooms` | int | ✅ | NULL | |
+| 19 | `bathrooms` | int | ✅ | NULL | |
+| 20 | `photo_paths` | json | ✅ | NULL | Array path foto temp |
 
-| Kolom | Tipe | Null | Default | Keterangan |
-|---|---|---|---|---|
-| `id` | bigint unsigned | ❌ | auto | PK |
-| `user_id` | bigint unsigned | ✅ | NULL | FK → `users.id` — kalau login |
-| `property_id` | bigint unsigned | ✅ | NULL | FK → `properties.id` |
-| `agent_id` | bigint unsigned | ✅ | NULL | FK → `agents.id` |
-| `name` | varchar(100) | ❌ | — | |
-| `phone` | varchar(20) | ❌ | — | |
-| `email` | varchar(100) | ✅ | NULL | |
-| `message` | text | ✅ | NULL | |
-| `source` | varchar(30) | ❌ | `'website'` | `website` \| `whatsapp` \| `phone` |
-| `status` | varchar(20) | ❌ | `'new'` | `new` \| `contacted` \| `closed` |
-| `created_at`, `updated_at` | timestamp | ✅ | NULL | |
+### Status & Verifikasi
 
-**Index:** `status`, `property_id`, `agent_id`
+| # | Kolom | Tipe | Null | Default | Keterangan |
+|---|---|---|---|---|---|
+| 21 | `status` | varchar(20) | ❌ | `'pending'` | `pending` \| `verified` \| `rejected` \| `converted` |
+| 22 | `auto_check_result` | json | ✅ | NULL | Hasil deteksi (duplicate phone, dll) |
+| 23 | `verified_by` | bigint unsigned | ✅ | NULL | FK → `users.id` (admin verifikator) |
+| 24 | `verified_at` | timestamp | ✅ | NULL | |
+| 25 | `rejection_reason` | text | ✅ | NULL | |
+| 26 | `admin_notes` | text | ✅ | NULL | Catatan internal |
+| 27 | `converted_property_id` | bigint unsigned | ✅ | NULL | FK → `properties.id` (link ke properti jadi) |
+| 28 | `created_at`, `updated_at` | timestamp | ✅ | NULL | |
+
+**Index:** `submission_code` (unique), `access_token` (unique), `status`, `(status, created_at)`  
 **FK:** semua **SET NULL**
 
-**Relasi:**
-- `belongsTo` → `User`, `Property`, `Agent`
-
----
-
-### 13. `kpr_applications`
-
-**Fungsi:** Pengajuan simulasi KPR (snapshot angka saat submit).
-
-| Kolom | Tipe | Null | Default | Keterangan |
-|---|---|---|---|---|
-| `id` | bigint unsigned | ❌ | auto | PK |
-| `user_id` | bigint unsigned | ✅ | NULL | FK → `users.id` |
-| `property_id` | bigint unsigned | ✅ | NULL | FK → `properties.id` — null jika dari kalkulator mandiri |
-| `bank_id` | bigint unsigned | ✅ | NULL | FK → `banks.id` |
-| `name` | varchar(100) | ❌ | — | |
-| `phone` | varchar(20) | ❌ | — | |
-| `email` | varchar(100) | ✅ | NULL | |
-| `property_price` | bigint | ❌ | — | **snapshot** harga |
-| `down_payment` | bigint | ❌ | `0` | DP |
-| `tenor_years` | int | ❌ | — | |
-| `interest_rate` | decimal(5,2) | ❌ | — | **snapshot** bunga (%) |
-| `monthly_installment` | bigint | ❌ | — | **snapshot** cicilan |
-| `status` | varchar(20) | ❌ | `'submitted'` | `draft` \| `submitted` \| `reviewed` \| `approved` \| `rejected` |
-| `notes` | text | ✅ | NULL | catatan admin |
-| `created_at`, `updated_at` | timestamp | ✅ | NULL | |
-
-**Index:** `status`, `bank_id`, `property_id`
-**FK:** semua **SET NULL**
-
-**Relasi:**
-- `belongsTo` → `User`, `Property`, `Bank`
+**Alur status:**
+```
+pending → converted  (approved → copy ke properties)
+pending → rejected   (fake/tidak valid)
+```
 
 **Business rules:**
-- `property_price`, `interest_rate`, `monthly_installment` = **snapshot** saat submit
-- Kenapa snapshot? Audit trail — kalau harga properti/bunga berubah, pengajuan lama tetap mencatat angka yang dilihat user
+- Semua submission (citizen & agent) → `status = 'pending'`
+- Auto-check: duplicate phone (hari ini), duplicate title+address (30 hari), blacklist
+- Team kantor verifikasi → convert ke `properties` atau reject
+- Setelah convert, `converted_property_id` terisi → link ke properti jadi
+- Foto temp di `storage/app/submissions/{id}/` → dipindah ke `storage/app/public/properties/{id}/` saat convert
 
 ---
 
-## Domain 5 — Content
+# 💬 DOMAIN 6 — INTERACTION
 
-### 14. `testimonials`
+## `favorites` — Properti Tersimpan
 
-**Fungsi:** Testimoni pelanggan.
+| # | Kolom | Tipe | Null | Default | Keterangan |
+|---|---|---|---|---|---|
+| 1 | `id` | bigint unsigned | ❌ | auto | PK |
+| 2 | `user_id` | bigint unsigned | ❌ | — | FK → `users.id` |
+| 3 | `property_id` | bigint unsigned | ❌ | — | FK → `properties.id` |
+| 4 | `created_at`, `updated_at` | timestamp | ✅ | NULL | |
 
-| Kolom | Tipe | Null | Default | Keterangan |
-|---|---|---|---|---|
-| `id` | bigint unsigned | ❌ | auto | PK |
-| `name` | varchar(100) | ❌ | — | |
-| `role` | varchar(100) | ✅ | NULL | "CEO, PT Sejahtera" |
-| `photo` | varchar(255) | ✅ | NULL | |
-| `rating` | decimal(3,1) | ❌ | `5.0` | 1.0–5.0 |
-| `message` | text | ❌ | — | |
-| `is_active` | tinyint(1) | ❌ | `1` | |
-| `order` | int | ❌ | `0` | |
-| `created_at`, `updated_at` | timestamp | ✅ | NULL | |
-
-**Index:** `is_active`
+**Unique:** `(user_id, property_id)`  
+**FK:** keduanya **CASCADE**
 
 ---
 
-### 15. `news` ⭐
+## `inquiries` — Leads Masuk
 
-**Fungsi:** Blog artikel properti (SEO).
+| # | Kolom | Tipe | Null | Default | Keterangan |
+|---|---|---|---|---|---|
+| 1 | `id` | bigint unsigned | ❌ | auto | PK |
+| 2 | `user_id` | bigint unsigned | ✅ | NULL | FK → `users.id` (kalau login) |
+| 3 | `property_id` | bigint unsigned | ✅ | NULL | FK → `properties.id` |
+| 4 | `agent_id` | bigint unsigned | ✅ | NULL | FK → `agents.id` |
+| 5 | `name` | varchar(100) | ❌ | — | Nama pengirim |
+| 6 | `phone` | varchar(20) | ❌ | — | |
+| 7 | `email` | varchar(100) | ✅ | NULL | |
+| 8 | `message` | text | ✅ | NULL | |
+| 9 | `source` | varchar(30) | ❌ | `'website'` | `website` \| `whatsapp` \| `phone` |
+| 10 | `status` | varchar(20) | ❌ | `'new'` | `new` \| `contacted` \| `closed` |
+| 11 | `created_at`, `updated_at` | timestamp | ✅ | NULL | |
 
-| Kolom | Tipe | Null | Default | Keterangan |
-|---|---|---|---|---|
-| `id` | bigint unsigned | ❌ | auto | PK |
-| `title` | varchar(255) | ❌ | — | |
-| `slug` | varchar(255) | ❌ | — | **UNIQUE** — auto dari title |
-| `excerpt` | text | ✅ | NULL | ringkasan (card) |
-| `content` | longtext | ✅ | NULL | isi lengkap |
-| `image` | varchar(255) | ✅ | NULL | thumbnail |
-| `category` | varchar(50) | ✅ | NULL | "Tips", "Berita", "Pasar" |
-| `author_id` | bigint unsigned | ✅ | NULL | FK → `users.id` |
-| `published_at` | timestamp | ✅ | NULL | jadwal publish |
-| `is_published` | tinyint(1) | ❌ | `1` | draft/publish |
-| `created_at`, `updated_at` | timestamp | ✅ | NULL | |
+**Index:** `status`, `property_id`, `agent_id`  
+**FK:** semua **SET NULL**
+
+---
+
+## `kpr_applications` — Pengajuan KPR
+
+| # | Kolom | Tipe | Null | Default | Keterangan |
+|---|---|---|---|---|---|
+| 1 | `id` | bigint unsigned | ❌ | auto | PK |
+| 2 | `user_id` | bigint unsigned | ✅ | NULL | FK → `users.id` |
+| 3 | `property_id` | bigint unsigned | ✅ | NULL | FK → `properties.id` |
+| 4 | `bank_id` | bigint unsigned | ✅ | NULL | FK → `banks.id` |
+| 5 | `name` | varchar(100) | ❌ | — | |
+| 6 | `phone` | varchar(20) | ❌ | — | |
+| 7 | `email` | varchar(100) | ✅ | NULL | |
+| 8 | `property_price` | bigint | ❌ | — | **Snapshot** harga |
+| 9 | `down_payment` | bigint | ❌ | `0` | |
+| 10 | `tenor_years` | int | ❌ | — | |
+| 11 | `interest_rate` | decimal(5,2) | ❌ | — | **Snapshot** bunga (%) |
+| 12 | `monthly_installment` | bigint | ❌ | — | **Snapshot** cicilan |
+| 13 | `status` | varchar(20) | ❌ | `'submitted'` | `draft` \| `submitted` \| `reviewed` \| `approved` \| `rejected` |
+| 14 | `notes` | text | ✅ | NULL | Catatan admin |
+| 15 | `created_at`, `updated_at` | timestamp | ✅ | NULL | |
+
+**Index:** `status`, `bank_id`, `property_id`  
+**FK:** semua **SET NULL**
+
+---
+
+# 📰 DOMAIN 7 — CONTENT
+
+## `testimonials`
+
+| # | Kolom | Tipe | Null | Default | Keterangan |
+|---|---|---|---|---|---|
+| 1 | `id` | bigint unsigned | ❌ | auto | PK |
+| 2 | `name` | varchar(100) | ❌ | — | |
+| 3 | `role` | varchar(100) | ✅ | NULL | "CEO, PT Sejahtera" |
+| 4 | `photo` | varchar(255) | ✅ | NULL | |
+| 5 | `rating` | decimal(3,1) | ❌ | `5.0` | 1.0–5.0 |
+| 6 | `message` | text | ❌ | — | |
+| 7 | `is_active` | tinyint(1) | ❌ | `1` | |
+| 8 | `order` | int | ❌ | `0` | |
+| 9 | `created_at`, `updated_at` | timestamp | ✅ | NULL | |
+
+---
+
+## `news` — Blog (SEO)
+
+| # | Kolom | Tipe | Null | Default | Keterangan |
+|---|---|---|---|---|---|
+| 1 | `id` | bigint unsigned | ❌ | auto | PK |
+| 2 | `title` | varchar(255) | ❌ | — | |
+| 3 | `slug` | varchar(255) | ❌ | — | **UNIQUE** |
+| 4 | `excerpt` | text | ✅ | NULL | |
+| 5 | `content` | longtext | ✅ | NULL | |
+| 6 | `image` | varchar(255) | ✅ | NULL | |
+| 7 | `category` | varchar(50) | ✅ | NULL | "Tips" \| "Berita" \| "Pasar" |
+| 8 | `author_id` | bigint unsigned | ✅ | NULL | FK → `users.id` |
+| 9 | `published_at` | timestamp | ✅ | NULL | |
+| 10 | `is_published` | tinyint(1) | ❌ | `1` | |
+| 11 | `created_at`, `updated_at` | timestamp | ✅ | NULL | |
 
 **Index:** `slug` (unique), `is_published`, `(is_published, published_at)`, `category`
-**FK:** `author_id` → `users.id` **SET NULL**
-
-**Relasi:** `belongsTo` → `User` (author)
 
 ---
 
-### 16. `developers`
+## `developers` — Partner Developer
 
-**Fungsi:** Partner developer properti (logo grid di homepage).
-
-| Kolom | Tipe | Null | Default | Keterangan |
-|---|---|---|---|---|
-| `id` | bigint unsigned | ❌ | auto | PK |
-| `name` | varchar(100) | ❌ | — | |
-| `logo` | varchar(255) | ❌ | — | path logo |
-| `website` | varchar(255) | ✅ | NULL | URL website |
-| `is_active` | tinyint(1) | ❌ | `1` | |
-| `order` | int | ❌ | `0` | |
-| `created_at`, `updated_at` | timestamp | ✅ | NULL | |
-
-**Index:** `is_active`
+| # | Kolom | Tipe | Null | Default | Keterangan |
+|---|---|---|---|---|---|
+| 1 | `id` | bigint unsigned | ❌ | auto | PK |
+| 2 | `name` | varchar(100) | ❌ | — | |
+| 3 | `logo` | varchar(255) | ❌ | — | |
+| 4 | `website` | varchar(255) | ✅ | NULL | |
+| 5 | `is_active` | tinyint(1) | ❌ | `1` | |
+| 6 | `order` | int | ❌ | `0` | |
+| 7 | `created_at`, `updated_at` | timestamp | ✅ | NULL | |
 
 ---
 
-### 17. `advertisements`
+## `advertisements` — Banner Iklan
 
-**Fungsi:** Banner iklan/promo di website.
-
-| Kolom | Tipe | Null | Default | Keterangan |
-|---|---|---|---|---|
-| `id` | bigint unsigned | ❌ | auto | PK |
-| `title` | varchar(255) | ✅ | NULL | label internal (bukan tampil) |
-| `image` | varchar(255) | ❌ | — | path banner |
-| `link` | varchar(255) | ✅ | NULL | URL tujuan klik |
-| `position` | varchar(30) | ❌ | `'home'` | `home-banner` \| `home-mid` \| `sidebar` \| `detail-bottom` |
-| `is_active` | tinyint(1) | ❌ | `1` | |
-| `start_date` | date | ✅ | NULL | jadwal mulai |
-| `end_date` | date | ✅ | NULL | jadwal selesai |
-| `order` | int | ❌ | `0` | rotasi multiple |
-| `created_at`, `updated_at` | timestamp | ✅ | NULL | |
+| # | Kolom | Tipe | Null | Default | Keterangan |
+|---|---|---|---|---|---|
+| 1 | `id` | bigint unsigned | ❌ | auto | PK |
+| 2 | `title` | varchar(255) | ✅ | NULL | Label internal |
+| 3 | `image` | varchar(255) | ❌ | — | Path banner |
+| 4 | `link` | varchar(255) | ✅ | NULL | URL tujuan |
+| 5 | `position` | varchar(30) | ❌ | `'home'` | `home-banner` \| `home-mid` \| `sidebar` \| `detail-bottom` |
+| 6 | `is_active` | tinyint(1) | ❌ | `1` | |
+| 7 | `start_date` | date | ✅ | NULL | |
+| 8 | `end_date` | date | ✅ | NULL | |
+| 9 | `order` | int | ❌ | `0` | |
+| 10 | `created_at`, `updated_at` | timestamp | ✅ | NULL | |
 
 **Index:** `(is_active, position)`, `start_date`, `end_date`
 
-**Scope:** `active()`, `position($name)`
-
 ---
 
-## Matriks Relasi
+# 🔗 MATRIKS RELASI LENGKAP
 
 | Parent | Child | Tipe | FK | On Delete |
 |---|---|---|---|---|
+| `users` | `agents` | 1:1 | `user_id` | CASCADE |
+| `users` | `properties` | 1:N | `created_by` | SET NULL |
+| `users` | `properties` | 1:N | `submitted_by` | SET NULL |
+| `users` | `properties` | 1:N | `verified_by` | SET NULL |
+| `users` | `property_submissions` | 1:N | `submitted_by` | SET NULL |
+| `users` | `property_submissions` | 1:N | `verified_by` | SET NULL |
 | `users` | `favorites` | 1:N | `user_id` | CASCADE |
 | `users` | `inquiries` | 1:N | `user_id` | SET NULL |
 | `users` | `kpr_applications` | 1:N | `user_id` | SET NULL |
-| `users` | `properties` | 1:N | `created_by` | SET NULL |
 | `users` | `news` | 1:N | `author_id` | SET NULL |
+| `users` | `agents` | 1:N | `verified_by` | SET NULL |
+| `agents` | `properties` | 1:N | `agent_id` | SET NULL |
+| `agents` | `inquiries` | 1:N | `agent_id` | SET NULL |
+| `agents` | `property_submissions` | 1:N | `agent_id` | SET NULL |
+| `agents` | `areas` | **M:N** | pivot `agent_areas` | CASCADE |
+| `areas` | `areas` | 1:N (self) | `parent_id` | SET NULL |
+| `areas` | `properties` | 1:N | `area_id` | SET NULL |
+| `property_types` | `properties` | 1:N | `property_type_id` | SET NULL |
+| `property_submissions` | `properties` | 1:1 | `converted_property_id` (di submission) | SET NULL |
+| `properties` | `property_submissions` | 1:N | `submission_id` (di properties) | SET NULL |
 | `properties` | `property_images` | 1:N | `property_id` | CASCADE |
 | `properties` | `favorites` | 1:N | `property_id` | CASCADE |
 | `properties` | `inquiries` | 1:N | `property_id` | SET NULL |
 | `properties` | `kpr_applications` | 1:N | `property_id` | SET NULL |
 | `properties` | `facilities` | **M:N** | pivot `property_facilities` | CASCADE |
-| `properties` | `property_types` | N:1 | `property_type_id` | SET NULL |
-| `properties` | `areas` | N:1 | `area_id` | SET NULL |
-| `properties` | `agents` | N:1 | `agent_id` | SET NULL |
-| `agents` | `inquiries` | 1:N | `agent_id` | SET NULL |
-| `agents` | `areas` | **M:N** | pivot `agent_areas` | CASCADE |
-| `areas` | `areas` | 1:N (self) | `parent_id` | SET NULL |
 | `banks` | `kpr_applications` | 1:N | `bank_id` | SET NULL |
 
 ---
 
-## Seed Data
+# 📊 RINGKASAN PERUBAHAN v1.0 → v1.1
 
-| Seeder | Isi |
+| Tabel | Perubahan |
 |---|---|
-| `PropertyTypeSeeder` | 8 tipe: Rumah, Tanah, Ruko, Apartemen, Kos, Villa, Gudang, Kantor |
-| `AreaSeeder` | Jawa Timur (province) → Jember, Lumajang, Bondowoso, Situbondo, Banyuwangi. Jember → 8 kecamatan |
-| `BankSeeder` | Bank Mandiri (bunga 7.50%, tenor 5-20, DP min 10%) |
-| `FacilitySeeder` | 10 fasilitas: AC, Kolam Renang, Garasi, Taman, Keamanan 24J, CCTV, Dapur, Wifi, Parkir, Listrik |
-| `DemoDataSeeder` | 1 agent (Budi) + 2 area, 8 properti, 4 testimonial, 8 developer |
+| `users` | Role tambah `'agent'` |
+| `agents` | **Restructure:** + `user_id`, + `status`, + `verified_at/by`, + `rejection_reason`. Hapus `is_active` |
+| `agent_areas` | Tetap |
+| `properties` | + `submitted_by`, + `submission_id`, + `verified_by`, + `verified_at` |
+| `property_submissions` | 🆕 **Tabel baru** |
+| Lainnya | Tetap |
 
 ---
-
-## Business Rules
-
-### Fake Coordinate
-- `latitude`/`longitude` disimpan **presisi tinggi** — hanya untuk admin/CRM
-- Publik melihat **lingkaran** (`map_radius_meter`, default 500m)
-- Hanya **admin** yang bisa set `show_exact_location = true`
-- Kalau properti sangat besar (gudang), admin bisa naikkan `map_radius_meter` per properti
-
-### Video (Embed, bukan upload)
-- `video_provider` + `video_id` (dari URL YouTube/Vimeo)
-- **0 byte storage** di server
-- Thumbnail auto dari YouTube
-- Lazy-load — iframe baru load saat user klik play
-
-### Gambar (3 Varian WebP)
-- Setiap upload → generate `thumb` (400px), `medium` (800px), `large` (1600px)
-- **Original** disimpan di `storage/app/originals/` (tidak public, tidak backup harian)
-- Frontend pakai `srcset` — HP dapat thumb, desktop dapat medium
-
-### Agent ↔ Area
-- 1 agent → 1..N kecamatan
-- 1 kecamatan → 0..N agent (**overlap**)
-- `is_primary = true` = area utama agent
-
-### Badge Dinamis
-- **TURUN HARGA** — `price_dropped_at` ≤ 30 hari
-- **BARU** — `published_at` ≤ 7 hari
-- **REKOMENDASI** — `is_recommended = true`
-- Prioritas: TURUN HARGA > BARU > REKOMENDASI
-
-### Snapshot KPR
-- `property_price`, `interest_rate`, `monthly_installment` di-snapshot saat submit
-- Pengajuan lama **tidak berubah** meskipun harga/bunga berubah
-- Audit trail untuk CRM
-
-### Soft Delete
-- `properties` pakai `SoftDeletes`
-- Properti dihapus → `deleted_at` terisi, data tetap ada
-- Query default **otomatis exclude** yang soft-deleted
-
----
-
-## Storage Strategy
-
-```
-storage/app/public/
-├── properties/
-│   └── {id}/
-│       ├── thumb/abc.webp     (~30KB)
-│       ├── medium/abc.webp    (~100KB)
-│       └── large/abc.webp     (~250KB)
-├── agents/
-├── developers/
-├── news/
-└── testimonials/
-
-storage/app/originals/          ← tidak public, tidak backup harian
-├── properties/{id}/abc.jpg     (asli 5MB, untuk re-process)
-└── ...
-```
-
-**Setup:**
-```bash
-php artisan storage:link
-```
-
-**Hemat storage:**
-- Video: **0 MB** (embed YouTube)
-- Foto per properti (10 gambar): ~3.8 MB (vs 50 MB asli)
-- Total 100 properti: ~380 MB
-
----
-
-## Changelog
-
-### v1.0 — 2026-10-19
-- Initial schema — 17 tabel
-- Konfigurasi via `config/company.php` (bukan tabel `settings`)
-- Auth via Google OAuth (user) + manual+Google (admin)
-- Fake coordinate system (circle radius)
-- Video embed (YouTube/Vimeo) — 0 storage
-- Gambar 3 varian WebP
-- Agent-area pivot (overlap, bukan eksklusif)
-- Badge dinamis (TURUN HARGA / BARU / REKOMENDASI)
-- KPR dengan snapshot angka
-
----
-
-**Dokumen ini adalah referensi tunggal (single source of truth) untuk struktur database. Setiap perubahan schema wajib update dokumen ini.**
