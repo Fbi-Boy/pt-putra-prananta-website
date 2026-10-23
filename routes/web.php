@@ -1,6 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\{HomeController, PropertyController};
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -8,10 +8,11 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // NAVBAR PAGE
 // ================================
 
-Route::get('/beli', function () {
-    return view('properties.index');
-})->name('properties.sale');
 
+Route::get('/properti', [PropertyController::class, 'index'])->name('properties.index');
+Route::get('/beli',     [PropertyController::class, 'index'])->name('properties.sale');
+Route::get('/sewa',     [PropertyController::class, 'index'])->name('properties.rent');
+Route::get('/kpr',      [PropertyController::class, 'index'])->name('kpr.index');
 // Route::get('/jual', [CompanyProfileController::class, 'jual'])
 //     ->name('company.jual');
 

@@ -20,193 +20,36 @@
         <x-public.menu />
     </div>
 
-    <x-public.developer-logo />
+    <x-public.developer-logo :developers="$developers" />
 
-    <x-public.advertisement />
+    <x-public.advertisement :banner="$banner" />
 
-    @php
-        $popularProperties = [
-            [
-                'title' => 'Rumah Minimalis Modern Dekat Pusat Kota Jember',
-                'price' => 'Rp 850 Juta',
-                'location' => 'Kaliwates, Jember',
-                'image' => asset('images/property/rumah1.jpg'),
-                'status' => 'PREMIER',
-                'land_area' => 120,
-                'bedrooms' => 3,
-                'bathrooms' => 2,
-                'date' => '6 Sep 2026',
-                'agent_name' => 'Budi Santoso',
-                'agent_area' => 'Kaliwates, Jember',
-                'agent_image' => asset('images/agents/agent.png'),
-                'agent_whatsapp' => 'https://wa.me/6281234567890',
-            ],
-            [
-                'title' => 'Rumah Mewah dengan Halaman Luas',
-                'price' => 'Rp 1,2 Miliar',
-                'location' => 'Sumbersari, Jember',
-                'image' => asset('images/property/rumah2.jpg'),
-                'status' => 'PREMIER',
-                'land_area' => 180,
-                'bedrooms' => 4,
-                'bathrooms' => 3,
-                'date' => '5 Sep 2026',
-                'agent_name' => 'Budi Santoso',
-                'agent_area' => 'Kaliwates, Jember',
-                'agent_image' => asset('images/agents/agent.png'),
-                'agent_whatsapp' => 'https://wa.me/6281234567890',
-            ],
-            [
-                'title' => 'Rumah Strategis Dekat Kampus',
-                'price' => 'Rp 650 Juta',
-                'location' => 'Tegal Boto, Jember',
-                'image' => asset('images/property/rumah3.jpg'),
-                'status' => 'BARU',
-                'land_area' => 100,
-                'bedrooms' => 3,
-                'bathrooms' => 2,
-                'date' => '4 Sep 2026',
-                'agent_name' => 'Budi Santoso',
-                'agent_area' => 'Kaliwates, Jember',
-                'agent_image' => asset('images/agents/agent.png'),
-                'agent_whatsapp' => 'https://wa.me/6281234567890',
-            ],
-            [
-                'title' => 'Rumah Keluarga Nyaman di Lokasi Strategis',
-                'price' => 'Rp 975 Juta',
-                'location' => 'Patrang, Jember',
-                'image' => asset('images/property/rumah4.jpg'),
-                'status' => 'TURUN HARGA',
-                'land_area' => 160,
-                'bedrooms' => 4,
-                'bathrooms' => 2,
-                'date' => '3 Sep 2026',
-                'agent_name' => 'Budi Santoso',
-                'agent_area' => 'Kaliwates, Jember',
-                'agent_image' => asset('images/agents/agent.png'),
-                'agent_whatsapp' => 'https://wa.me/6281234567890',
-            ],
-        ];
-
-        $latestProperties = [
-            [
-                'title' => 'Rumah Minimalis Baru di Jember',
-                'price' => 'Rp 750 Juta',
-                'location' => 'Sumbersari, Jember',
-                'image' => asset('images/property/rumah1.jpg'),
-                'status' => 'BARU',
-                'land_area' => 120,
-                'bedrooms' => 3,
-                'bathrooms' => 2,
-                'date' => 'Hari ini',
-                'agent_name' => 'Budi Santoso',
-                'agent_area' => 'Kaliwates, Jember',
-                'agent_image' => asset('images/agents/agent.png'),
-                'agent_whatsapp' => 'https://wa.me/6281234567890',
-            ],
-            [
-                'title' => 'Tanah Strategis Dekat Jalan Utama',
-                'price' => 'Rp 450 Juta',
-                'location' => 'Kaliwates, Jember',
-                'image' => asset('images/property/rumah2.jpg'),
-                'status' => 'BARU',
-                'land_area' => 200,
-                'bedrooms' => 0,
-                'bathrooms' => 0,
-                'date' => 'Hari ini',
-                'agent_name' => 'Budi Santoso',
-                'agent_area' => 'Kaliwates, Jember',
-                'agent_image' => asset('images/agents/agent.png'),
-                'agent_whatsapp' => 'https://wa.me/6281234567890',
-            ],
-            [
-                'title' => 'Rumah Nyaman Siap Huni',
-                'price' => 'Rp 900 Juta',
-                'location' => 'Patrang, Jember',
-                'image' => asset('images/property/rumah3.jpg'),
-                'status' => 'BARU',
-                'land_area' => 150,
-                'bedrooms' => 4,
-                'bathrooms' => 2,
-                'date' => 'Kemarin',
-                'agent_name' => 'Budi Santoso',
-                'agent_area' => 'Kaliwates, Jember',
-                'agent_image' => asset('images/agents/agent.png'),
-                'agent_whatsapp' => 'https://wa.me/6281234567890',
-            ],
-            [
-                'title' => 'Rumah Dekat Kampus',
-                'price' => 'Rp 680 Juta',
-                'location' => 'Tegal Boto, Jember',
-                'image' => asset('images/property/rumah4.jpg'),
-                'status' => 'BARU',
-                'land_area' => 100,
-                'bedrooms' => 3,
-                'bathrooms' => 2,
-                'date' => 'Kemarin',
-                'agent_name' => 'Budi Santoso',
-                'agent_area' => 'Kaliwates, Jember',
-                'agent_image' => asset('images/agents/agent.png'),
-                'agent_whatsapp' => 'https://wa.me/6281234567890',
-            ],
-        ];
-    @endphp
-
+    {{-- Rekomendasi (Carousel) --}}
     <x-property.recommendation
         title="Rekomendasi Properti Untuk Anda"
         description="Temukan pilihan properti terbaik yang sesuai dengan kebutuhan dan keinginan Anda."
-        :properties="$popularProperties"
-        view-all-url="#"
+        :properties="$recommended"
+        view-all-url="{{ route('properties.index') }}"
     />
 
+    {{-- Properti Terpopuler (Grid 4 Kolom) --}}
     <x-property.section
         title="Properti Terpopuler"
-        :properties="$popularProperties"
-        view-all-url="#"
+        :properties="$popular"
+        view-all-url="{{ route('properties.index') }}"
     />
 
+    {{-- Properti Terbaru (Grid 4 Kolom) --}}
     <x-property.section
         title="Properti Terbaru"
-        :properties="$latestProperties"
-        view-all-url="#"
-        background="bg-[#FFF4EA]"
+        :properties="$latest"
+        view-all-url="{{ route('properties.index') }}"
+        background="bg-orange-50"
     />
-
-    @php
-        $testimonials = [
-            [
-                'name' => 'Andi Pratama',
-                'role' => 'CEO, PT Sejahtera',
-                'image' => asset('images/testimoni.png'),
-                'rating' => '5.0',
-                'message' => 'Pelayanannya sangat profesional. Saya dibantu dari awal mencari properti sampai proses transaksi selesai.',
-            ],
-            [
-                'name' => 'Siti Rahma',
-                'role' => 'Pengusaha',
-                'image' => asset('images/testimoni.png'),
-                'rating' => '5.0',
-                'message' => 'Proses mencari rumah jadi jauh lebih mudah. Timnya responsif dan memberikan informasi yang sangat jelas.',
-            ],
-            [
-                'name' => 'Rizky Maulana',
-                'role' => 'Karyawan Swasta',
-                'image' => asset('images/testimoni.png'),
-                'rating' => '5.0',
-                'message' => 'Saya sangat puas dengan pelayanan yang diberikan. Semua proses dijelaskan dengan baik dan transparan.',
-            ],
-            [
-                'name' => 'Dewi Lestari',
-                'role' => 'Wiraswasta',
-                'image' => asset('images/testimoni.png'),
-                'rating' => '5.0',
-                'message' => 'Pengalaman yang sangat menyenangkan. Properti yang ditawarkan sesuai dengan kebutuhan dan budget saya.',
-            ],
-        ];
-    @endphp
 
     <x-public.news />
 
+    {{-- Testimoni --}}
     <x-public.testimonial-card :testimonials="$testimonials" />
 
 @endsection

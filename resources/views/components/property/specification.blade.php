@@ -1,75 +1,60 @@
+{{--
+  Component: Property Specification
+  Path: resources/views/components/property/specification.blade.php
+
+  FUNGSI:
+  Menampilkan spesifikasi: luas tanah, luas bangunan, kamar tidur, kamar mandi.
+  Hanya tampil kalau nilai > 0 / ada.
+
+  DIPAKAI DI:
+  - card.blade.php (size="sm")
+  - card-featured.blade.php (size="md")
+
+  PROPS:
+  - $property (Model) — WAJIB
+  - $size (string) — "sm" | "md". Default: "sm"
+
+  CARA PAKAI:
+  <x-property.specification :property="$property" />
+
+  CATATAN:
+  - Kalau properti tanah (bedrooms=0, bathrooms=0) → otomatis yang ditampilkan hanya luas tanah
+  - Pakai flex-wrap → kalau ruang tidak cukup, otomatis ke baris baru
+--}}
+
 @props([
     'property',
+    'size' => 'sm',
 ])
 
-<div
-    class="flex items-center gap-4
-           mt-3 pt-3
-           border-t border-gray-200
-           text-xs text-gray-600 "
->
+@php
+    $sizeClass = $size === 'md' ? 'text-sm' : 'text-xs';
+    $iconSize = $size === 'md' ? 'w-4 h-4' : 'w-3.5 h-3.5';
+@endphp
 
-    {{-- LUAS TANAH --}}
-    @if (isset($property['land_area']))
-
-        <div class="flex items-center gap-1.5">
-
-            <i data-lucide="maximize-2" class="w-3.5 h-3.5"></i>
-
-            <span>
-                {{ $property['land_area'] }} m²
-            </span>
-
-        </div>
-
+<div class="flex flex-wrap items-center gap-3 {{ $sizeClass }} text-stone-600">
+    @if($property->land_area)
+        <span class="flex items-center gap-1">
+            <i data-lucide="square" class="{{ $iconSize }} text-stone-400"></i>
+            {{ $property->land_area }} m²
+        </span>
     @endif
-
-
-    {{-- KAMAR TIDUR --}}
-    @if (isset($property['bedrooms']))
-
-        <div class="flex items-center gap-1.5">
-
-            <i data-lucide="bed-double" class="w-3.5 h-3.5"></i>
-
-            <span>
-                {{ $property['bedrooms'] }}
-            </span>
-
-        </div>
-
+    @if($property->building_area)
+        <span class="flex items-center gap-1">
+            <i data-lucide="home" class="{{ $iconSize }} text-stone-400"></i>
+            {{ $property->building_area }} m²
+        </span>
     @endif
-
-
-    {{-- KAMAR MANDI --}}
-    @if (isset($property['bathrooms']))
-
-        <div class="flex items-center gap-1.5">
-
-            <i data-lucide="bath" class="w-3.5 h-3.5"></i>
-
-            <span>
-                {{ $property['bathrooms'] }}
-            </span>
-
-        </div>
-
+    @if($property->bedrooms > 0)
+        <span class="flex items-center gap-1">
+            <i data-lucide="bed-double" class="{{ $iconSize }} text-stone-400"></i>
+            {{ $property->bedrooms }} KT
+        </span>
     @endif
-
-
-    {{-- LUAS BANGUNAN --}}
-    @if (isset($property['building_area']))
-
-        <div class="flex items-center gap-1.5">
-
-            <i data-lucide="house" class="w-3.5 h-3.5"></i>
-
-            <span>
-                {{ $property['building_area'] }} m²
-            </span>
-
-        </div>
-
+    @if($property->bathrooms > 0)
+        <span class="flex items-center gap-1">
+            <i data-lucide="bath" class="{{ $iconSize }} text-stone-400"></i>
+            {{ $property->bathrooms }} KM
+        </span>
     @endif
-
 </div>
