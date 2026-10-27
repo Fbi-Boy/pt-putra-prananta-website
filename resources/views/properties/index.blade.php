@@ -8,6 +8,11 @@
 @push('styles')
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
+
+        .leaflet-control-attribution {
+        display: none !important;
+    }
+
     /* Tema Gelap Peta */
     #property-map { z-index: 10; }
     .leaflet-container { background: #09251C; font-family: inherit; }
@@ -100,28 +105,21 @@
                 </div>
 
                 {{-- FILTER BAR --}}
-                <form method="GET" action="{{ url()->current() }}" class="flex flex-wrap gap-2 mb-3">
+                                {{-- FILTER BAR --}}
+                <form method="GET" action="{{ url()->current() }}" class="flex flex-wrap gap-2 mb-3" x-data="{ showAdvanced: false }">
 
+                    {{-- Tombol Buka Advanced Filter --}}
                     <button type="button" @click="showAdvanced = !showAdvanced"
                             class="h-10 px-4 rounded-xl border border-stone-300 bg-white text-stone-700 hover:border-stone-400 text-sm font-medium flex items-center gap-2 transition"
                             :class="showAdvanced ? 'border-orange-500 text-orange-600 bg-orange-50' : ''">
                         <i data-lucide="sliders-horizontal" class="w-4 h-4"></i>
                         Filter
+                        @if(request()->hasAny(['min_price', 'max_price', 'bathrooms', 'certificate', 'is_kpr_eligible', 'facilities']))
+                            <span class="w-2 h-2 rounded-full bg-orange-500"></span>
+                        @endif
                     </button>
 
-                    <div class="relative">
-                        <i data-lucide="wallet" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 pointer-events-none"></i>
-                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 pointer-events-none"></i>
-                        <select name="max_price" onchange="this.form.submit()"
-                                class="h-10 pl-9 pr-9 rounded-xl border border-stone-300 bg-white text-sm text-stone-700 hover:border-stone-400 focus:border-orange-500 outline-none appearance-none cursor-pointer transition">
-                            <option value="">Harga</option>
-                            <option value="500000000" @selected(request('max_price') == 500000000)>&lt; Rp 500 Jt</option>
-                            <option value="1000000000" @selected(request('max_price') == 1000000000)>&lt; Rp 1 M</option>
-                            <option value="2000000000" @selected(request('max_price') == 2000000000)>&lt; Rp 2 M</option>
-                            <option value="5000000000" @selected(request('max_price') == 5000000000)>&lt; Rp 5 M</option>
-                        </select>
-                    </div>
-
+                    {{-- Tipe Properti --}}
                     <div class="relative">
                         <i data-lucide="tag" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 pointer-events-none"></i>
                         <i data-lucide="chevron-down" class="w-3.5 h-3.5 absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 pointer-events-none"></i>
@@ -134,6 +132,7 @@
                         </select>
                     </div>
 
+                    {{-- Sortir --}}
                     <div class="relative">
                         <i data-lucide="arrow-up-down" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 pointer-events-none"></i>
                         <i data-lucide="chevron-down" class="w-3.5 h-3.5 absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 pointer-events-none"></i>
@@ -146,25 +145,30 @@
                         </select>
                     </div>
 
+                    {{-- Tombol Reset --}}
                     @if($hasFilters)
                         <a href="{{ url()->current() }}"
                            class="h-10 px-4 rounded-xl border border-red-200 bg-red-50 text-red-600 hover:bg-red-100 text-sm font-medium flex items-center gap-2 transition">
-                            <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
-                            Reset
+                            <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Reset
                         </a>
                     @endif
 
-                    @foreach(request()->except('max_price', 'type', 'sort', 'page') as $k => $v)
+                    {{-- Hidden inputs untuk mempertahankan filter saat ganti tipe/sort --}}
+                    @foreach(request()->except('type', 'sort', 'page') as $k => $v)
                         @if(is_string($v) && $v !== '')
                             <input type="hidden" name="{{ $k }}" value="{{ $v }}">
                         @endif
                     @endforeach
 
-                    {{-- Advanced Filter (Area & Kamar) --}}
-                    <div x-show="showAdvanced" x-cloak
-                         class="w-full mt-1 p-4 bg-white border border-stone-200 rounded-xl grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {{-- ======================================================== --}}
+                    {{-- ADVANCED FILTER (Panel Putih Muncul Saat Diklik)        --}}
+                    {{-- ======================================================== --}}
+                    <div x-show="showAdvanced" x-cloak x-transition
+                         class="w-full mt-2 p-5 bg-white border border-stone-200 rounded-2xl shadow-sm grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+
+                        {{-- 1. Area --}}
                         <div>
-                            <label class="block text-xs font-semibold text-stone-600 mb-1.5">Area</label>
+                            <label class="block text-xs font-bold text-stone-700 mb-2">Area / Kecamatan</label>
                             <select name="area" onchange="this.form.submit()"
                                     class="w-full h-10 px-3 rounded-lg border border-stone-300 text-sm focus:border-orange-500 outline-none">
                                 <option value="">Semua Area</option>
@@ -173,16 +177,72 @@
                                 @endforeach
                             </select>
                         </div>
+
+                        {{-- 2. Harga (Min & Max) --}}
                         <div>
-                            <label class="block text-xs font-semibold text-stone-600 mb-1.5">Kamar Tidur</label>
-                            <select name="bedrooms" onchange="this.form.submit()"
-                                    class="w-full h-10 px-3 rounded-lg border border-stone-300 text-sm focus:border-orange-500 outline-none">
-                                <option value="">Semua</option>
-                                @foreach([1, 2, 3, 4, 5] as $n)
-                                    <option value="{{ $n }}" @selected(request('bedrooms') == $n)>{{ $n }}+ Kamar</option>
-                                @endforeach
-                            </select>
+                            <label class="block text-xs font-bold text-stone-700 mb-2">Rentang Harga (Rp)</label>
+                            <div class="flex items-center gap-2">
+                                <input type="number" name="min_price" value="{{ request('min_price') }}" placeholder="Min"
+                                       class="w-full h-10 px-3 rounded-lg border border-stone-300 text-sm focus:border-orange-500 outline-none">
+                                <span class="text-stone-400">-</span>
+                                <input type="number" name="max_price" value="{{ request('max_price') }}" placeholder="Max"
+                                       class="w-full h-10 px-3 rounded-lg border border-stone-300 text-sm focus:border-orange-500 outline-none">
+                            </div>
                         </div>
+
+                        {{-- 3. Kamar Tidur & Mandi --}}
+                        <div>
+                            <label class="block text-xs font-bold text-stone-700 mb-2">Kamar Tidur & Mandi</label>
+                            <div class="flex items-center gap-2">
+                                <select name="bedrooms" onchange="this.form.submit()" class="w-full h-10 px-3 rounded-lg border border-stone-300 text-sm focus:border-orange-500 outline-none">
+                                    <option value="">KT</option>
+                                    @foreach([1, 2, 3, 4, 5] as $n)
+                                        <option value="{{ $n }}" @selected(request('bedrooms') == $n)>{{ $n }}+</option>
+                                    @endforeach
+                                </select>
+                                <select name="bathrooms" onchange="this.form.submit()" class="w-full h-10 px-3 rounded-lg border border-stone-300 text-sm focus:border-orange-500 outline-none">
+                                    <option value="">KM</option>
+                                    @foreach([1, 2, 3, 4] as $n)
+                                        <option value="{{ $n }}" @selected(request('bathrooms') == $n)>{{ $n }}+</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        {{-- 4. Sertifikat & KPR --}}
+                        <div>
+                            <label class="block text-xs font-bold text-stone-700 mb-2">Sertifikat</label>
+                            <select name="certificate" onchange="this.form.submit()" class="w-full h-10 px-3 rounded-lg border border-stone-300 text-sm focus:border-orange-500 outline-none mb-3">
+                                <option value="">Semua Sertifikat</option>
+                                <option value="SHM" @selected(request('certificate') == 'SHM')>SHM</option>
+                                <option value="HGB" @selected(request('certificate') == 'HGB')>HGB</option>
+                                <option value="SHM HGB" @selected(request('certificate') == 'SHM HGB')>SHM HGB</option>
+                                <option value="Girik" @selected(request('certificate') == 'Girik')>Girik</option>
+                            </select>
+
+                            {{-- Toggle Bisa KPR --}}
+                            <label class="flex items-center gap-2 cursor-pointer mt-1">
+                                <input type="checkbox" name="is_kpr_eligible" value="1" onchange="this.form.submit()" @checked(request('is_kpr_eligible'))
+                                       class="w-4 h-4 text-orange-500 rounded border-stone-300 focus:ring-orange-500">
+                                <span class="text-sm font-medium text-stone-700">Bisa KPR</span>
+                            </label>
+                        </div>
+
+                        {{-- 5. Fasilitas (Full Width) --}}
+                        <div class="md:col-span-2 lg:col-span-4 border-t border-stone-100 pt-4 mt-1">
+                            <label class="block text-xs font-bold text-stone-700 mb-3">Fasilitas (Pilih satu atau lebih)</label>
+                            <div class="flex flex-wrap gap-4">
+                                @foreach($facilities as $facility)
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" name="facilities[]" value="{{ $facility->id }}" onchange="this.form.submit()"
+                                               @checked(in_array($facility->id, request('facilities', [])))
+                                               class="w-4 h-4 text-orange-500 rounded border-stone-300 focus:ring-orange-500">
+                                        <span class="text-sm text-stone-600">{{ $facility->name }}</span>
+                                    </label>
+                                @endforeach
+                            </div>
+                        </div>
+
                     </div>
                 </form>
 
