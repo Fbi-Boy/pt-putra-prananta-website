@@ -141,11 +141,11 @@
                     </p>
                 </div>
 
-                {{-- GRID PROPERTI: pakai card-featured (1 kolom besar) --}}
+                {{-- GRID PROPERTI: 2 KOLOM --}}
                 @if($properties->count() > 0)
-                    <div class="flex flex-col gap-5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         @foreach($properties as $property)
-                            <x-property.card-featured :property="$property" />
+                            <x-property.card :property="$property" />
                         @endforeach
                     </div>
 

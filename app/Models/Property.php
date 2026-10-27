@@ -95,8 +95,12 @@ class Property extends Model {
 
     public function getPriceFormattedAttribute(): string {
         $price = $this->price;
-        if ($price >= 1_000_000_000) return 'Rp ' . number_format($price / 1_000_000_000, 1, ',', '.') . ' Miliar';
-        if ($price >= 1_000_000)     return 'Rp ' . number_format($price / 1_000_000, 0, ',', '.') . ' Juta';
+        if ($price >= 1_000_000_000) {
+            return 'Rp ' . number_format($price / 1_000_000_000, 1, ',', '.') . ' M';
+        }
+        if ($price >= 1_000_000) {
+            return 'Rp ' . number_format($price / 1_000_000, 0, ',', '.') . ' Jt';
+        }
         return 'Rp ' . number_format($price, 0, ',', '.');
     }
 }

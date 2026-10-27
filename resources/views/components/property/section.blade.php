@@ -1,35 +1,3 @@
-{{--
-  Component: Property Section (Grid 4 Kolom)
-  Path: resources/views/components/property/section.blade.php
-
-  FUNGSI:
-  Section grid properti untuk homepage. 4 kolom desktop, 2 tablet, 1 mobile.
-
-  DIPAKAI DI:
-  - resources/views/welcome.blade.php (Properti Terpopuler, Properti Terbaru)
-
-  TERHUBUNG DENGAN:
-  - card.blade.php (di-loop per properti)
-
-  PROPS:
-  - $title (string) — default "Properti Terpopuler"
-  - $properties (Collection) — WAJIB, dari controller (query hasil)
-  - $viewAllUrl (string) — default "#"
-  - $background (string) — default "bg-white"
-
-  CARA PAKAI:
-  <x-property.section
-      title="Properti Terpopuler"
-      :properties="$popular"
-      view-all-url="{{ route('properties.index') }}"
-  />
-
-  CATATAN:
-  - Grid 4 kolom hanya di lg (1024px+), di bawahnya auto 1-2 kolom
-  - Properties KOSONG → tampil "Belum ada properti"
-  - Tombol "Lihat Semua" muncul di desktop + mobile (styling beda)
---}}
-
 @props([
     'title' => 'Properti Terpopuler',
     'properties' => [],
@@ -49,8 +17,8 @@
             </a>
         </div>
 
-        {{-- Grid: 1 → 2 → 4 kolom --}}
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {{-- Grid: 1 → 2 → 3 kolom --}}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             @forelse($properties as $property)
                 <x-property.card :property="$property" />
             @empty
