@@ -119,5 +119,9 @@ class PropertyController extends Controller
         return view('properties.index', compact(
             'properties', 'areas', 'types', 'facilities', 'activeTab', 'sort'
         ));
+         if ($request->filled('north') && $request->filled('south') && $request->filled('east') && $request->filled('west')) {
+            $query->whereBetween('latitude', [$request->south, $request->north])
+                  ->whereBetween('longitude', [$request->west, $request->east]);
+        }
     }
 }

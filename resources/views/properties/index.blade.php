@@ -288,8 +288,32 @@
             {{-- KOLOM KANAN (42%) - PETA LEAFLET                     --}}
             {{-- ===================================================== --}}
             <div class="hidden lg:block sticky top-6">
-                <div class="rounded-2xl overflow-hidden shadow-xl border border-stone-200 bg-[#09251C]"
+                <div class="relative rounded-2xl overflow-hidden shadow-xl border border-stone-200 bg-[#09251C]"
                      style="height: calc(100vh - 3rem);">
+
+                    {{-- Tombol "Cari di Area Ini" --}}
+                    <div id="search-area-wrapper" class="absolute top-4 left-1/2 -translate-x-1/2 z-[1000] hidden transition-all duration-300 transform -translate-y-4 opacity-0">
+                        <button type="button" id="btn-search-area"
+                                class="bg-white text-stone-900 px-4 py-2.5 rounded-full shadow-lg font-bold text-sm flex items-center gap-2 hover:bg-stone-50 transition">
+                            <i data-lucide="search" class="w-4 h-4 text-orange-500"></i>
+                            Cari di Area Ini
+                        </button>
+                    </div>
+
+                    {{-- Tombol Ganti Tema Peta --}}
+                    <div class="absolute top-4 right-4 z-[1000] flex flex-col gap-2">
+                        <button type="button" id="btn-theme-dark" class="w-10 h-10 rounded-xl bg-[#09251C] text-white shadow-lg flex items-center justify-center border border-white/20" title="Mode Gelap">
+                            <i data-lucide="moon" class="w-5 h-5"></i>
+                        </button>
+                        <button type="button" id="btn-theme-light" class="w-10 h-10 rounded-xl bg-white text-stone-900 shadow-lg flex items-center justify-center border border-stone-200 hover:bg-stone-50" title="Mode Terang">
+                            <i data-lucide="sun" class="w-5 h-5"></i>
+                        </button>
+                        <button type="button" id="btn-theme-satellite" class="w-10 h-10 rounded-xl bg-stone-800 text-white shadow-lg flex items-center justify-center border border-stone-600 hover:bg-stone-700" title="Mode Satelit">
+                            <i data-lucide="globe" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+
+                    {{-- Peta --}}
                     <div id="property-map" class="w-full h-full"></div>
                 </div>
             </div>
