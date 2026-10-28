@@ -13,6 +13,7 @@
             <x-public.search-panel />
         </div>
     </section>
+    
 
     <div class="h-[50px]"></div>
 

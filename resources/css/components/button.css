@@ -1,0 +1,136 @@
+
+/* =========================================================
+   BUTTON — jangan edit di sini, edit theme.css
+========================================================= */
+
+.property-btn {
+    --btn-bg: var(--brand-primary);
+    --btn-bg-hover: var(--brand-primary-hover);
+    --btn-fg: var(--color-white);
+    --btn-border: transparent;
+    --btn-shadow: 0 4px 14px rgba(233, 133, 34, 0.25);
+
+    --btn-py: 10px;
+    --btn-px: 16px;
+    --btn-font: 12px;
+    --btn-radius: 8px;
+    --btn-gap: 8px;
+    --btn-height: 40px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--btn-gap);
+
+    min-height: var(--btn-height);
+    padding: var(--btn-py) var(--btn-px);
+
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    border: 1px solid var(--btn-border);
+    border-radius: var(--btn-radius);
+
+    font-family: inherit;
+    font-size: var(--btn-font);
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: var(--btn-shadow);
+    transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.property-btn:hover:not(:disabled):not([aria-disabled="true"]) {
+    background: var(--btn-bg-hover);
+    transform: translateY(-1px);
+}
+
+.property-btn:active:not(:disabled) { transform: translateY(0); }
+
+.property-btn:focus-visible {
+    outline: 2px solid var(--brand-primary);
+    outline-offset: 3px;
+}
+
+.property-btn:disabled,
+.property-btn[aria-disabled="true"] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.property-btn svg {
+    width: 1.1em;
+    height: 1.1em;
+    flex-shrink: 0;
+}
+
+/* ---------- VARIANTS ---------- */
+
+.property-btn--outline {
+    --btn-bg: #ffffff;
+    --btn-bg-hover: var(--brand-primary-soft);
+    --btn-fg: var(--brand-primary);
+    --btn-border: var(--brand-primary);
+    --btn-shadow: none;
+}
+
+.property-btn--ghost {
+    --btn-bg: transparent;
+    --btn-bg-hover: rgba(233, 133, 34, 0.1);
+    --btn-fg: var(--brand-primary);
+    --btn-shadow: none;
+}
+
+.property-btn--soft {
+    --btn-bg: var(--brand-primary-soft);
+    --btn-bg-hover: #ffe5c8;
+    --btn-fg: var(--brand-primary);
+    --btn-shadow: none;
+}
+
+.property-btn--dark {
+    --btn-bg: var(--color-dark);
+    --btn-bg-hover: #2a2a2a;
+    --btn-fg: var(--color-white);
+    --btn-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
+/* ---------- SIZES ---------- */
+
+.property-btn--xs {
+    --btn-py: 5px; --btn-px: 9px;
+    --btn-font: 9px; --btn-radius: 6px; --btn-gap: 4px; --btn-height: 26px;
+}
+
+.property-btn--sm {
+    --btn-py: 7px; --btn-px: 12px;
+    --btn-font: 10px; --btn-radius: 7px; --btn-gap: 6px; --btn-height: 32px;
+}
+
+.property-btn--md {
+    --btn-py: 10px; --btn-px: 16px;
+    --btn-font: 12px; --btn-radius: 8px; --btn-gap: 8px; --btn-height: 40px;
+}
+
+.property-btn--lg {
+    --btn-py: 13px; --btn-px: 22px;
+    --btn-font: 14px; --btn-radius: 10px; --btn-gap: 10px; --btn-height: 48px;
+}
+
+/* ---------- MODIFIERS ---------- */
+
+.property-btn--icon {
+    --btn-px: 0;
+    width: var(--btn-height);
+    padding: 0;
+}
+
+.property-btn--icon svg {
+    width: 1.2em;
+    height: 1.2em;
+}
+
+.property-btn--block { width: 100%; }

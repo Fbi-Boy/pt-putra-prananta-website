@@ -1,0 +1,21 @@
+
+/* =========================================================
+   THEME — EDIT DI SINI
+   Ganti warna primary di sini, seluruh button ikut berubah.
+========================================================= */
+
+:root {
+    /* Brand */
+    --brand-primary:        #e98522;
+    --brand-primary-hover:  #d47515;
+    --brand-primary-soft:   #fff3e8;
+    --brand-primary-dark:   #c5660a;
+
+    /* Supporting */
+    --color-dark:    #171717;
+    --color-white:   #ffffff;
+    --color-light:   #f3f4f6;
+    --color-danger:  #dc2626;
+    --color-success: #16a34a;
+}
+
