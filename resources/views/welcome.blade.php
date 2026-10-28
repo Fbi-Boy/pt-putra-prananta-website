@@ -32,14 +32,14 @@
         view-all-url="{{ route('properties.index') }}"
     />
 
-    {{-- Properti Terpopuler (Grid 4 Kolom) --}}
+ {{-- Properti Terpopuler --}}
     <x-property.section
         title="Properti Terpopuler"
         :properties="$popular"
         view-all-url="{{ route('properties.index') }}"
     />
 
-    {{-- Properti Terbaru (Grid 4 Kolom) --}}
+    {{-- Properti Terbaru --}}
     <x-property.section
         title="Properti Terbaru"
         :properties="$latest"
