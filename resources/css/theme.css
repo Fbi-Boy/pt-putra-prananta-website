@@ -11,11 +11,20 @@
     --brand-primary-soft:   #fff3e8;
     --brand-primary-dark:   #c5660a;
 
+    --font-sans: 'Poppins', system-ui, -apple-system, sans-serif;
+
     /* Supporting */
     --color-dark:    #171717;
     --color-white:   #ffffff;
     --color-light:   #f3f4f6;
     --color-danger:  #dc2626;
     --color-success: #16a34a;
+}
+
+
+html, body {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 

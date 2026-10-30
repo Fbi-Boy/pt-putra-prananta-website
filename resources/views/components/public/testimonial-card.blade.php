@@ -3,1124 +3,385 @@
         [
             'name' => 'Andi Pratama',
             'role' => 'Client Property',
-            'image' => asset('images/testimonials/client-1.jpg'),
+            'image' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop',
             'message' => 'Pelayanannya sangat baik dan saya mendapatkan rumah yang sesuai dengan kebutuhan serta budget saya.',
         ],
         [
             'name' => 'Siti Aulia',
             'role' => 'Client Property',
-            'image' => asset('images/testimonials/client-2.jpg'),
+            'image' => 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&auto=format&fit=crop',
             'message' => 'Saya sangat terbantu menemukan property yang sesuai dengan keinginan, lengkap, aman, dan terpercaya.',
         ],
         [
             'name' => 'Rizky Ramadhan',
             'role' => 'Client Property',
-            'image' => asset('images/testimonials/client-3.jpg'),
+            'image' => 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=150&auto=format&fit=crop',
             'message' => 'Proses transaksi berjalan jelas dan cepat dari awal pencarian hingga pembelian property selesai.',
         ],
         [
             'name' => 'Dewi Anggraini',
             'role' => 'Client Property',
-            'image' => asset('images/testimonials/client-4.jpg'),
+            'image' => 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=150&auto=format&fit=crop',
             'message' => 'Pelayanan dari awal sampai proses pembelian sangat membantu dan komunikasinya juga sangat baik.',
         ],
     ],
 ])
 
 <section class="testimonial-section">
-
     <div class="testimonial-container">
 
         {{-- =========================================
-             TITLE
+             HEADING (Desain Baru & Kreatif)
         ========================================== --}}
-        <div class="testimonial-heading">
+        <div class="testimonial-header">
+            {{-- Ornamen Kutipan Background --}}
+            <div class="bg-quote-left">“</div>
+            <div class="bg-quote-right">”</div>
 
-            <h2>
-                <span>Testimoni</span>
-                <strong>Tentang Kami</strong>
-            </h2>
+            <div class="header-content">
+                <span class="header-label">TESTIMONI KLIEN</span>
+                <h2 class="header-title">Apa Kata Klien Kami?</h2>
+                <p class="header-subtitle">Kepercayaan dan kepuasan Anda adalah prioritas utama kami.</p>
 
-            <div class="testimonial-heading-line"></div>
-
+                {{-- Garis Aksen Bawah --}}
+                <div class="header-divider">
+                    <span class="divider-line"></span>
+                    <span class="divider-dot"></span>
+                    <span class="divider-dot"></span>
+                </div>
+            </div>
         </div>
 
-
         {{-- =========================================
-             TESTIMONIAL GRID
-             SELALU 4 CARD
+             CAROUSEL WRAPPER
         ========================================== --}}
-        <div class="testimonial-grid">
+        <div class="testimonial-carousel-wrapper" id="testimonialWrapper">
+            <div class="testimonial-carousel-track" id="testimonialTrack">
 
-            @foreach ($testimonials as $index => $testimonial)
-
-                <article
-                    class="
-                        testimonial-card
-                        testimonial-card-{{ $index + 1 }}
-                    "
-                >
-
-                    {{-- =================================
-                         PUSH PIN
-                    ================================= --}}
-                    <div class="push-pin">
-
-                        <div class="push-pin-head"></div>
-
-                        <div class="push-pin-neck"></div>
-
-                    </div>
-
-
-                    {{-- =================================
-                         CLIENT HEADER
-                    ================================= --}}
-                    <div class="testimonial-client">
-
-                        {{-- PROFILE --}}
-                        <div class="testimonial-avatar">
-
-                            <img
-                                src="{{ $testimonial['image'] ?? asset('images/default-user.jpg') }}"
-                                alt="{{ $testimonial['name'] ?? 'Client' }}"
-                            >
-
-                        </div>
-
-
-                        {{-- INFO --}}
-                        <div class="testimonial-client-info">
-
-                            {{-- STARS --}}
-                            <div class="testimonial-stars">
-
-                                @for ($i = 1; $i <= 5; $i++)
-
-                                    <i
-                                        data-lucide="star"
-                                        class="star-icon"
-                                    ></i>
-
-                                @endfor
-
+                {{-- LOOPING 2X UNTUK EFEK INFINITE --}}
+                @foreach ($testimonials as $testimonial)
+                    <article class="testimonial-card">
+                        <div class="testimonial-content">
+                            {{-- AVATAR --}}
+                            <div class="testimonial-avatar">
+                                <img
+                                    src="{{ $testimonial['image'] ?? 'https://via.placeholder.com/150' }}"
+                                    alt="{{ $testimonial['name'] }}"
+                                >
                             </div>
 
+                            {{-- NAME & ROLE --}}
+                            <h3 class="testimonial-name">{{ $testimonial['name'] }}</h3>
+                            <span class="testimonial-role">{{ $testimonial['role'] }}</span>
 
-                            {{-- NAME --}}
-                            <h3>
-                                {{ $testimonial['name'] ?? 'CLIENT' }}
-                            </h3>
-
-
-                            {{-- ROLE --}}
-                            <span>
-                                {{ $testimonial['role'] ?? 'Client Property' }}
-                            </span>
-
+                            {{-- MESSAGE --}}
+                            <p class="testimonial-message">
+                                {{ $testimonial['message'] }}
+                            </p>
                         </div>
+                    </article>
+                @endforeach
 
-                    </div>
+                {{-- DUPLIKASI KEDUA --}}
+                @foreach ($testimonials as $testimonial)
+                    <article class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="testimonial-avatar">
+                                <img
+                                    src="{{ $testimonial['image'] ?? 'https://via.placeholder.com/150' }}"
+                                    alt="{{ $testimonial['name'] }}"
+                                >
+                            </div>
+                            <h3 class="testimonial-name">{{ $testimonial['name'] }}</h3>
+                            <span class="testimonial-role">{{ $testimonial['role'] }}</span>
+                            <p class="testimonial-message">
+                                {{ $testimonial['message'] }}
+                            </p>
+                        </div>
+                    </article>
+                @endforeach
 
-
-                    {{-- =================================
-                         QUOTE
-                    ================================= --}}
-                    <div class="testimonial-quote-mark">
-                        “
-                    </div>
-
-
-                    {{-- =================================
-                         MESSAGE
-                    ================================= --}}
-                    <p class="testimonial-message">
-                        {{ $testimonial['message'] ?? '' }}
-                    </p>
-
-                </article>
-
-            @endforeach
-
+            </div>
         </div>
 
     </div>
-
 </section>
 
-
 <style>
-
-/* =====================================================
-   SECTION
-===================================================== */
-
+/* =========================================================
+   SECTION & CONTAINER (Background Putih)
+========================================================= */
 .testimonial-section {
     width: 100%;
-
     background: #ffffff;
-
-    padding: 45px 0 60px;
-
+    padding: 80px 0;
     overflow: hidden;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
-
 
 .testimonial-container {
-    width: min(
-        1200px,
-        calc(100% - 40px)
-    );
-
+    width: 100%;
+    max-width: 1300px;
     margin: 0 auto;
+    padding: 0 20px;
 }
 
-
-/* =====================================================
-   HEADING
-===================================================== */
-
-.testimonial-heading {
+/* =========================================================
+   HEADER STYLING (Desain Kreatif Baru)
+========================================================= */
+.testimonial-header {
+    position: relative;
     text-align: center;
-
     margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
 }
 
+.header-content {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+}
 
-.testimonial-heading h2 {
-    margin: 0;
+/* Ornamen Kutipan Raksasa di Background */
+.bg-quote-left,
+.bg-quote-right {
+    position: absolute;
+    font-family: Georgia, serif;
+    font-size: 200px;
+    color: #f4f5f7; /* Abu-abu sangat pudar */
+    line-height: 1;
+    z-index: 1;
+    pointer-events: none;
+    user-select: none;
+}
 
-    font-size: 27px;
+.bg-quote-left {
+    top: -40px;
+    left: 10%;
+    transform: rotate(-10deg);
+}
 
-    line-height: 1.1;
+.bg-quote-right {
+    bottom: -80px;
+    right: 10%;
+    transform: rotate(10deg);
+}
 
+/* Label Kecil di Atas Judul */
+.header-label {
+    display: inline-block;
+    padding: 6px 16px;
+    background: #fdf3ee; /* Orange sangat pudar */
+    color: #f07b5b; /* Orange aksen */
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    border-radius: 50px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+}
+
+/* Judul Utama */
+.header-title {
+    font-size: 38px;
     font-weight: 800;
-
-    letter-spacing: -0.8px;
-
-    color: #172033;
+    color: #111111;
+    margin: 0 0 12px 0;
+    letter-spacing: -1px;
+    line-height: 1.2;
 }
 
-
-.testimonial-heading h2 span {
-    color: #172033;
+/* Subtitle */
+.header-subtitle {
+    font-size: 15px;
+    color: #666666;
+    margin: 0 0 24px 0;
+    line-height: 1.5;
 }
 
-
-.testimonial-heading h2 strong {
-    color: #667085;
-
-    font-weight: 800;
+/* Garis Aksen (Garis + 2 Titik) */
+.header-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
 }
 
-
-.testimonial-heading-line {
-    width: 75px;
-
-    height: 4px;
-
-    margin: 16px auto 0;
-
-    border-radius: 999px;
-
-    background: #ff7a00;
-
-    box-shadow:
-        0 0 4px rgba(255, 122, 0, 0.35),
-        0 0 8px rgba(255, 122, 0, 0.2);
+.divider-line {
+    width: 60px;
+    height: 3px;
+    background: #f07b5b;
+    border-radius: 10px;
 }
 
-
-/* =====================================================
-   GRID
-   TETAP 4 CARD
-===================================================== */
-
-.testimonial-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(4, minmax(0, 1fr));
-
-    gap: 20px;
-
-    align-items: start;
+.divider-dot {
+    width: 5px;
+    height: 5px;
+    background: #f07b5b;
+    border-radius: 50%;
 }
 
+/* =========================================================
+   CAROUSEL LAYOUT (Animasi Center Focus)
+========================================================= */
+.testimonial-carousel-wrapper {
+    width: 100%;
+    padding: 30px 0 60px 0;
+    overflow: hidden;
+    position: relative;
+    /* Efek blur/fade di pinggir layar */
+    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
 
-/* =====================================================
-   CARD
-===================================================== */
+.testimonial-carousel-track {
+    display: flex;
+    gap: 30px;
+    width: max-content;
+    will-change: transform;
+}
 
+/* =========================================================
+   CARD STYLING (Lebih Ramping & Warna Abu-Abu)
+========================================================= */
 .testimonial-card {
     position: relative;
-
-    min-width: 0;
-
-    min-height: 325px;
-
-    padding: 62px 23px 25px;
-
-    border-radius: 17px;
-
-    border: 1px solid rgba(255, 255, 255, 0.9);
-
-    box-shadow:
-        0 14px 28px rgba(31, 41, 55, 0.08),
-        0 3px 8px rgba(31, 41, 55, 0.04);
-
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
-}
-
-
-/* =====================================================
-   CARD COLORS
-===================================================== */
-
-.testimonial-card-1 {
-    background: #fff8f2;
-
-    transform: rotate(-3deg);
-}
-
-
-.testimonial-card-2 {
-    background: #f1f8ff;
-
-    transform: rotate(0.5deg);
-}
-
-
-.testimonial-card-3 {
-    background: #f6f4ff;
-
-    transform: rotate(-1.5deg);
-}
-
-
-.testimonial-card-4 {
-    background: #f3faf7;
-
-    transform: rotate(-2.5deg);
-}
-
-
-/* =====================================================
-   CARD HOVER
-===================================================== */
-
-.testimonial-card:hover {
-
-    transform:
-        translateY(-6px)
-        rotate(0deg);
-
-    box-shadow:
-        0 20px 35px rgba(31, 41, 55, 0.12),
-        0 5px 12px rgba(31, 41, 55, 0.05);
-}
-
-
-/* =====================================================
-   PUSH PIN
-===================================================== */
-
-.push-pin {
-    position: absolute;
-
-    left: 50%;
-
-    top: -15px;
-
-    width: 42px;
-
-    height: 57px;
-
-    transform: translateX(-50%);
-
-    z-index: 10;
-
-    pointer-events: none;
-}
-
-
-/* =====================================================
-   PUSH PIN HEAD
-===================================================== */
-
-.push-pin-head {
-    position: absolute;
-
-    left: 50%;
-
-    top: 0;
-
-    width: 34px;
-
-    height: 34px;
-
-    transform: translateX(-50%);
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle at 32% 25%,
-            #ffb45b 0%,
-            #ff8a18 28%,
-            #ff6b00 65%,
-            #e65300 100%
-        );
-
-    box-shadow:
-        0 4px 7px rgba(0, 0, 0, 0.18),
-        inset 0 2px 3px rgba(255, 255, 255, 0.45);
-}
-
-
-/* PIN HIGHLIGHT */
-
-.push-pin-head::before {
-
-    content: "";
-
-    position: absolute;
-
-    top: 4px;
-
-    left: 7px;
-
-    width: 11px;
-
-    height: 6px;
-
-    border-radius: 50%;
-
-    background:
-        rgba(255, 255, 255, 0.5);
-
-    transform:
-        rotate(-20deg);
-}
-
-
-/* =====================================================
-   PUSH PIN NECK
-===================================================== */
-
-.push-pin-neck {
-
-    position: absolute;
-
-    left: 50%;
-
-    top: 28px;
-
-    width: 13px;
-
-    height: 16px;
-
-    transform:
-        translateX(-50%);
-
-    background:
-        linear-gradient(
-            to bottom,
-            #f56d00,
-            #c94300
-        );
-
-    border-radius:
-        0 0 5px 5px;
-
-    box-shadow:
-        0 4px 6px rgba(0, 0, 0, 0.15);
-}
-
-
-/* =====================================================
-   CLIENT
-===================================================== */
-
-.testimonial-client {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 11px;
-
-    min-width: 0;
-}
-
-
-/* =====================================================
-   AVATAR
-===================================================== */
-
-.testimonial-avatar {
-
-    width: 54px;
-
-    height: 54px;
-
+    width: 280px;
+    height: 350px;
     flex-shrink: 0;
-
+    background: #f4f5f7;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    transition: box-shadow 0.3s ease;
+    will-change: transform, opacity;
     overflow: hidden;
-
-    border-radius: 50%;
-
-    background: #e5e7eb;
-
-    border:
-        3px solid
-        rgba(255, 255, 255, 0.8);
-
-    box-shadow:
-        0 3px 8px
-        rgba(0, 0, 0, 0.08);
 }
 
+.testimonial-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    padding: 40px 25px;
+}
+
+/* =========================================================
+   AVATAR & TEXT
+========================================================= */
+.testimonial-avatar {
+    width: 65px;
+    height: 65px;
+    margin-bottom: 16px;
+    border-radius: 50%;
+    padding: 3px;
+    background: #ffffff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
 
 .testimonial-avatar img {
-
     width: 100%;
-
     height: 100%;
-
     object-fit: cover;
-
-    display: block;
+    border-radius: 50%;
 }
 
-
-/* =====================================================
-   CLIENT INFO
-===================================================== */
-
-.testimonial-client-info {
-
-    min-width: 0;
-
-    padding-top: 1px;
-}
-
-
-/* =====================================================
-   STARS
-===================================================== */
-
-.testimonial-stars {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 2px;
-
-    margin-bottom: 4px;
-}
-
-
-.star-icon {
-
-    width: 13px;
-
-    height: 13px;
-
-    color: #ffb52e;
-
-    fill: #ffb52e;
-
-    stroke: #ffb52e;
-}
-
-
-/* =====================================================
-   NAME
-===================================================== */
-
-.testimonial-client-info h3 {
-
-    margin: 0;
-
-    color: #172033;
-
-    font-size: 13px;
-
-    line-height: 17px;
-
+.testimonial-name {
+    margin: 0 0 4px 0;
+    font-size: 15px;
     font-weight: 700;
-
-    white-space: nowrap;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
+    color: #1a1a1a;
 }
 
-
-/* =====================================================
-   ROLE
-===================================================== */
-
-.testimonial-client-info span {
-
+.testimonial-role {
     display: block;
-
-    margin-top: 2px;
-
-    color: #667085;
-
-    font-size: 9px;
-
-    line-height: 13px;
-
-    white-space: nowrap;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
+    font-size: 11px;
+    color: #888888;
+    margin-bottom: 16px;
 }
-
-
-/* =====================================================
-   QUOTE
-===================================================== */
-
-.testimonial-quote-mark {
-
-    margin-top: 27px;
-
-    margin-bottom: -2px;
-
-    color: #9ac8e5;
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-size: 48px;
-
-    line-height: 30px;
-
-    font-weight: 700;
-
-    height: 30px;
-}
-
-
-/* =====================================================
-   MESSAGE
-===================================================== */
 
 .testimonial-message {
-
-    margin: 10px 0 0;
-
-    color: #52627a;
-
-    font-size: 11.5px;
-
+    margin: 0;
+    font-size: 13px;
     line-height: 1.6;
-
-    font-weight: 400;
-
-    display: -webkit-box;
-
-    -webkit-box-orient: vertical;
-
-    -webkit-line-clamp: 5;
-
-    overflow: hidden;
+    color: #555555;
+    font-style: italic;
+    text-align: center;
 }
 
-
-/* =====================================================
-   TABLET
-   TETAP 4 CARD
-===================================================== */
-
-@media (max-width: 1024px) {
-
-    .testimonial-section {
-
-        padding:
-            38px 0 50px;
-    }
-
-
-    .testimonial-container {
-
-        width:
-            calc(100% - 30px);
-    }
-
-
-    .testimonial-heading {
-
-        margin-bottom: 42px;
-    }
-
-
-    .testimonial-heading h2 {
-
-        font-size: 23px;
-    }
-
-
-    .testimonial-heading-line {
-
-        width: 60px;
-
-        height: 3px;
-
-        margin-top: 13px;
-    }
-
-
-    .testimonial-grid {
-
-        grid-template-columns:
-            repeat(4, minmax(0, 1fr));
-
-        gap: 10px;
-    }
-
-
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+@media (max-width: 768px) {
+    .bg-quote-left, .bg-quote-right { display: none; } /* Sembunyikan quote di HP */
+    .header-title { font-size: 28px; }
     .testimonial-card {
-
-        min-height: 270px;
-
-        padding:
-            52px
-            12px
-            18px;
-
-        border-radius: 12px;
+        width: 250px;
+        height: 320px;
     }
-
-
-    /* PIN */
-
-    .push-pin {
-
-        top: -11px;
-
-        width: 32px;
-
-        height: 44px;
-    }
-
-
-    .push-pin-head {
-
-        width: 27px;
-
-        height: 27px;
-    }
-
-
-    .push-pin-neck {
-
-        top: 23px;
-
-        width: 10px;
-
-        height: 12px;
-    }
-
-
-    /* CLIENT */
-
-    .testimonial-client {
-
-        gap: 7px;
-    }
-
-
-    /* AVATAR */
-
-    .testimonial-avatar {
-
-        width: 38px;
-
-        height: 38px;
-
-        border-width: 2px;
-    }
-
-
-    /* STARS */
-
-    .testimonial-stars {
-
-        gap: 1px;
-
-        margin-bottom: 2px;
-    }
-
-
-    .star-icon {
-
-        width: 9px;
-
-        height: 9px;
-    }
-
-
-    /* NAME */
-
-    .testimonial-client-info h3 {
-
-        font-size: 9px;
-
-        line-height: 12px;
-    }
-
-
-    /* ROLE */
-
-    .testimonial-client-info span {
-
-        font-size: 7px;
-
-        line-height: 10px;
-    }
-
-
-    /* QUOTE */
-
-    .testimonial-quote-mark {
-
-        margin-top: 18px;
-
-        font-size: 36px;
-
-        line-height: 23px;
-
-        height: 23px;
-    }
-
-
-    /* MESSAGE */
-
-    .testimonial-message {
-
-        margin-top: 7px;
-
-        font-size: 9px;
-
-        line-height: 1.5;
-
-        -webkit-line-clamp: 5;
-    }
-
 }
-
-
-/* =====================================================
-   MOBILE
-   TETAP 4 CARD
-===================================================== */
-
-@media (max-width: 640px) {
-
-    .testimonial-section {
-
-        padding:
-            30px 0 40px;
-    }
-
-
-    .testimonial-container {
-
-        width:
-            calc(100% - 20px);
-    }
-
-
-    .testimonial-heading {
-
-        margin-bottom: 34px;
-    }
-
-
-    .testimonial-heading h2 {
-
-        font-size: 18px;
-
-        letter-spacing:
-            -0.4px;
-    }
-
-
-    .testimonial-heading-line {
-
-        width: 45px;
-
-        height: 3px;
-
-        margin-top: 10px;
-    }
-
-
-    /* GRID */
-
-    .testimonial-grid {
-
-        grid-template-columns:
-            repeat(4, minmax(0, 1fr));
-
-        gap: 6px;
-    }
-
-
-    /* CARD */
-
-    .testimonial-card {
-
-        min-height: 210px;
-
-        padding:
-            42px
-            7px
-            12px;
-
-        border-radius: 8px;
-    }
-
-
-    /* CARD ROTATION */
-
-    .testimonial-card-1 {
-
-        transform:
-            rotate(-2deg);
-    }
-
-
-    .testimonial-card-2 {
-
-        transform:
-            rotate(0.5deg);
-    }
-
-
-    .testimonial-card-3 {
-
-        transform:
-            rotate(-1deg);
-    }
-
-
-    .testimonial-card-4 {
-
-        transform:
-            rotate(-2deg);
-    }
-
-
-    /* PIN */
-
-    .push-pin {
-
-        top: -8px;
-
-        width: 24px;
-
-        height: 34px;
-    }
-
-
-    .push-pin-head {
-
-        width: 20px;
-
-        height: 20px;
-    }
-
-
-    .push-pin-neck {
-
-        top: 17px;
-
-        width: 8px;
-
-        height: 9px;
-
-        border-radius:
-            0 0 3px 3px;
-    }
-
-
-    /* CLIENT */
-
-    .testimonial-client {
-
-        gap: 5px;
-    }
-
-
-    /* AVATAR */
-
-    .testimonial-avatar {
-
-        width: 28px;
-
-        height: 28px;
-
-        border-width: 2px;
-    }
-
-
-    /* STARS */
-
-    .testimonial-stars {
-
-        gap: 0;
-
-        margin-bottom: 1px;
-    }
-
-
-    .star-icon {
-
-        width: 7px;
-
-        height: 7px;
-    }
-
-
-    /* NAME */
-
-    .testimonial-client-info h3 {
-
-        font-size: 7px;
-
-        line-height: 9px;
-    }
-
-
-    /* ROLE */
-
-    .testimonial-client-info span {
-
-        font-size: 5.5px;
-
-        line-height: 8px;
-    }
-
-
-    /* QUOTE */
-
-    .testimonial-quote-mark {
-
-        margin-top: 13px;
-
-        font-size: 27px;
-
-        line-height: 18px;
-
-        height: 18px;
-    }
-
-
-    /* MESSAGE */
-
-    .testimonial-message {
-
-        margin-top: 5px;
-
-        font-size: 7px;
-
-        line-height: 1.45;
-
-        -webkit-line-clamp: 5;
-    }
-
-}
-
-
-/* =====================================================
-   VERY SMALL MOBILE
-===================================================== */
-
-@media (max-width: 380px) {
-
-    .testimonial-container {
-
-        width:
-            calc(100% - 12px);
-    }
-
-
-    .testimonial-grid {
-
-        gap: 4px;
-    }
-
-
-    .testimonial-card {
-
-        padding:
-            39px
-            5px
-            10px;
-
-        min-height: 190px;
-
-        border-radius: 7px;
-    }
-
-
-    .testimonial-avatar {
-
-        width: 24px;
-
-        height: 24px;
-    }
-
-
-    .testimonial-client {
-
-        gap: 3px;
-    }
-
-
-    .star-icon {
-
-        width: 6px;
-
-        height: 6px;
-    }
-
-
-    .testimonial-client-info h3 {
-
-        font-size: 6px;
-
-        line-height: 8px;
-    }
-
-
-    .testimonial-client-info span {
-
-        font-size: 5px;
-
-        line-height: 7px;
-    }
-
-
-    .testimonial-message {
-
-        font-size: 6.2px;
-    }
-
-}
-
 </style>
- 
+
+{{-- =========================================================
+     JAVASCRIPT UNTUK ANIMASI INFINITE LOOP (TANPA HENTI)
+========================================================= --}}
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const track = document.getElementById('testimonialTrack');
+    const wrapper = document.getElementById('testimonialWrapper');
+
+    if (!track || !wrapper) return;
+
+    const cards = Array.from(track.children);
+
+    let speed = 1.2;
+    let currentX = 0;
+
+    let totalWidth = track.scrollWidth / 2;
+
+    window.addEventListener('resize', () => {
+        totalWidth = track.scrollWidth / 2;
+    });
+
+    function animate() {
+        // Pergerakan Track ke Kiri (TERUS BERJALAN TANPA HENTI)
+        currentX -= speed;
+
+        if (Math.abs(currentX) >= totalWidth) {
+            currentX = 0;
+        }
+        track.style.transform = `translateX(${currentX}px)`;
+
+        // Efek Center Focus
+        const wrapperCenter = wrapper.getBoundingClientRect().left + (wrapper.offsetWidth / 2);
+
+        cards.forEach(card => {
+            const cardRect = card.getBoundingClientRect();
+            const cardCenter = cardRect.left + (cardRect.width / 2);
+
+            const distanceToCenter = Math.abs(wrapperCenter - cardCenter);
+            const maxDistance = wrapper.offsetWidth / 2;
+
+            let percentage = distanceToCenter / maxDistance;
+            if (percentage > 1) percentage = 1;
+
+            const scale = 1.05 - (percentage * 0.20);
+            const translateY = percentage * 40;
+            const opacity = 1 - (percentage * 0.4);
+
+            card.style.transform = `scale(${scale}) translateY(${translateY}px)`;
+            card.style.opacity = opacity;
+
+            card.style.zIndex = 100 - Math.floor(percentage * 100);
+        });
+
+        requestAnimationFrame(animate);
+    }
+
+    requestAnimationFrame(animate);
+});
+</script>
+@endpush
