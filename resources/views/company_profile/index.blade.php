@@ -5,44 +5,63 @@
 @section('content')
 
 {{-- ========================================== --}}
-{{-- 1. HERO SECTION (Pakai Banner Welcome)     --}}
+{{-- 1. HERO SECTION (Tanpa Overlay + Card CEO) --}}
 {{-- ========================================== --}}
-<section class="relative h-[400px] lg:h-[500px] flex items-center justify-center overflow-hidden">
-    {{-- Gambar Banner dari Welcome --}}
-    <img src="{{ asset('images/banner-property.png') }}"
-         alt="Company Profile Banner"
-         class="absolute inset-0 w-full h-full object-cover">
+<section class="relative w-full">
+    {{-- Gambar Banner --}}
+    <div class="w-full h-[300px] md:h-[450px]">
+        <img src="{{ asset('images/banner-property.png') }}"
+             alt="Company Profile Banner"
+             class="w-full h-full object-cover">
+    </div>
 
-    {{-- Overlay Gelap agar Teks Terbaca --}}
-    <div class="absolute inset-0 bg-black/60"></div>
-
-    {{-- Teks di Tengah --}}
-    <div class="relative z-10 text-center px-4 max-w-3xl mx-auto">
-        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
-            Tentang {{ config('company.name') }}
-        </h1>
-        <p class="text-lg text-stone-200 leading-relaxed">
-            Membangun kepercayaan, mewujudkan hunian impian. Kami adalah platform properti terpercaya di Jember dan sekitarnya.
-        </p>
+    {{-- Floating Card Profil CEO --}}
+    {{-- Posisi absolute di tengah bawah, menimpa batas banner --}}
+    <div class="absolute left-1/2 bottom-0 transform -translate-x-1/2 translate-y-1/2 z-20 w-[90%] max-w-md">
+        <div class="bg-white rounded-3xl shadow-2xl p-5 md:p-6 border border-stone-100 flex items-center gap-4 md:gap-5">
+            {{-- Foto CEO --}}
+            <div class="shrink-0">
+                <img src="{{ asset('images/agents/agent.png') }}"
+                     alt="Muhammad Giovarel"
+                     class="w-20 h-20 md:w-24 md:h-24 rounded-2xl object-cover border-2 border-orange-500 bg-stone-100">
+            </div>
+            {{-- Info CEO --}}
+            <div>
+                <p class="text-xs md:text-sm font-bold text-orange-500 uppercase tracking-wider mb-1">
+                    CEO Putra Prananta Property
+                </p>
+                <h3 class="text-xl md:text-2xl font-bold text-stone-900 leading-tight">
+                    Muhammad Giovarel
+                </h3>
+                <p class="text-xs text-stone-500 mt-1">Memimpin dengan visi & inovasi.</p>
+            </div>
+        </div>
     </div>
 </section>
+
+{{-- Spacer agar konten di bawahnya tidak tertutup Card CEO --}}
+<div class="h-32 md:h-40"></div>
 
 {{-- ========================================== --}}
 {{-- 2. VISI & MISI                             --}}
 {{-- ========================================== --}}
-<section class="py-20 bg-white">
+<section class="py-16 md:py-20 bg-white">
     <div class="max-w-6xl mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
 
-            {{-- Kiri: Gambar --}}
+            {{-- Kiri: Gambar (Responsive) --}}
             <div class="relative">
-                <div class="aspect-square md:aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl">
-                    <img src="{{ asset('images/property/rumah1.jpg') }}" alt="Visi Misi" class="w-full h-full object-cover">
+                {{-- Container dengan aspect ratio yang responsif --}}
+                <div class="w-full aspect-square md:aspect-[4/3] rounded-3xl overflow-hidden shadow-xl">
+                    {{-- Ganti URL gambar ini dengan foto kantor/tim yang kamu inginkan --}}
+                    <img src="{{ asset('images/property/rumah2.jpg') }}"
+                         alt="Suasana Kantor atau Tim Kami"
+                         class="w-full h-full object-cover">
                 </div>
-                {{-- Kotak Pengalaman --}}
-                <div class="absolute -bottom-6 -right-6 bg-orange-500 text-white p-6 rounded-2xl shadow-xl hidden sm:block">
-                    <p class="text-4xl font-bold">10+</p>
-                    <p class="text-sm font-medium mt-1">Tahun Pengalaman</p>
+                {{-- Ornamen kotak orange (opsional) --}}
+                <div class="absolute -bottom-6 -right-6 bg-orange-500 text-white p-5 md:p-6 rounded-2xl shadow-xl hidden sm:block">
+                    <p class="text-3xl md:text-4xl font-bold">10+</p>
+                    <p class="text-xs md:text-sm font-medium mt-1">Tahun Pengalaman</p>
                 </div>
             </div>
 
@@ -52,23 +71,25 @@
                 <h3 class="text-3xl font-bold text-stone-900 mb-6">Visi & Misi Kami</h3>
 
                 <div class="space-y-6">
+                    {{-- Visi --}}
                     <div class="flex gap-4">
                         <div class="w-12 h-12 rounded-xl bg-orange-100 text-orange-500 flex items-center justify-center shrink-0">
                             <i data-lucide="eye" class="w-6 h-6"></i>
                         </div>
                         <div>
                             <h4 class="text-lg font-bold text-stone-900 mb-1">Visi</h4>
-                            <p class="text-stone-600 leading-relaxed">Menjadi platform properti nomor satu di Indonesia yang mengedepankan kepercayaan, inovasi teknologi, dan kemudahan bagi seluruh masyarakat.</p>
+                            <p class="text-stone-600 text-sm md:text-base leading-relaxed">Menjadi platform properti nomor satu di Indonesia yang mengedepankan kepercayaan, inovasi teknologi, dan kemudahan bagi seluruh masyarakat.</p>
                         </div>
                     </div>
 
+                    {{-- Misi --}}
                     <div class="flex gap-4">
                         <div class="w-12 h-12 rounded-xl bg-orange-100 text-orange-500 flex items-center justify-center shrink-0">
                             <i data-lucide="target" class="w-6 h-6"></i>
                         </div>
                         <div>
                             <h4 class="text-lg font-bold text-stone-900 mb-1">Misi</h4>
-                            <ul class="text-stone-600 leading-relaxed list-disc list-inside space-y-1">
+                            <ul class="text-stone-600 text-sm md:text-base leading-relaxed list-disc list-inside space-y-1">
                                 <li>Menyediakan data properti yang akurat dan terpercaya.</li>
                                 <li>Membantu agen dan developer memasarkan produk secara digital.</li>
                                 <li>Memberikan pengalaman terbaik bagi pembeli dan penyewa.</li>
@@ -85,16 +106,16 @@
 {{-- ========================================== --}}
 {{-- 3. LAYANAN KAMI                            --}}
 {{-- ========================================== --}}
-<section class="py-20 bg-stone-50 border-y border-stone-200">
+<section class="py-16 md:py-20 bg-stone-50 border-y border-stone-200">
     <div class="max-w-6xl mx-auto px-4">
         <div class="text-center mb-12">
             <h2 class="text-sm font-bold text-orange-500 tracking-wider uppercase mb-2">Layanan Kami</h2>
             <h3 class="text-3xl font-bold text-stone-900">Apa yang Bisa Kami Bantu?</h3>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
             {{-- Layanan 1 --}}
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 hover:shadow-md transition">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 hover:shadow-md hover:border-orange-200 transition">
                 <div class="w-12 h-12 rounded-xl bg-orange-100 text-orange-500 flex items-center justify-center mb-4">
                     <i data-lucide="home" class="w-6 h-6"></i>
                 </div>
@@ -103,7 +124,7 @@
             </div>
 
             {{-- Layanan 2 --}}
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 hover:shadow-md transition">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 hover:shadow-md hover:border-orange-200 transition">
                 <div class="w-12 h-12 rounded-xl bg-orange-100 text-orange-500 flex items-center justify-center mb-4">
                     <i data-lucide="key" class="w-6 h-6"></i>
                 </div>
@@ -112,7 +133,7 @@
             </div>
 
             {{-- Layanan 3 --}}
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 hover:shadow-md transition">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 hover:shadow-md hover:border-orange-200 transition">
                 <div class="w-12 h-12 rounded-xl bg-orange-100 text-orange-500 flex items-center justify-center mb-4">
                     <i data-lucide="calculator" class="w-6 h-6"></i>
                 </div>
@@ -121,7 +142,7 @@
             </div>
 
             {{-- Layanan 4 --}}
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 hover:shadow-md transition">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 hover:shadow-md hover:border-orange-200 transition">
                 <div class="w-12 h-12 rounded-xl bg-orange-100 text-orange-500 flex items-center justify-center mb-4">
                     <i data-lucide="users" class="w-6 h-6"></i>
                 </div>
@@ -135,7 +156,7 @@
 {{-- ========================================== --}}
 {{-- 4. KONTAK & LOKASI                         --}}
 {{-- ========================================== --}}
-<section class="py-20 bg-white">
+<section class="py-16 md:py-20 bg-white">
     <div class="max-w-6xl mx-auto px-4">
         <div class="text-center mb-12">
             <h2 class="text-sm font-bold text-orange-500 tracking-wider uppercase mb-2">Hubungi Kami</h2>
