@@ -1,6 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{HomeController, PropertyController};
+use App\Http\Controllers\CompanyProfileController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -13,6 +14,9 @@ Route::get('/properti', [PropertyController::class, 'index'])->name('properties.
 Route::get('/beli',     [PropertyController::class, 'index'])->name('properties.sale');
 Route::get('/sewa',     [PropertyController::class, 'index'])->name('properties.rent');
 Route::get('/kpr',      [PropertyController::class, 'index'])->name('kpr.index');
+
+// Route Company Profile
+Route::get('/company-profile', [CompanyProfileController::class, 'index'])->name('company.profile');
 // Route::get('/jual', [CompanyProfileController::class, 'jual'])
 //     ->name('company.jual');
 

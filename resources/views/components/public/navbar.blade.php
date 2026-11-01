@@ -1223,9 +1223,9 @@
 
                                 <div class="space-y-3">
 
-                                    <a href="#" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
+                                    <a href="{{ route('company.profile') }}" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
                                         <i data-lucide="building" class="w-4 h-4"></i>
-                                        Tentang Kami
+                                        Company Profile
                                     </a>
 
                                     <a href="#" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
