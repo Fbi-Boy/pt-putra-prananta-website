@@ -1,7 +1,7 @@
 <nav
     x-data="{ open: false }"
     class="relative w-full bg-white border-b border-gray-200 z-50"
->
+    >
 
     {{-- =========================================================
         MAIN NAVBAR
@@ -14,7 +14,7 @@
         ====================================================== --}}
 
         <a
-            href="{{ url('/') }}"
+            href="{{ route('home') }}"
             class="flex items-center shrink-0"
         >
             <div class="flex items-center gap-2.5">
@@ -59,8 +59,7 @@
 
             {{-- TRIGGER BELI --}}
             <a
-                {{-- href="{{ route('company.beli') }}" --}}
-                href=""
+                href="{{ route('properties.sale') }}"
                 class="h-full flex items-center gap-1.5
                     text-[15px] font-semibold
                     text-gray-900
@@ -162,7 +161,7 @@
                                 <div class="grid grid-cols-3 gap-3 mt-6">
 
                                     <a
-                                        href="#"
+                                        href="{{ route('properties.rent') }}"
                                         class="p-4 rounded-2xl border border-gray-200
                                                hover:border-yellow-300
                                                hover:bg-yellow-50/50 transition"
@@ -180,7 +179,7 @@
 
 
                                     <a
-                                        href="#"
+                                        href="{{ route('properties.rent') }}"
                                         class="p-4 rounded-2xl border border-gray-200
                                                hover:border-yellow-300
                                                hover:bg-yellow-50/50 transition"
@@ -198,7 +197,7 @@
 
 
                                     <a
-                                        href="#"
+                                        href="{{ route('properties.rent') }}"
                                         class="p-4 rounded-2xl border border-gray-200
                                                hover:border-yellow-300
                                                hover:bg-yellow-50/50 transition"
@@ -247,19 +246,19 @@
 
                                     <div class="grid grid-cols-2 gap-3 mt-5">
 
-                                        <a href="#" class="px-3 py-2.5 rounded-xl bg-white border border-gray-200 text-sm font-medium hover:border-yellow-300 transition">
+                                        <a href="{{ route('properties.rent') }}" class="px-3 py-2.5 rounded-xl bg-white border border-gray-200 text-sm font-medium hover:border-yellow-300 transition">
                                             Kaliwates
                                         </a>
 
-                                        <a href="#" class="px-3 py-2.5 rounded-xl bg-white border border-gray-200 text-sm font-medium hover:border-yellow-300 transition">
+                                        <a href="{{ route('properties.rent') }}" class="px-3 py-2.5 rounded-xl bg-white border border-gray-200 text-sm font-medium hover:border-yellow-300 transition">
                                             Sumbersari
                                         </a>
 
-                                        <a href="#" class="px-3 py-2.5 rounded-xl bg-white border border-gray-200 text-sm font-medium hover:border-yellow-300 transition">
+                                        <a href="{{ route('properties.rent') }}" class="px-3 py-2.5 rounded-xl bg-white border border-gray-200 text-sm font-medium hover:border-yellow-300 transition">
                                             Patrang
                                         </a>
 
-                                        <a href="#" class="px-3 py-2.5 rounded-xl bg-white border border-gray-200 text-sm font-medium hover:border-yellow-300 transition">
+                                        <a href="{{ route('properties.rent') }}" class="px-3 py-2.5 rounded-xl bg-white border border-gray-200 text-sm font-medium hover:border-yellow-300 transition">
                                             Rambipuji
                                         </a>
 
@@ -351,7 +350,7 @@
                                         </p>
 
                                         <a
-                                            href="#"
+                                            href="{{ route('page.coming-soon', 'jual-properti') }}"
                                             class="mt-6 inline-flex items-center gap-2
                                                    px-4 py-2.5 rounded-xl
                                                    bg-yellow-400
@@ -520,7 +519,7 @@
                                     </div>
 
                                     <a
-                                        href="#"
+                                        href="{{ route('kpr.index') }}"
                                         class="text-sm font-semibold text-gray-900 hover:text-yellow-500 flex items-center gap-1.5 transition"
                                     >
                                         Semua fitur
@@ -536,7 +535,7 @@
                                     {{-- SIMULASI --}}
 
                                     <a
-                                        href="#"
+                                        href="{{ route('kpr.index') }}"
                                         class="group/kpr p-5 rounded-2xl
                                                border border-gray-200
                                                hover:border-yellow-300
@@ -579,7 +578,7 @@
                                     {{-- CICILAN --}}
 
                                     <a
-                                        href="#"
+                                        href="{{ route('kpr.index') }}"
                                         class="group/kpr p-5 rounded-2xl
                                                border border-gray-200
                                                hover:border-yellow-300
@@ -622,7 +621,7 @@
                                     {{-- DP --}}
 
                                     <a
-                                        href="#"
+                                        href="{{ route('kpr.index') }}"
                                         class="group/kpr p-5 rounded-2xl
                                                border border-gray-200
                                                hover:border-yellow-300
@@ -665,7 +664,7 @@
                                     {{-- KEMAMPUAN --}}
 
                                     <a
-                                        href="#"
+                                        href="{{ route('kpr.index') }}"
                                         class="group/kpr p-5 rounded-2xl
                                                border border-gray-200
                                                hover:border-yellow-300
@@ -741,7 +740,7 @@
 
 
                                     <a
-                                        href="#"
+                                        href="{{ route('kpr.index') }}"
                                         class="mt-6 flex items-center justify-center
                                                h-11 rounded-xl
                                                bg-yellow-400
@@ -761,19 +760,19 @@
 
                                         <div class="grid grid-cols-2 gap-3 mt-3">
 
-                                            <a href="#" class="text-xs text-gray-400 hover:text-yellow-400 transition">
+                                            <a href="{{ route('page.coming-soon', 'syarat-kpr') }}" class="text-xs text-gray-400 hover:text-yellow-400 transition">
                                                 Syarat KPR
                                             </a>
 
-                                            <a href="#" class="text-xs text-gray-400 hover:text-yellow-400 transition">
+                                            <a href="{{ route('page.coming-soon', 'dokumen-kpr') }}" class="text-xs text-gray-400 hover:text-yellow-400 transition">
                                                 Dokumen
                                             </a>
 
-                                            <a href="#" class="text-xs text-gray-400 hover:text-yellow-400 transition">
+                                            <a href="{{ route('page.coming-soon', 'alur-pengajuan-kpr') }}" class="text-xs text-gray-400 hover:text-yellow-400 transition">
                                                 Alur Pengajuan
                                             </a>
 
-                                            <a href="#" class="text-xs text-gray-400 hover:text-yellow-400 transition">
+                                            <a href="{{ route('page.coming-soon', 'tips-kpr') }}" class="text-xs text-gray-400 hover:text-yellow-400 transition">
                                                 Tips KPR
                                             </a>
 
@@ -800,7 +799,7 @@
             <div class="group h-full flex items-center">
 
                 <a
-                    href="#"
+                    href="{{ route('page.coming-soon', 'cari-agen') }}"
                     class="h-full flex items-center
                            text-[15px] font-semibold
                            text-gray-900
@@ -845,7 +844,7 @@
                                 <div class="mt-6 flex gap-3">
 
                                     <a
-                                        href="#"
+                                        href="{{ route('page.coming-soon', 'cari-agen') }}"
                                         class="inline-flex items-center gap-2
                                                px-4 py-3 rounded-xl
                                                bg-gray-950
@@ -858,7 +857,7 @@
                                     </a>
 
                                     <a
-                                        href="#"
+                                        href="{{ route('page.coming-soon', 'tim-kami') }}"
                                         class="inline-flex items-center gap-2
                                                px-4 py-3 rounded-xl
                                                border border-gray-200
@@ -929,7 +928,7 @@
             <div class="group h-full flex items-center">
 
                 <a
-                    href="#"
+                    href="{{ route('page.coming-soon', 'panduan') }}"
                     class="h-full flex items-center
                            text-[15px] font-semibold
                            text-gray-900
@@ -975,7 +974,7 @@
                                     </div>
 
                                     <a
-                                        href="#"
+                                        href="{{ route('page.coming-soon', 'panduan') }}"
                                         class="text-sm font-semibold flex items-center gap-1.5 hover:text-yellow-500 transition"
                                     >
                                         Semua panduan
@@ -989,7 +988,7 @@
                                 <div class="grid grid-cols-2 gap-3 mt-5">
 
                                     <a
-                                        href="#"
+                                        href="{{ route('page.coming-soon', 'panduan-membeli-rumah') }}"
                                         class="group/article p-4 rounded-2xl
                                                border border-gray-200
                                                hover:border-yellow-300
@@ -1022,7 +1021,7 @@
 
 
                                     <a
-                                        href="#"
+                                        href="{{ route('page.coming-soon', 'panduan-cek-legalitas') }}"
                                         class="group/article p-4 rounded-2xl
                                                border border-gray-200
                                                hover:border-yellow-300
@@ -1055,7 +1054,7 @@
 
 
                                     <a
-                                        href="#"
+                                        href="{{ route('page.coming-soon', 'panduan-kpr') }}"
                                         class="group/article p-4 rounded-2xl
                                                border border-gray-200
                                                hover:border-yellow-300
@@ -1088,7 +1087,7 @@
 
 
                                     <a
-                                        href="#"
+                                        href="{{ route('page.coming-soon', 'panduan-tips-menjual') }}"
                                         class="group/article p-4 rounded-2xl
                                                border border-gray-200
                                                hover:border-yellow-300
@@ -1150,7 +1149,7 @@
                                     </p>
 
                                     <a
-                                        href="#"
+                                        href="{{ route('page.coming-soon', 'panduan') }}"
                                         class="mt-6 inline-flex items-center gap-2
                                                text-sm font-bold text-black
                                                hover:underline"
@@ -1228,12 +1227,12 @@
                                         Company Profile
                                     </a>
 
-                                    <a href="#" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
+                                    <a href="{{ route('page.coming-soon', 'tim-kami') }}" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
                                         <i data-lucide="users" class="w-4 h-4"></i>
                                         Tim Kami
                                     </a>
 
-                                    <a href="#" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
+                                    <a href="{{ route('page.coming-soon', 'karier') }}" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
                                         <i data-lucide="briefcase" class="w-4 h-4"></i>
                                         Karier
                                     </a>
@@ -1253,17 +1252,17 @@
 
                                 <div class="space-y-3">
 
-                                    <a href="#" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
+                                    <a href="{{ route('page.coming-soon', 'jual-properti') }}" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
                                         <i data-lucide="house-plus" class="w-4 h-4"></i>
                                         Jual Properti
                                     </a>
 
-                                    <a href="#" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
+                                    <a href="{{ route('kpr.index') }}" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
                                         <i data-lucide="calculator" class="w-4 h-4"></i>
                                         KPR
                                     </a>
 
-                                    <a href="#" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
+                                    <a href="{{ route('page.coming-soon', 'konsultasi') }}" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
                                         <i data-lucide="message-circle" class="w-4 h-4"></i>
                                         Konsultasi
                                     </a>
@@ -1283,17 +1282,17 @@
 
                                 <div class="space-y-3">
 
-                                    <a href="#" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
+                                    <a href="{{ route('page.coming-soon', 'faq') }}" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
                                         <i data-lucide="circle-help" class="w-4 h-4"></i>
                                         FAQ
                                     </a>
 
-                                    <a href="#" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
+                                    <a href="{{ route('page.coming-soon', 'pusat-bantuan') }}" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
                                         <i data-lucide="life-buoy" class="w-4 h-4"></i>
                                         Pusat Bantuan
                                     </a>
 
-                                    <a href="#" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
+                                    <a href="{{ route('page.coming-soon', 'hubungi-kami') }}" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
                                         <i data-lucide="phone" class="w-4 h-4"></i>
                                         Hubungi Kami
                                     </a>
@@ -1313,12 +1312,12 @@
 
                                 <div class="space-y-3">
 
-                                    <a href="#" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
+                                    <a href="{{ route('page.coming-soon', 'kebijakan-privasi') }}" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
                                         <i data-lucide="shield-check" class="w-4 h-4"></i>
                                         Kebijakan Privasi
                                     </a>
 
-                                    <a href="#" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
+                                    <a href="{{ route('page.coming-soon', 'syarat-ketentuan') }}" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
                                         <i data-lucide="file-text" class="w-4 h-4"></i>
                                         Syarat & Ketentuan
                                     </a>
@@ -1348,7 +1347,7 @@
             {{-- JUAL PROPERTI --}}
 
             <a
-                href="#"
+                href="{{ route('page.coming-soon', 'jual-properti') }}"
                 class="hidden md:flex items-center gap-2
                        h-10 px-4
                        rounded-xl
@@ -1386,7 +1385,7 @@
             {{-- MASUK --}}
 
             <a
-                href="#"
+                href="{{ route('page.coming-soon', 'login') }}"
                 class="hidden md:flex
                        h-10 px-5
                        rounded-xl
@@ -1457,7 +1456,7 @@
                 {{-- BERANDA --}}
 
                 <a
-                    href="#"
+                    href="{{ route('home') }}"
                     @click="open = false"
                     class="flex items-center justify-between
                            px-4 py-3.5 rounded-xl
@@ -1474,7 +1473,7 @@
                 {{-- PROPERTI --}}
 
                 <a
-                    href="#"
+                    href="{{ route('properties.index') }}"
                     @click="open = false"
                     class="flex items-center justify-between
                            px-4 py-3.5 rounded-xl
@@ -1491,7 +1490,7 @@
                 {{-- KPR --}}
 
                 <a
-                    href="#"
+                    href="{{ route('kpr.index') }}"
                     @click="open = false"
                     class="flex items-center gap-3
                            px-4 py-3.5 rounded-xl
@@ -1516,7 +1515,7 @@
                 {{-- PROYEK --}}
 
                 <a
-                    href="#"
+                    href="{{ route('page.coming-soon', 'proyek-baru') }}"
                     @click="open = false"
                     class="flex items-center gap-3
                            px-4 py-3.5 rounded-xl
@@ -1541,7 +1540,7 @@
                 {{-- CARI AGEN --}}
 
                 <a
-                    href="#"
+                    href="{{ route('page.coming-soon', 'cari-agen') }}"
                     @click="open = false"
                     class="flex items-center gap-3
                            px-4 py-3.5 rounded-xl
@@ -1566,7 +1565,7 @@
                 {{-- PANDUAN --}}
 
                 <a
-                    href="#"
+                    href="{{ route('page.coming-soon', 'panduan') }}"
                     @click="open = false"
                     class="flex items-center gap-3
                            px-4 py-3.5 rounded-xl
@@ -1594,7 +1593,7 @@
                 {{-- JUAL PROPERTI --}}
 
                 <a
-                    href="#"
+                    href="{{ route('page.coming-soon', 'jual-properti') }}"
                     @click="open = false"
                     class="flex items-center gap-3
                            px-4 py-3.5 rounded-xl
@@ -1630,7 +1629,7 @@
                 {{-- FAVORIT --}}
 
                 <a
-                    href="#"
+                    href="{{ route('page.coming-soon', 'favorit') }}"
                     @click="open = false"
                     class="flex items-center gap-3
                            px-4 py-3.5 rounded-xl
@@ -1655,7 +1654,7 @@
                 {{-- TENTANG --}}
 
                 <a
-                    href="#"
+                    href="{{ route('company.profile') }}"
                     @click="open = false"
                     class="px-4 py-3.5 block rounded-xl
                            text-sm font-medium
@@ -1669,7 +1668,7 @@
                 {{-- KONTAK --}}
 
                 <a
-                    href="#"
+                    href="{{ route('page.coming-soon', 'hubungi-kami') }}"
                     @click="open = false"
                     class="px-4 py-3.5 block rounded-xl
                            text-sm font-medium
@@ -1683,7 +1682,7 @@
                 {{-- LOGIN --}}
 
                 <a
-                    href="#"
+                    href="{{ route('page.coming-soon', 'login') }}"
                     @click="open = false"
                     class="mt-3 h-12 rounded-xl
                            bg-yellow-400

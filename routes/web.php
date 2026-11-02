@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{HomeController, PropertyController};
 use App\Http\Controllers\CompanyProfileController;
+use App\Http\Controllers\PageController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -17,6 +18,12 @@ Route::get('/kpr',      [PropertyController::class, 'index'])->name('kpr.index')
 
 // Route Company Profile
 Route::get('/company-profile', [CompanyProfileController::class, 'index'])->name('company.profile');
+
+
+
+// Route untuk semua halaman yang belum selesai
+Route::get('/coming-soon/{slug?}', [PageController::class, 'comingSoon'])->name('page.coming-soon');
+
 // Route::get('/jual', [CompanyProfileController::class, 'jual'])
 //     ->name('company.jual');
 
