@@ -3,6 +3,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{HomeController, PropertyController};
 use App\Http\Controllers\CompanyProfileController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\AgentController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -19,7 +20,8 @@ Route::get('/kpr',      [PropertyController::class, 'index'])->name('kpr.index')
 // Route Company Profile
 Route::get('/company-profile', [CompanyProfileController::class, 'index'])->name('company.profile');
 
-
+// Route cari agent
+Route::get('/cari-agen', [AgentController::class, 'index'])->name('agents.index');
 
 // Route untuk semua halaman yang belum selesai
 Route::get('/coming-soon/{slug?}', [PageController::class, 'comingSoon'])->name('page.coming-soon');

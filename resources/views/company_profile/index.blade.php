@@ -5,15 +5,12 @@
 @section('content')
 
 {{-- ========================================== --}}
-{{-- 1. HERO SECTION (Split layout + badge putar) --}}
-{{-- Foto sengaja dikosongkan (placeholder). Isi nanti lewat tag <img> yang sudah disiapkan di komentar. --}}
+{{-- 1. HERO SECTION (Split layout + badge putar) — TIDAK DIUBAH --}}
 {{-- ========================================== --}}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-{{-- Bentuk gambar utama: sudut membulat + takik (notch) di kiri bawah.
-     Satuan relatif (objectBoundingBox), jadi ikut skala. Pakai rasio 4:3 agar sudut tetap bulat. --}}
 <svg width="0" height="0" class="absolute" aria-hidden="true" focusable="false">
     <defs>
         <clipPath id="hero-notch" clipPathUnits="objectBoundingBox">
@@ -100,50 +97,23 @@
     </div>
 </section>
 
-<div class="h-16 md:h-20"></div>
-
 {{-- ========================================== --}}
-{{-- 2. VISI & MISI + PROPERTI (Tema Orange)    --}}
+{{-- 2. VISI & MISI (tinggi kedua kolom sama)   --}}
 {{-- ========================================== --}}
-<section class="py-12 md:py-16 bg-white">
-    <div class="max-w-6xl mx-auto px-4 space-y-12 md:space-y-16">
+<section id="tentang" class="py-12 md:py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 items-stretch">
 
-        {{-- ========== ATAS: BANNER ILUSTRASI (landscape) ========== --}}
-        <div class="relative rounded-3xl overflow-hidden shadow-xl ring-1 ring-stone-900/5 bg-orange-100 aspect-[16/9] sm:aspect-[21/7]">
-            <img src="{{ asset('images/banner-property.png') }}" alt="Putra Property"
-                 class="absolute inset-0 w-full h-full object-cover object-center">
-            <div class="absolute inset-0 bg-gradient-to-r from-white/85 via-white/25 to-transparent"></div>
-            <div class="relative z-10 h-full flex flex-col justify-center px-5 sm:px-9 max-w-md sm:max-w-lg">
-                <p class="text-xl sm:text-3xl font-extrabold text-stone-900 leading-tight tracking-tight">
-                    Find the Right Buyer.<br>
-                    <span class="text-orange-500">Sell Your Property with Confidence.</span>
-                </p>
-                <div class="flex items-center gap-2 mt-3">
-                    <span class="w-6 h-6 rounded-full border border-orange-500 bg-white/70 text-orange-500 flex items-center justify-center shrink-0">
-                        <i data-lucide="search" class="w-3 h-3"></i>
-                    </span>
-                    <p class="text-[11px] sm:text-xs text-stone-700">Search. Compare. Sell. Get the Best Value for Your Home.</p>
-                </div>
-            </div>
-        </div>
+            {{-- KIRI: kotak orange berisi mockup, tingginya mengikuti kolom kanan --}}
+            <div class="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-orange-400 to-orange-600 p-6 sm:p-8 shadow-xl shadow-orange-500/20 flex items-center justify-center min-h-[380px]">
+                <div class="absolute -top-16 -left-12 w-56 h-56 rounded-full bg-white/10" aria-hidden="true"></div>
+                <div class="absolute -bottom-20 -right-10 w-64 h-64 rounded-full border-[18px] border-white/10" aria-hidden="true"></div>
 
-        {{-- ========== TENGAH: MOCKUP (kiri) + VISI MISI (kanan) ========== --}}
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14 items-center">
-
-            {{-- KIRI: Mockup tampilan awal website (desktop = browser, mobile = HP) --}}
-            <div class="relative w-full max-w-[270px] sm:max-w-md mx-auto md:mx-0">
-                <div class="absolute -top-6 -left-6 w-36 h-36 rounded-full bg-orange-200/70 blur-3xl" aria-hidden="true"></div>
-                <div class="absolute -bottom-6 -right-4 w-32 h-32 rounded-full bg-amber-200/70 blur-3xl" aria-hidden="true"></div>
-
-                <div class="bg-gradient-to-br from-orange-400 to-orange-600 rounded-[2rem] p-3.5 sm:p-5 pb-9 sm:pb-10 shadow-2xl shadow-orange-500/30 relative">
-
+                <div class="relative w-full max-w-sm">
                     {{-- Frame: HP di mobile, jendela browser di sm ke atas --}}
-                    <div class="relative bg-white overflow-hidden shadow-lg rounded-[1.75rem] border-[7px] border-stone-900 sm:border-0 sm:rounded-xl">
-
-                        {{-- Notch HP (mobile saja) --}}
+                    <div class="relative bg-white overflow-hidden shadow-2xl rounded-[1.75rem] border-[7px] border-stone-900 sm:border-0 sm:rounded-xl">
                         <div class="sm:hidden absolute top-0 left-1/2 -translate-x-1/2 w-16 h-3.5 bg-stone-900 rounded-b-xl z-20"></div>
 
-                        {{-- Bar browser (desktop saja) --}}
                         <div class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-stone-100 border-b border-stone-200">
                             <span class="w-2 h-2 rounded-full bg-red-400"></span>
                             <span class="w-2 h-2 rounded-full bg-amber-400"></span>
@@ -151,7 +121,6 @@
                             <span class="ml-3 flex-1 h-4 rounded-full bg-white border border-stone-200 text-[8px] leading-4 text-stone-400 px-3">putraproperty.id</span>
                         </div>
 
-                        {{-- Navbar --}}
                         <div class="flex items-center justify-between px-3 pt-5 pb-2 sm:pt-2 border-b border-stone-100">
                             <div class="flex items-center gap-1.5">
                                 <span class="w-5 h-5 rounded-md bg-amber-400 text-stone-900 text-[10px] font-extrabold flex items-center justify-center">P</span>
@@ -169,14 +138,12 @@
                             </div>
                         </div>
 
-                        {{-- Hero ilustrasi --}}
                         <div class="relative h-32 sm:h-28 bg-gradient-to-r from-orange-100 to-orange-200 overflow-hidden">
                             <img src="{{ asset('images/banner-property.png') }}" alt="Putra Property"
                                  class="absolute inset-0 w-full h-full object-cover object-right">
                             <div class="absolute inset-0 bg-gradient-to-r from-orange-50/80 via-transparent to-transparent"></div>
                         </div>
 
-                        {{-- Kartu pencarian (menimpa hero) --}}
                         <div class="relative z-10 -mt-10 mx-3 sm:mx-auto sm:w-4/5 bg-white rounded-xl shadow-xl border border-stone-100 p-2.5 text-center">
                             <p class="text-[10px] font-extrabold text-stone-900">Temukan Properti Impian Anda</p>
                             <div class="flex justify-center gap-3 text-[8px] my-1.5">
@@ -198,7 +165,6 @@
                             </div>
                         </div>
 
-                        {{-- Strip kategori --}}
                         <div class="grid grid-cols-4 gap-1.5 px-3 pt-2.5 pb-3">
                             @for ($i = 0; $i < 4; $i++)
                                 <div class="h-6 rounded-lg border border-orange-100 bg-orange-50"></div>
@@ -206,8 +172,8 @@
                         </div>
                     </div>
 
-                    {{-- Kartu mengambang 94.8% --}}
-                    <div class="absolute -bottom-4 right-1 sm:-right-3 bg-white p-2.5 rounded-xl shadow-xl border border-stone-100 w-24 sm:w-28 z-20">
+                    {{-- Kartu mengambang --}}
+                    <div class="absolute -bottom-5 -right-2 sm:-right-5 bg-white p-2.5 rounded-xl shadow-xl w-24 sm:w-28 z-20">
                         <div class="flex justify-between items-center mb-1">
                             <span class="h-1.5 w-7 bg-stone-200 rounded-full"></span>
                             <span class="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
@@ -224,218 +190,204 @@
                 </div>
             </div>
 
-            {{-- KANAN: Visi & Misi (bento: Visi = kartu orange, Misi = kartu putih) --}}
-            <div>
-                <h2 class="text-xs font-bold text-orange-500 tracking-wider uppercase mb-1.5">Tentang Perusahaan</h2>
-                <h3 class="text-2xl md:text-3xl font-extrabold text-stone-900 tracking-tight">Visi & Misi Kami</h3>
-                <div class="w-10 h-1 bg-orange-500 rounded-full mt-3 mb-6"></div>
-
-                <div class="space-y-4">
-                    {{-- Visi --}}
-                    <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-orange-500 to-orange-600 text-white p-5 shadow-lg shadow-orange-500/20">
-                        <div class="absolute -top-10 -right-8 w-32 h-32 rounded-full bg-white/10" aria-hidden="true"></div>
-                        <div class="absolute -bottom-14 right-10 w-28 h-28 rounded-full border-[14px] border-white/10" aria-hidden="true"></div>
-                        <div class="relative flex gap-3.5">
-                            <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
-                                <i data-lucide="eye" class="w-5 h-5"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-base font-bold mb-1">Visi</h4>
-                                <p class="text-orange-50 text-sm leading-relaxed">Menjadi platform properti nomor satu di Indonesia yang mengedepankan kepercayaan, inovasi teknologi, dan kemudahan bagi seluruh masyarakat.</p>
-                            </div>
+            {{-- KANAN: Visi & Misi, dua kartu membagi tinggi yang sama dengan kotak orange --}}
+            <div class="flex flex-col gap-6 lg:gap-8">
+                <div class="relative overflow-hidden rounded-[2rem] bg-stone-900 text-white p-7 sm:p-8 flex-1 flex flex-col justify-center">
+                    <div class="absolute -top-16 -right-12 w-48 h-48 rounded-full bg-orange-500/25 blur-2xl" aria-hidden="true"></div>
+                    <div class="relative">
+                        <div class="w-11 h-11 rounded-2xl bg-orange-500 flex items-center justify-center mb-5">
+                            <i data-lucide="eye" class="w-5 h-5"></i>
                         </div>
+                        <h3 class="text-2xl font-semibold tracking-tight">Visi</h3>
+                        <p class="mt-2 text-stone-300 text-sm leading-relaxed max-w-md">Menjadi platform properti nomor satu di Indonesia yang mengedepankan kepercayaan, inovasi teknologi, dan kemudahan bagi seluruh masyarakat.</p>
                     </div>
+                </div>
 
-                    {{-- Misi --}}
-                    <div class="rounded-2xl bg-white border border-stone-200 p-5 shadow-sm">
-                        <div class="flex items-center gap-3.5 mb-3">
-                            <div class="w-10 h-10 rounded-xl bg-stone-900 text-white flex items-center justify-center shrink-0">
-                                <i data-lucide="target" class="w-5 h-5"></i>
-                            </div>
-                            <h4 class="text-base font-bold text-stone-900">Misi</h4>
+                <div class="rounded-[2rem] bg-orange-50 ring-1 ring-orange-200 p-7 sm:p-8 flex-1 flex flex-col justify-center">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-11 h-11 rounded-2xl bg-orange-500 text-white flex items-center justify-center">
+                            <i data-lucide="target" class="w-5 h-5"></i>
                         </div>
-                        <ul class="space-y-2.5 text-stone-600 text-sm leading-relaxed">
-                            <li class="flex gap-2.5"><i data-lucide="check-circle-2" class="w-4 h-4 mt-0.5 text-orange-500 shrink-0"></i>Menyediakan data properti yang akurat dan terpercaya.</li>
-                            <li class="flex gap-2.5"><i data-lucide="check-circle-2" class="w-4 h-4 mt-0.5 text-orange-500 shrink-0"></i>Membantu agen dan developer memasarkan produk secara digital.</li>
-                            <li class="flex gap-2.5"><i data-lucide="check-circle-2" class="w-4 h-4 mt-0.5 text-orange-500 shrink-0"></i>Memberikan pengalaman terbaik bagi pembeli dan penyewa.</li>
-                        </ul>
+                        <h3 class="text-2xl font-semibold tracking-tight text-stone-900">Misi</h3>
                     </div>
+                    <ul class="space-y-3 text-stone-700 text-sm leading-relaxed">
+                        @foreach ([
+                            'Menyediakan data properti yang akurat dan terpercaya.',
+                            'Membantu agen dan developer memasarkan produk secara digital.',
+                            'Memberikan pengalaman terbaik bagi pembeli dan penyewa.',
+                        ] as $misi)
+                            <li class="flex gap-3">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 mt-0.5 text-orange-500 shrink-0"></i>{{ $misi }}
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
         </div>
+    </div>
+</section>
 
-        {{-- ========== BAWAH: CARD PROPERTI (tema orange) ========== --}}
-        <div>
-            <div class="flex items-end justify-between mb-6">
+{{-- ========================================== --}}
+{{-- 3. ANGKA PENCAPAIAN                        --}}
+{{-- Ganti angka dengan data asli perusahaan.   --}}
+{{-- ========================================== --}}
+@php
+    $stats = [
+        ['n' => '2019',  'l' => 'Tahun berdiri'],
+        ['n' => '1.200+', 'l' => 'Properti terdaftar'],
+        ['n' => '350+',   'l' => 'Agen & developer mitra'],
+        ['n' => '8.500+', 'l' => 'Pengguna aktif'],
+    ];
+@endphp
+<section class="bg-orange-500">
+    <div class="max-w-6xl mx-auto px-4 py-10 md:py-12 grid grid-cols-2 lg:grid-cols-4 gap-y-8 gap-x-6">
+        @foreach ($stats as $s)
+            <div class="text-white lg:border-l lg:border-white/30 lg:pl-6 first:border-0 first:pl-0">
+                <p class="text-3xl md:text-4xl font-semibold tracking-tight">{{ $s['n'] }}</p>
+                <p class="mt-1 text-sm text-orange-50">{{ $s['l'] }}</p>
+            </div>
+        @endforeach
+    </div>
+</section>
+
+{{-- ========================================== --}}
+{{-- 4. KEUNGGULAN (anchor tombol "Lihat Layanan") --}}
+{{-- ========================================== --}}
+<section id="layanan" class="py-14 md:py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-12 gap-10">
+        <div class="lg:col-span-4">
+            <div class="lg:sticky lg:top-24">
+                <h2 class="text-2xl md:text-3xl font-semibold text-stone-900 tracking-tight">Kenapa memilih Putra Property</h2>
+                <div class="w-10 h-1 bg-orange-500 rounded-full mt-3 mb-4"></div>
+                <p class="text-sm text-stone-600 leading-relaxed max-w-sm">Kami mengurus jual-beli, sewa, dan KPR dalam satu tempat, supaya Anda tidak perlu pindah-pindah layanan.</p>
+            </div>
+        </div>
+
+        <div class="lg:col-span-8 divide-y divide-stone-200 border-y border-stone-200">
+            @foreach ([
+                ['shield-check', 'Data properti terverifikasi', 'Setiap listing dicek legalitas dan kondisinya sebelum tayang, jadi informasi yang Anda lihat bisa dipegang.'],
+                ['badge-percent', 'Simulasi KPR di satu tempat', 'Hitung cicilan, bandingkan tenor, lalu ajukan KPR tanpa meninggalkan platform.'],
+                ['users', 'Agen profesional', 'Agen kami melayani pembeli, penyewa, dan pemilik properti dengan penjelasan yang jujur dan jelas.'],
+                ['smartphone', 'Mudah diakses dari mana saja', 'Cari, bandingkan, dan simpan properti favorit dari ponsel maupun komputer.'],
+            ] as [$ic, $t, $d])
+                <div class="flex gap-5 py-6">
+                    <div class="w-12 h-12 rounded-2xl bg-orange-100 text-orange-600 flex items-center justify-center shrink-0">
+                        <i data-lucide="{{ $ic }}" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-semibold text-stone-900">{{ $t }}</h3>
+                        <p class="mt-1 text-sm text-stone-600 leading-relaxed max-w-xl">{{ $d }}</p>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
+{{-- ========================================== --}}
+{{-- 5. PERJALANAN PERUSAHAAN (urutan waktu)    --}}
+{{-- Ganti tahun & isi dengan sejarah asli.     --}}
+{{-- ========================================== --}}
+<section class="py-14 md:py-20 bg-stone-50">
+    <div class="max-w-4xl mx-auto px-4">
+        <h2 class="text-2xl md:text-3xl font-semibold text-stone-900 tracking-tight text-center">Perjalanan kami</h2>
+        <div class="w-10 h-1 bg-orange-500 rounded-full mx-auto mt-3 mb-10"></div>
+
+        <ol class="relative border-l-2 border-orange-200 ml-3 space-y-8">
+            @foreach ([
+                ['2019', 'Putra Property berdiri', 'Dimulai dari layanan perantara jual-beli rumah di wilayah Jawa Timur.'],
+                ['2021', 'Layanan sewa dan KPR dibuka', 'Cakupan layanan melebar ke sewa properti dan pendampingan pengajuan KPR.'],
+                ['2023', 'Platform digital diluncurkan', 'Listing, pencarian, dan simulasi KPR pindah ke satu website.'],
+                ['2025', 'Kemitraan dengan developer', 'Developer dan agen mulai memasarkan proyek langsung lewat platform.'],
+            ] as [$yr, $t, $d])
+                <li class="pl-8 relative">
+                    <span class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-orange-500 ring-4 ring-stone-50"></span>
+                    <p class="text-sm font-semibold text-orange-600">{{ $yr }}</p>
+                    <h3 class="text-lg font-semibold text-stone-900 mt-0.5">{{ $t }}</h3>
+                    <p class="mt-1 text-sm text-stone-600 leading-relaxed max-w-lg">{{ $d }}</p>
+                </li>
+            @endforeach
+        </ol>
+    </div>
+</section>
+
+{{-- ========================================== --}}
+{{-- 6. TIM MANAJEMEN                           --}}
+{{-- Foto: ganti blok ikon dengan <img>.        --}}
+{{-- ========================================== --}}
+<section class="py-14 md:py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+        <div class="text-center mb-10">
+            <h2 class="text-2xl md:text-3xl font-semibold text-stone-900 tracking-tight">Tim di balik layar</h2>
+            <div class="w-10 h-1 bg-orange-500 rounded-full mx-auto mt-3"></div>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            @foreach ([
+                ['Muhammad Giovarel', 'CEO'],
+                ['Nama Anggota', 'Chief Operating Officer'],
+                ['Nama Anggota', 'Kepala Pemasaran'],
+                ['Nama Anggota', 'Kepala Teknologi'],
+            ] as [$nama, $jabatan])
                 <div>
-                    <h2 class="text-xs font-bold text-orange-500 tracking-wider uppercase mb-1">Pilihan Kami</h2>
-                    <h3 class="text-xl md:text-2xl font-extrabold text-stone-900 tracking-tight">Rekomendasi Properti</h3>
-                </div>
-                <a href="#" class="inline-flex items-center gap-1 text-sm font-bold text-orange-600 hover:text-orange-700 transition">
-                    Lihat semua <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                </a>
-            </div>
-
-            {{-- Ganti array ini dengan data dari controller ($properties) --}}
-            @php
-                $cards = [
-                    ['img' => 'rumah1.jpg', 'tag' => 'Dijual', 'harga' => 'Rp 1,25 M', 'nama' => 'Rumah Minimalis Cluster Asri', 'lokasi' => 'Bondowoso, Jawa Timur', 'kt' => 3, 'km' => 2, 'lt' => 120],
-                    ['img' => 'rumah2.jpg', 'tag' => 'Dijual', 'harga' => 'Rp 890 Jt', 'nama' => 'Rumah Modern Dekat Pusat Kota', 'lokasi' => 'Jember, Jawa Timur', 'kt' => 2, 'km' => 1, 'lt' => 84],
-                    ['img' => 'rumah3.jpg', 'tag' => 'Disewa', 'harga' => 'Rp 4,5 Jt/bln', 'nama' => 'Rumah Keluarga Siap Huni', 'lokasi' => 'Situbondo, Jawa Timur', 'kt' => 3, 'km' => 2, 'lt' => 110],
-                ];
-            @endphp
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                @foreach ($cards as $c)
-                    <div class="group bg-white rounded-2xl border border-orange-100 overflow-hidden shadow-sm
-                                hover:shadow-xl hover:shadow-orange-500/10 hover:border-orange-300 hover:-translate-y-1 transition-all duration-300">
-                        <div class="relative aspect-[16/11] bg-orange-50 overflow-hidden">
-                            <img src="{{ asset('images/property/' . $c['img']) }}" alt="{{ $c['nama'] }}"
-                                 class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                            <div class="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/30 to-transparent"></div>
-                            <span class="absolute top-2.5 left-2.5 {{ $c['tag'] === 'Disewa' ? 'bg-stone-900' : 'bg-orange-500' }} text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full shadow">{{ $c['tag'] }}</span>
-                            <button type="button" aria-label="Simpan"
-                                    class="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-white/90 backdrop-blur text-orange-500 flex items-center justify-center shadow hover:bg-orange-500 hover:text-white transition">
-                                <i data-lucide="heart" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                        <div class="p-4">
-                            <p class="text-lg font-extrabold text-orange-600">{{ $c['harga'] }}</p>
-                            <h4 class="text-sm font-bold text-stone-900 mt-0.5 truncate">{{ $c['nama'] }}</h4>
-                            <p class="flex items-center gap-1 text-xs text-stone-500 mt-1">
-                                <i data-lucide="map-pin" class="w-3 h-3 text-orange-400"></i> {{ $c['lokasi'] }}
-                            </p>
-                            <div class="flex items-center gap-4 mt-3 pt-3 border-t border-orange-100 text-xs text-stone-600">
-                                <span class="flex items-center gap-1.5"><i data-lucide="bed-double" class="w-4 h-4 text-orange-500"></i>{{ $c['kt'] }}</span>
-                                <span class="flex items-center gap-1.5"><i data-lucide="bath" class="w-4 h-4 text-orange-500"></i>{{ $c['km'] }}</span>
-                                <span class="flex items-center gap-1.5"><i data-lucide="ruler" class="w-4 h-4 text-orange-500"></i>{{ $c['lt'] }} m²</span>
-                            </div>
-                        </div>
+                    <div class="aspect-[4/5] rounded-3xl bg-orange-50 ring-1 ring-orange-100 flex items-center justify-center text-orange-300 overflow-hidden">
+                        <i data-lucide="user-round" class="w-12 h-12"></i>
                     </div>
-                @endforeach
-            </div>
-        </div>
-
-    </div>
-</section>
-
-{{-- ========================================== --}}
-{{-- 3. LAYANAN KAMI                            --}}
-{{-- ========================================== --}}
-<section class="py-12 md:py-16 bg-stone-50 border-y border-stone-200">
-    <div class="max-w-6xl mx-auto px-4">
-        <div class="text-center mb-8 md:mb-10">
-            <h2 class="text-xs font-bold text-orange-500 tracking-wider uppercase mb-1.5">Layanan Kami</h2>
-            <h3 class="text-2xl md:text-3xl font-extrabold text-stone-900 tracking-tight">Apa yang Bisa Kami Bantu?</h3>
-            <div class="w-10 h-1 bg-orange-500 rounded-full mx-auto mt-3"></div>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
-            {{-- Setiap card: garis orange di atas melebar saat hover, ikon jadi solid --}}
-            <div class="group relative overflow-hidden bg-white p-5 rounded-2xl border border-stone-200 shadow-sm hover:shadow-xl hover:shadow-orange-500/10 hover:-translate-y-1.5 transition-all duration-300">
-                <span class="absolute top-0 left-0 h-1 w-0 bg-orange-500 group-hover:w-full transition-all duration-500"></span>
-                <div class="w-11 h-11 rounded-xl bg-orange-100 text-orange-500 flex items-center justify-center mb-4 group-hover:bg-orange-500 group-hover:text-white transition-colors duration-300">
-                    <i data-lucide="home" class="w-5 h-5"></i>
+                    <p class="mt-3 text-sm font-semibold text-stone-900">{{ $nama }}</p>
+                    <p class="text-xs text-stone-500">{{ $jabatan }}</p>
                 </div>
-                <h4 class="text-base font-bold text-stone-900 mb-1.5">Jual Beli</h4>
-                <p class="text-sm text-stone-600 leading-relaxed">Temukan properti impian atau pasarkan properti Anda dengan aman bersama kami.</p>
-            </div>
-
-            <div class="group relative overflow-hidden bg-white p-5 rounded-2xl border border-stone-200 shadow-sm hover:shadow-xl hover:shadow-orange-500/10 hover:-translate-y-1.5 transition-all duration-300">
-                <span class="absolute top-0 left-0 h-1 w-0 bg-orange-500 group-hover:w-full transition-all duration-500"></span>
-                <div class="w-11 h-11 rounded-xl bg-orange-100 text-orange-500 flex items-center justify-center mb-4 group-hover:bg-orange-500 group-hover:text-white transition-colors duration-300">
-                    <i data-lucide="key" class="w-5 h-5"></i>
-                </div>
-                <h4 class="text-base font-bold text-stone-900 mb-1.5">Sewa Properti</h4>
-                <p class="text-sm text-stone-600 leading-relaxed">Cari tempat tinggal, kos, atau ruko yang nyaman dengan proses yang mudah.</p>
-            </div>
-
-            <div class="group relative overflow-hidden bg-white p-5 rounded-2xl border border-stone-200 shadow-sm hover:shadow-xl hover:shadow-orange-500/10 hover:-translate-y-1.5 transition-all duration-300">
-                <span class="absolute top-0 left-0 h-1 w-0 bg-orange-500 group-hover:w-full transition-all duration-500"></span>
-                <div class="w-11 h-11 rounded-xl bg-orange-100 text-orange-500 flex items-center justify-center mb-4 group-hover:bg-orange-500 group-hover:text-white transition-colors duration-300">
-                    <i data-lucide="calculator" class="w-5 h-5"></i>
-                </div>
-                <h4 class="text-base font-bold text-stone-900 mb-1.5">KPR</h4>
-                <p class="text-sm text-stone-600 leading-relaxed">Simulasikan cicilan dan ajukan KPR untuk mewujudkan rumah pertama Anda.</p>
-            </div>
-
-            <div class="group relative overflow-hidden bg-white p-5 rounded-2xl border border-stone-200 shadow-sm hover:shadow-xl hover:shadow-orange-500/10 hover:-translate-y-1.5 transition-all duration-300">
-                <span class="absolute top-0 left-0 h-1 w-0 bg-orange-500 group-hover:w-full transition-all duration-500"></span>
-                <div class="w-11 h-11 rounded-xl bg-orange-100 text-orange-500 flex items-center justify-center mb-4 group-hover:bg-orange-500 group-hover:text-white transition-colors duration-300">
-                    <i data-lucide="users" class="w-5 h-5"></i>
-                </div>
-                <h4 class="text-base font-bold text-stone-900 mb-1.5">Cari Agen</h4>
-                <p class="text-sm text-stone-600 leading-relaxed">Hubungi agen properti profesional yang siap membantu kebutuhan Anda.</p>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
 
 {{-- ========================================== --}}
-{{-- 4. KONTAK & LOKASI (panel gelap)           --}}
+{{-- 7. FAQ (tanpa JavaScript)                  --}}
 {{-- ========================================== --}}
-<section class="py-12 md:py-16 bg-white">
-    <div class="max-w-6xl mx-auto px-4">
-        <div class="text-center mb-8 md:mb-10">
-            <h2 class="text-xs font-bold text-orange-500 tracking-wider uppercase mb-1.5">Hubungi Kami</h2>
-            <h3 class="text-2xl md:text-3xl font-extrabold text-stone-900 tracking-tight">Mari Berdiskusi</h3>
-            <div class="w-10 h-1 bg-orange-500 rounded-full mx-auto mt-3"></div>
+<section class="py-14 md:py-20 bg-stone-50 border-y border-stone-200">
+    <div class="max-w-3xl mx-auto px-4">
+        <h2 class="text-2xl md:text-3xl font-semibold text-stone-900 tracking-tight text-center">Pertanyaan yang sering diajukan</h2>
+        <div class="w-10 h-1 bg-orange-500 rounded-full mx-auto mt-3 mb-8"></div>
+
+        <div class="space-y-3">
+            @foreach ([
+                ['Apakah semua properti sudah diverifikasi?', 'Ya. Tim kami memeriksa legalitas dan kondisi properti sebelum listing ditayangkan.'],
+                ['Bagaimana cara mengajukan KPR?', 'Gunakan simulasi KPR untuk menghitung cicilan, lalu ajukan lewat agen kami. Kami mendampingi sampai proses selesai.'],
+                ['Apakah ada biaya untuk memasang iklan properti?', 'Isi dengan kebijakan biaya yang berlaku di Putra Property.'],
+                ['Bagaimana cara bergabung sebagai agen atau developer?', 'Hubungi kami lewat tombol di bawah, tim kami akan menjelaskan syarat dan prosesnya.'],
+            ] as [$q, $a])
+                <details class="group rounded-2xl bg-white border border-stone-200 open:border-orange-300 open:shadow-sm transition">
+                    <summary class="flex items-center justify-between gap-4 cursor-pointer list-none px-5 py-4 text-sm font-semibold text-stone-900 focus:outline-none focus-visible:ring-4 focus-visible:ring-orange-300 rounded-2xl">
+                        {{ $q }}
+                        <i data-lucide="plus" class="w-4 h-4 text-orange-500 shrink-0 transition-transform group-open:rotate-45"></i>
+                    </summary>
+                    <p class="px-5 pb-5 text-sm text-stone-600 leading-relaxed">{{ $a }}</p>
+                </details>
+            @endforeach
         </div>
+    </div>
+</section>
 
-        <div class="relative overflow-hidden rounded-[2rem] bg-stone-900 p-4 sm:p-6 md:p-8 shadow-2xl">
-            <div class="absolute -top-24 -left-16 w-72 h-72 rounded-full bg-orange-500/20 blur-3xl" aria-hidden="true"></div>
-            <div class="absolute -bottom-24 right-0 w-72 h-72 rounded-full bg-orange-600/10 blur-3xl" aria-hidden="true"></div>
-
-            <div class="relative grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8 items-center">
-
-                {{-- Info kontak --}}
-                <div class="lg:col-span-2 space-y-5 p-1 md:p-2">
-                    <div class="flex items-start gap-3.5">
-                        <div class="w-10 h-10 rounded-xl bg-orange-500/15 text-orange-400 flex items-center justify-center shrink-0">
-                            <i data-lucide="map-pin" class="w-5 h-5"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-sm font-bold text-white">Alamat Kantor</h4>
-                            <p class="text-stone-400 mt-0.5 text-sm leading-relaxed">{{ config('company.address') }}</p>
-                        </div>
-                    </div>
-
-                    <div class="flex items-start gap-3.5">
-                        <div class="w-10 h-10 rounded-xl bg-orange-500/15 text-orange-400 flex items-center justify-center shrink-0">
-                            <i data-lucide="phone" class="w-5 h-5"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-sm font-bold text-white">Telepon / WhatsApp</h4>
-                            <a href="tel:{{ preg_replace('/[^+\d]/', '', config('company.phone')) }}"
-                               class="text-stone-400 mt-0.5 block text-sm hover:text-orange-400 transition">{{ config('company.phone') }}</a>
-                        </div>
-                    </div>
-
-                    <div class="flex items-start gap-3.5">
-                        <div class="w-10 h-10 rounded-xl bg-orange-500/15 text-orange-400 flex items-center justify-center shrink-0">
-                            <i data-lucide="mail" class="w-5 h-5"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-sm font-bold text-white">Email</h4>
-                            <a href="mailto:{{ config('company.email') }}"
-                               class="text-stone-400 mt-0.5 block text-sm break-all hover:text-orange-400 transition">{{ config('company.email') }}</a>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Peta / foto lokasi --}}
-                <div class="lg:col-span-3">
-                    <div class="relative w-full h-[240px] md:h-[320px] bg-stone-800 rounded-2xl overflow-hidden ring-1 ring-white/10">
-                        <img src="{{ asset('images/banner-property.png') }}" alt="Lokasi Kantor" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-stone-900/45 flex items-center justify-center">
-                            <a href="{{ config('company.maps_url', 'https://maps.google.com') }}" target="_blank" rel="noopener"
-                               class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-stone-900 text-sm font-bold rounded-xl shadow-lg
-                                      hover:bg-orange-500 hover:text-white hover:-translate-y-0.5 transition">
-                                <i data-lucide="map-pin" class="w-4 h-4"></i>
-                                Buka di Google Maps
-                            </a>
-                        </div>
-                    </div>
+{{-- ========================================== --}}
+{{-- 8. CTA PENUTUP (anchor badge "Hubungi")    --}}
+{{-- ========================================== --}}
+<section id="kontak" class="py-14 md:py-20 bg-white">
+    <div class="max-w-5xl mx-auto px-4">
+        <div class="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-orange-500 to-orange-600 text-white px-6 py-12 md:px-14 md:py-14 text-center shadow-xl shadow-orange-500/20">
+            <div class="absolute -top-20 -left-16 w-64 h-64 rounded-full bg-white/10" aria-hidden="true"></div>
+            <div class="absolute -bottom-24 -right-10 w-72 h-72 rounded-full border-[18px] border-white/10" aria-hidden="true"></div>
+            <div class="relative">
+                <h2 class="text-2xl md:text-4xl font-semibold tracking-tight">Siap mencari atau memasarkan properti?</h2>
+                <p class="mt-3 text-orange-50 text-sm md:text-base max-w-xl mx-auto">Ceritakan kebutuhan Anda, tim kami akan membantu dari pencarian sampai serah terima.</p>
+                <div class="mt-7 flex flex-col sm:flex-row gap-3 justify-center">
+                    <a href="https://wa.me/{{ preg_replace('/\D/', '', config('company.phone')) }}" target="_blank" rel="noopener"
+                       class="inline-flex items-center justify-center gap-2 rounded-full bg-white text-stone-900 px-6 py-3 text-sm font-semibold hover:bg-stone-900 hover:text-white transition focus:outline-none focus-visible:ring-4 focus-visible:ring-white/60">
+                        <i data-lucide="message-circle" class="w-4 h-4"></i> Chat via WhatsApp
+                    </a>
+                    <a href="mailto:{{ config('company.email') }}"
+                       class="inline-flex items-center justify-center gap-2 rounded-full border border-white/60 px-6 py-3 text-sm font-semibold hover:bg-white/15 transition focus:outline-none focus-visible:ring-4 focus-visible:ring-white/60">
+                        <i data-lucide="mail" class="w-4 h-4"></i> Kirim email
+                    </a>
                 </div>
             </div>
         </div>
