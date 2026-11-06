@@ -5,18 +5,14 @@
         {{-- ================================= --}}
         {{-- Kami Carikan --}}
         {{-- ================================= --}}
-        <a href="#"
+        <a href="{{ route('page.coming-soon', 'kami-carikan') }}"
             class="group w-full sm:w-[130px] h-[95px] sm:h-[105px] shrink-0
                    rounded-xl border border-gray-100
                    bg-white shadow-sm hover:shadow-md transition
                    flex flex-col items-center justify-center gap-1.5 sm:gap-2">
 
             <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-orange-50 flex items-center justify-center">
-
-                <i data-lucide="search"
-                   class="w-6 h-6 sm:w-7 sm:h-7 text-orange-500">
-                </i>
-
+                <i data-lucide="search" class="w-6 h-6 sm:w-7 sm:h-7 text-orange-500"></i>
             </div>
 
             <span class="text-[10px] sm:text-[12px] font-medium text-gray-800 text-center leading-tight">
@@ -29,18 +25,14 @@
         {{-- ================================= --}}
         {{-- Daftar Agent --}}
         {{-- ================================= --}}
-        <a href="#"
+        <a href="{{ route('page.coming-soon', 'daftar-agent') }}"
             class="group w-full sm:w-[130px] h-[95px] sm:h-[105px] shrink-0
                    rounded-xl border border-gray-100
                    bg-white shadow-sm hover:shadow-md transition
                    flex flex-col items-center justify-center gap-1.5 sm:gap-2">
 
             <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-orange-50 flex items-center justify-center">
-
-                <i data-lucide="users"
-                   class="w-6 h-6 sm:w-7 sm:h-7 text-orange-500">
-                </i>
-
+                <i data-lucide="users" class="w-6 h-6 sm:w-7 sm:h-7 text-orange-500"></i>
             </div>
 
             <span class="text-[10px] sm:text-[12px] font-medium text-gray-800 text-center leading-tight">
@@ -51,20 +43,16 @@
 
 
         {{-- ================================= --}}
-        {{-- Cari Agen --}}
+        {{-- Cari Agen (Mengarah ke Halaman Agen yang sudah dibuat) --}}
         {{-- ================================= --}}
-        <a href="#"
+        <a href="{{ route('agents.index') }}"
             class="group w-full sm:w-[130px] h-[95px] sm:h-[105px] shrink-0
                    rounded-xl border border-gray-100
                    bg-white shadow-sm hover:shadow-md transition
                    flex flex-col items-center justify-center gap-1.5 sm:gap-2">
 
             <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-orange-50 flex items-center justify-center">
-
-                <i data-lucide="user-round-search"
-                   class="w-6 h-6 sm:w-7 sm:h-7 text-orange-500">
-                </i>
-
+                <i data-lucide="user-round-search" class="w-6 h-6 sm:w-7 sm:h-7 text-orange-500"></i>
             </div>
 
             <span class="text-[10px] sm:text-[12px] font-medium text-gray-800 text-center leading-tight">
@@ -77,18 +65,14 @@
         {{-- ================================= --}}
         {{-- Konsultasi --}}
         {{-- ================================= --}}
-        <a href="#"
+        <a href="{{ route('page.coming-soon', 'konsultasi') }}"
             class="group w-full sm:w-[130px] h-[95px] sm:h-[105px] shrink-0
                    rounded-xl border border-gray-100
                    bg-white shadow-sm hover:shadow-md transition
                    flex flex-col items-center justify-center gap-1.5 sm:gap-2">
 
             <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-orange-50 flex items-center justify-center">
-
-                <i data-lucide="message-circle"
-                   class="w-6 h-6 sm:w-7 sm:h-7 text-orange-500">
-                </i>
-
+                <i data-lucide="message-circle" class="w-6 h-6 sm:w-7 sm:h-7 text-orange-500"></i>
             </div>
 
             <span class="text-[10px] sm:text-[12px] font-medium text-gray-800 text-center leading-tight">
@@ -99,20 +83,16 @@
 
 
         {{-- ================================= --}}
-        {{-- KPR --}}
+        {{-- KPR (Mengarah ke Kalkulator KPR) --}}
         {{-- ================================= --}}
-        <a href="#"
+        <a href="{{ route('kpr.index') }}"
             class="group w-full sm:w-[130px] h-[95px] sm:h-[105px] shrink-0
                    rounded-xl border border-gray-100
                    bg-white shadow-sm hover:shadow-md transition
                    flex flex-col items-center justify-center gap-1.5 sm:gap-2">
 
             <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-orange-50 flex items-center justify-center">
-
-                <i data-lucide="calculator"
-                   class="w-6 h-6 sm:w-7 sm:h-7 text-orange-500">
-                </i>
-
+                <i data-lucide="calculator" class="w-6 h-6 sm:w-7 sm:h-7 text-orange-500"></i>
             </div>
 
             <span class="text-[10px] sm:text-[12px] font-medium text-gray-800 text-center leading-tight">
@@ -125,18 +105,14 @@
         {{-- ================================= --}}
         {{-- Pindah KPR --}}
         {{-- ================================= --}}
-        <a href="#"
+        <a href="{{ route('page.coming-soon', 'pindah-kpr') }}"
             class="group w-full sm:w-[130px] h-[95px] sm:h-[105px] shrink-0
                    rounded-xl border border-gray-100
                    bg-white shadow-sm hover:shadow-md transition
                    flex flex-col items-center justify-center gap-1.5 sm:gap-2">
 
             <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-orange-50 flex items-center justify-center">
-
-                <i data-lucide="arrow-right-left"
-                   class="w-6 h-6 sm:w-7 sm:h-7 text-orange-500">
-                </i>
-
+                <i data-lucide="arrow-right-left" class="w-6 h-6 sm:w-7 sm:h-7 text-orange-500"></i>
             </div>
 
             <span class="text-[10px] sm:text-[12px] font-medium text-gray-800 text-center leading-tight">
@@ -150,18 +126,14 @@
         {{-- ================================= --}}
         {{-- Tanya Forum --}}
         {{-- ================================= --}}
-        <a href="#"
+        <a href="{{ route('page.coming-soon', 'tanya-forum') }}"
             class="group w-full sm:w-[130px] h-[95px] sm:h-[105px] shrink-0
                    rounded-xl border border-gray-100
                    bg-white shadow-sm hover:shadow-md transition
                    flex flex-col items-center justify-center gap-1.5 sm:gap-2">
 
             <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-orange-50 flex items-center justify-center">
-
-                <i data-lucide="messages-square"
-                   class="w-6 h-6 sm:w-7 sm:h-7 text-orange-500">
-                </i>
-
+                <i data-lucide="messages-square" class="w-6 h-6 sm:w-7 sm:h-7 text-orange-500"></i>
             </div>
 
             <span class="text-[10px] sm:text-[12px] font-medium text-gray-800 text-center leading-tight">
@@ -175,25 +147,21 @@
         {{-- ================================= --}}
         {{-- Lainnya --}}
         {{-- ================================= --}}
-        <a href="#"
+        <a href="{{ route('page.coming-soon', 'lainnya') }}"
             class="group w-full sm:w-[130px] h-[95px] sm:h-[105px] shrink-0
                    rounded-xl border border-gray-100
                    bg-white shadow-sm hover:shadow-md transition
                    flex flex-col items-center justify-center gap-1.5 sm:gap-2">
 
             <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-orange-50 flex items-center justify-center">
-
-                <i data-lucide="layout-grid"
-                   class="w-6 h-6 sm:w-7 sm:h-7 text-orange-500">
-                </i>
-
+                <i data-lucide="layout-grid" class="w-6 h-6 sm:w-7 sm:h-7 text-orange-500"></i>
             </div>
 
             <span class="text-[10px] sm:text-[12px] font-medium text-gray-800 text-center leading-tight">
                 Lainnya
             </span>
 
-        </a> 
+        </a>
 
     </div>
 

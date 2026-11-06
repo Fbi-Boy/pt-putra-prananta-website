@@ -4,6 +4,7 @@ use App\Http\Controllers\{HomeController, PropertyController};
 use App\Http\Controllers\CompanyProfileController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\AgentController;
+use App\Http\Controllers\KprController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -15,8 +16,12 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/properti', [PropertyController::class, 'index'])->name('properties.index');
 Route::get('/beli',     [PropertyController::class, 'index'])->name('properties.sale');
 Route::get('/sewa',     [PropertyController::class, 'index'])->name('properties.rent');
-Route::get('/kpr',      [PropertyController::class, 'index'])->name('kpr.index');
 
+
+// KPR
+Route::get('/kpr', [KprController::class, 'index'])->name('kpr.index');
+
+Route::get('/properti/{slug}', [PropertyController::class, 'show'])->name('properties.show');
 // Route Company Profile
 Route::get('/company-profile', [CompanyProfileController::class, 'index'])->name('company.profile');
 

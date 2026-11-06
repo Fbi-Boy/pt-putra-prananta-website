@@ -104,7 +104,7 @@
                 </button>
 
                 {{-- Button Detail (60%) --}}
-                <a href="#" class="col-span-3 h-12 rounded-xl bg-stone-900 hover:bg-stone-800 text-white text-[15px] font-bold tracking-wider flex items-center justify-center gap-2 transition-colors duration-300">
+                <a href="{{ route('properties.show', $property->slug) }}" class="col-span-3 h-12 rounded-xl bg-stone-900 hover:bg-stone-800 text-white text-[15px] font-bold tracking-wider flex items-center justify-center gap-2 transition-colors duration-300">
                     DETAIL
                     <i data-lucide="arrow-right" class="w-5 h-5"></i>
                 </a>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Area, Facility, Property, PropertyType};
+use App\Models\{Area, Bank, Facility, Property, PropertyType};
 use Illuminate\Http\Request;
 
 class PropertyController extends Controller
@@ -53,17 +53,17 @@ class PropertyController extends Controller
             $query->where('property_type_id', $request->type);
         }
 
-        // [BARU] Filter Kamar Tidur
+        // Filter Kamar Tidur
         if ($request->filled('bedrooms')) {
             $query->where('bedrooms', '>=', $request->bedrooms);
         }
 
-        // [BARU] Filter Kamar Mandi
+        // Filter Kamar Mandi
         if ($request->filled('bathrooms')) {
             $query->where('bathrooms', '>=', $request->bathrooms);
         }
 
-        // [BARU] Filter Harga Min & Max
+        // Filter Harga Min & Max
         if ($request->filled('min_price')) {
             $query->where('price', '>=', $request->min_price);
         }
@@ -71,23 +71,30 @@ class PropertyController extends Controller
             $query->where('price', '<=', $request->max_price);
         }
 
-        // [BARU] Filter Sertifikat
+        // Filter Sertifikat
         if ($request->filled('certificate')) {
             $query->where('certificate', $request->certificate);
         }
 
-        // [BARU] Filter Bisa KPR (Jika dicentang)
+        // Filter Bisa KPR (Jika dicentang)
         if ($request->boolean('is_kpr_eligible')) {
             $query->where('is_kpr_eligible', true);
         }
 
-        // [BARU] Filter Fasilitas (Multi-select checkbox)
+        // Filter Fasilitas (Multi-select checkbox)
         if ($request->filled('facilities') && is_array($request->facilities)) {
             foreach ($request->facilities as $facilityId) {
                 $query->whereHas('facilities', function($q) use ($facilityId) {
                     $q->where('facilities.id', $facilityId);
                 });
             }
+        }
+
+        // [DIPERBAIKI] Filter Berdasarkan Area Peta (Bounding Box)
+        // Dipindahkan ke atas sebelum return view agar berfungsi
+        if ($request->filled('north') && $request->filled('south') && $request->filled('east') && $request->filled('west')) {
+            $query->whereBetween('latitude', [$request->south, $request->north])
+                  ->whereBetween('longitude', [$request->west, $request->east]);
         }
 
         // 5. Sorting
@@ -112,16 +119,45 @@ class PropertyController extends Controller
             ->orderBy('order')
             ->get();
 
-        // [BARU] Ambil data Fasilitas untuk filter di View
+        // Ambil data Fasilitas untuk filter di View
         $facilities = Facility::where('is_active', true)->get();
 
         // 8. Kirim ke view
         return view('properties.index', compact(
             'properties', 'areas', 'types', 'facilities', 'activeTab', 'sort'
         ));
-         if ($request->filled('north') && $request->filled('south') && $request->filled('east') && $request->filled('west')) {
-            $query->whereBetween('latitude', [$request->south, $request->north])
-                  ->whereBetween('longitude', [$request->west, $request->east]);
+    }
+
+    /**
+     * Menampilkan Halaman Detail Properti
+     */
+    public function show($slug)
+    {
+        // Ambil properti berdasarkan slug beserta relasinya
+        $property = Property::where('slug', $slug)
+            ->with(['images', 'primaryImage', 'agent.areas', 'area', 'type', 'facilities'])
+            ->firstOrFail();
+
+        // Tambah view count
+        $property->increment('view_count');
+
+        // Ambil data bank untuk simulasi KPR
+        $banks = Bank::where('is_active', true)->get();
+
+        // Hitung estimasi cicilan tiap bank (asumsi DP minimal & tenor maksimal)
+        foreach ($banks as $bank) {
+            $dp = $property->price * ($bank->min_dp_percent / 100);
+            $bank->estimated_dp = $dp;
+            $bank->estimated_installment = $bank->calculateInstallment($property->price, $dp, $bank->max_tenor);
         }
+
+        // Ambil 3 properti serupa (berdasarkan tipe)
+        $similarProperties = Property::published()
+            ->where('property_type_id', $property->property_type_id)
+            ->where('id', '!=', $property->id)
+            ->take(3)
+            ->get();
+
+        return view('properties.show', compact('property', 'banks', 'similarProperties'));
     }
 }

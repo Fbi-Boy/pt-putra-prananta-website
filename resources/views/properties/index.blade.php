@@ -104,8 +104,7 @@
                     </button>
                 </div>
 
-                {{-- FILTER BAR --}}
-                                {{-- FILTER BAR --}}
+                
                 <form method="GET" action="{{ url()->current() }}" class="flex flex-wrap gap-2 mb-3" x-data="{ showAdvanced: false }">
 
                     {{-- Tombol Buka Advanced Filter --}}
