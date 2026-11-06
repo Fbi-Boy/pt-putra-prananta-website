@@ -5,6 +5,10 @@ use App\Http\Controllers\CompanyProfileController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\KprController;
+use App\Http\Controllers\GuideController;
+use App\Http\Controllers\PropertyRequestController;
+use App\Http\Controllers\SubmissionController;
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -18,8 +22,20 @@ Route::get('/beli',     [PropertyController::class, 'index'])->name('properties.
 Route::get('/sewa',     [PropertyController::class, 'index'])->name('properties.rent');
 
 
+
+Route::get('/jual-properti', [SubmissionController::class, 'create'])->name('submissions.create');
+Route::post('/jual-properti', [SubmissionController::class, 'store'])->name('submissions.store');
+Route::get('/submission/{code}', [SubmissionController::class, 'success'])->name('submissions.success');
+
 // KPR
 Route::get('/kpr', [KprController::class, 'index'])->name('kpr.index');
+
+
+
+
+Route::post('/property-requests', [PropertyRequestController::class, 'store'])->name('property-requests.store');
+
+Route::get('/panduan', [GuideController::class, 'index'])->name('static.guide');
 
 Route::get('/properti/{slug}', [PropertyController::class, 'show'])->name('properties.show');
 // Route Company Profile

@@ -179,7 +179,7 @@
                                         </div>
                                         <h3 class="text-2xl font-bold mt-6">Mau jual properti?</h3>
                                         <p class="text-sm text-gray-400 mt-2 leading-relaxed">Serahkan pemasaran properti Anda kepada tim Prananta Property.</p>
-                                        <a href="{{ route('page.coming-soon', 'jual-properti') }}" class="mt-6 inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-yellow-400 hover:bg-yellow-500 text-sm font-bold text-black transition">
+                                        <a href="{{ route('submissions.create') }}" class="mt-6 inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-yellow-400 hover:bg-yellow-500 text-sm font-bold text-black transition">
                                             Mulai Jual Properti <i data-lucide="arrow-right" class="w-4 h-4"></i>
                                         </a>
                                     </div>
@@ -304,7 +304,7 @@
 
             {{-- PANDUAN --}}
             <div class="group h-full flex items-center">
-                <a href="{{ route('page.coming-soon', 'panduan') }}" class="h-full flex items-center text-[15px] font-semibold text-gray-900 hover:text-yellow-500 transition">
+                <a href="{{ route('static.guide') }}"  class="h-full flex items-center text-[15px] font-semibold text-gray-900 hover:text-yellow-500 transition">
                     Panduan
                 </a>
             </div>
@@ -334,7 +334,7 @@
                             <div>
                                 <p class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-4">Layanan</p>
                                 <div class="space-y-3">
-                                    <a href="{{ route('page.coming-soon', 'jual-properti') }}" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
+                                    <a href="{{ route('submissions.create') }}"class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
                                         <i data-lucide="house-plus" class="w-4 h-4"></i> Jual Properti
                                     </a>
                                     <a href="{{ route('kpr.index') }}" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
@@ -380,18 +380,19 @@
             RIGHT ACTIONS
         ====================================================== --}}
         <div class="ml-auto flex items-center gap-2.5">
-            <a href="{{ route('page.coming-soon', 'jual-properti') }}" class="hidden md:flex items-center gap-2 h-10 px-4 rounded-xl border border-gray-800 text-sm font-semibold text-gray-900 hover:bg-gray-50 transition">
+            <a href="{{ route('submissions.create') }}" class="hidden md:flex items-center gap-2 h-10 px-4 rounded-xl border border-gray-800 text-sm font-semibold text-gray-900 hover:bg-gray-50 transition">
                 <i data-lucide="house-plus" class="w-4 h-4"></i>
                 <span>Jual Properti</span>
             </a>
 
-            <button type="button" class="hidden md:flex w-10 h-10 rounded-xl items-center justify-center hover:bg-gray-100 transition" aria-label="Properti tersimpan">
+            <button @click="openFavorites = true" type="button" class="hidden md:flex w-10 h-10 rounded-xl items-center justify-center hover:bg-gray-100 hover:text-red-500 transition" aria-label="Properti tersimpan">
                 <i data-lucide="heart" class="w-5 h-5"></i>
             </button>
 
-            <a href="{{ route('page.coming-soon', 'login') }}" class="hidden md:flex h-10 px-5 rounded-xl bg-yellow-400 hover:bg-yellow-500 items-center justify-center text-sm font-bold text-black transition">
+            {{-- TOMBOL MASUK DESKTOP (DIUBAH MENJADI BUTTON) --}}
+            <button @click="openLogin = true" type="button" class="hidden md:flex h-10 px-5 rounded-xl bg-yellow-400 hover:bg-yellow-500 items-center justify-center text-sm font-bold text-black transition">
                 Masuk
-            </a>
+            </button>
 
             {{-- MOBILE MENU TOGGLE --}}
             <button type="button" @click="open = !open" class="lg:hidden w-10 h-10 rounded-xl hover:bg-gray-100 flex items-center justify-center transition" aria-label="Buka menu" :aria-expanded="open">
@@ -435,7 +436,7 @@
                 </a>
 
                 {{-- Jual --}}
-                <a href="{{ route('page.coming-soon', 'jual-properti') }}" @click="open = false" class="flex items-center gap-3 px-4 py-3.5 rounded-xl text-sm font-semibold text-gray-900 hover:bg-gray-50 transition">
+                <a href="{{ route('submissions.create') }}" @click="open = false" class="flex items-center gap-3 px-4 py-3.5 rounded-xl text-sm font-semibold text-gray-900 hover:bg-gray-50 transition">
                     <span class="w-8 h-8 rounded-lg bg-gray-950 flex items-center justify-center">
                         <i data-lucide="house-plus" class="w-4 h-4 text-white"></i>
                     </span>
@@ -459,7 +460,7 @@
                 </a>
 
                 {{-- Panduan --}}
-                <a href="{{ route('page.coming-soon', 'panduan') }}" @click="open = false" class="flex items-center gap-3 px-4 py-3.5 rounded-xl text-sm font-semibold text-gray-900 hover:bg-gray-50 transition">
+                <a href="{{ route('static.guide') }}" @click="open = false" class="flex items-center gap-3 px-4 py-3.5 rounded-xl text-sm font-semibold text-gray-900 hover:bg-gray-50 transition">
                     <span class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center">
                         <i data-lucide="book-open" class="w-4 h-4"></i>
                     </span>
@@ -489,10 +490,10 @@
 
                 <div class="my-3 border-t border-gray-100"></div>
 
-                {{-- Login --}}
-                <a href="{{ route('page.coming-soon', 'login') }}" @click="open = false" class="mt-2 h-12 rounded-xl bg-yellow-400 hover:bg-yellow-500 flex items-center justify-center text-sm font-bold text-black transition">
+                {{-- TOMBOL MASUK MOBILE (DIUBAH MENJADI BUTTON) --}}
+                <button @click="openLogin = true; open = false" type="button" class="mt-2 w-full h-12 rounded-xl bg-yellow-400 hover:bg-yellow-500 flex items-center justify-center text-sm font-bold text-black transition">
                     Masuk / Daftar
-                </a>
+                </button>
 
             </div>
         </div>

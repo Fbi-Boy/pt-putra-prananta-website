@@ -19,7 +19,7 @@
     <div class="h-[50px]"></div>
 
     <div class="mt-24">
-        <x-public.menu/>
+        <x-menu.index/>
     </div>
 
 
