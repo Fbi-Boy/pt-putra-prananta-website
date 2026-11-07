@@ -9,6 +9,8 @@ use App\Http\Controllers\GuideController;
 use App\Http\Controllers\PropertyRequestController;
 use App\Http\Controllers\SubmissionController;
 
+use App\Http\Controllers\Admin\DashboardController;
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -30,7 +32,15 @@ Route::get('/submission/{code}', [SubmissionController::class, 'success'])->name
 // KPR
 Route::get('/kpr', [KprController::class, 'index'])->name('kpr.index');
 
+// comapny profile
+Route::get('/company-profile', [CompanyProfileController::class, 'index'])->name('company.profile');
+Route::get('/tim-kami', [CompanyProfileController::class, 'team'])->name('company.team');
+Route::get('/karier', [CompanyProfileController::class, 'career'])->name('company.career');
 
+// BANTUAN
+Route::get('/faq', [PageController::class, 'faq'])->name('static.faq');Route::get('/faq', [PageController::class, 'faq'])->name('static.faq');
+Route::get('/pusat-bantuan', [PageController::class, 'helpCenter'])->name('static.help');
+Route::get('/hubungi-kami', [PageController::class, 'contact'])->name('static.contact');
 
 
 Route::post('/property-requests', [PropertyRequestController::class, 'store'])->name('property-requests.store');
@@ -38,14 +48,26 @@ Route::post('/property-requests', [PropertyRequestController::class, 'store'])->
 Route::get('/panduan', [GuideController::class, 'index'])->name('static.guide');
 
 Route::get('/properti/{slug}', [PropertyController::class, 'show'])->name('properties.show');
-// Route Company Profile
-Route::get('/company-profile', [CompanyProfileController::class, 'index'])->name('company.profile');
+
 
 // Route cari agent
 Route::get('/cari-agen', [AgentController::class, 'index'])->name('agents.index');
 
 // Route untuk semua halaman yang belum selesai
 Route::get('/coming-soon/{slug?}', [PageController::class, 'comingSoon'])->name('page.coming-soon');
+
+
+
+
+
+// ==========================================
+// ADMIN / CRM ROUTES
+// ==========================================
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Route admin lainnya menyusul (properties, submissions, agents, dll)
+});
 
 // Route::get('/jual', [CompanyProfileController::class, 'jual'])
 //     ->name('company.jual');

@@ -323,10 +323,10 @@
                                     <a href="{{ route('company.profile') }}" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
                                         <i data-lucide="building" class="w-4 h-4"></i> Company Profile
                                     </a>
-                                    <a href="{{ route('page.coming-soon', 'tim-kami') }}" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
+                                    <a href="{{ route('company.team') }}"  class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
                                         <i data-lucide="users" class="w-4 h-4"></i> Tim Kami
                                     </a>
-                                    <a href="{{ route('page.coming-soon', 'karier') }}" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
+                                    <a href="{{ route('company.career') }}"  class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
                                         <i data-lucide="briefcase" class="w-4 h-4"></i> Karier
                                     </a>
                                 </div>
@@ -348,13 +348,13 @@
                             <div>
                                 <p class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-4">Bantuan</p>
                                 <div class="space-y-3">
-                                    <a href="{{ route('page.coming-soon', 'faq') }}" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
+                                    <a href="{{ route('static.faq') }}" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
                                         <i data-lucide="circle-help" class="w-4 h-4"></i> FAQ
                                     </a>
-                                    <a href="{{ route('page.coming-soon', 'pusat-bantuan') }}" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
+                                    <a href="{{ route('static.help') }}" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
                                         <i data-lucide="life-buoy" class="w-4 h-4"></i> Pusat Bantuan
                                     </a>
-                                    <a href="{{ route('page.coming-soon', 'hubungi-kami') }}" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
+                                    <a href="{{ route('static.contact') }}" class="flex items-center gap-3 text-sm text-gray-600 hover:text-gray-950 transition">
                                         <i data-lucide="phone" class="w-4 h-4"></i> Hubungi Kami
                                     </a>
                                 </div>
@@ -473,10 +473,10 @@
                 <a href="{{ route('company.profile') }}" @click="open = false" class="px-4 py-3.5 block rounded-xl text-sm font-semibold text-gray-900 hover:bg-gray-50 transition">
                     Tentang Kami
                 </a>
-                <a href="{{ route('page.coming-soon', 'karier') }}" @click="open = false" class="px-4 py-3.5 block rounded-xl text-sm font-semibold text-gray-900 hover:bg-gray-50 transition">
+                <a href="{{ route('company.career') }}"  @click="open = false" class="px-4 py-3.5 block rounded-xl text-sm font-semibold text-gray-900 hover:bg-gray-50 transition">
                     Karier
                 </a>
-                <a href="{{ route('page.coming-soon', 'hubungi-kami') }}" @click="open = false" class="px-4 py-3.5 block rounded-xl text-sm font-semibold text-gray-900 hover:bg-gray-50 transition">
+                <a href="{{ route('static.contact') }}" @click="open = false" class="px-4 py-3.5 block rounded-xl text-sm font-semibold text-gray-900 hover:bg-gray-50 transition">
                     Hubungi Kami
                 </a>
 
